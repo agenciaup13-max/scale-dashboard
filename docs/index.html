@@ -7,528 +7,128 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:       #080808;
-      --surface:  #111111;
-      --surface2: #181818;
-      --border:   #232323;
-      --border2:  #2e2e2e;
-      --text:     #f0f0f0;
-      --muted:    #6b6b6b;
-      --dim:      #3a3a3a;
-      --green:    #22c55e;
-      --green-bg: #061510;
-      --green-border: #14532d;
-      --yellow:   #f59e0b;
-      --yellow-bg: #120d00;
-      --yellow-border: #78350f;
-      --red:      #ef4444;
-      --red-bg:   #120404;
-      --red-border: #7f1d1d;
-      --ai-bg:    #0d0d1a;
-      --ai-border:#2a2850;
-      --ai-text:  #a5b4fc;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    /* ── HEADER ── */
-    .header {
-      border-bottom: 1px solid var(--border);
-      padding: 24px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      background: rgba(8,8,8,0.92);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-    }
-    .logo {
-      font-size: 26px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-      color: #fff;
-      text-transform: uppercase;
-    }
-    .logo span {
-      display: inline-block;
-      border: 2px solid #fff;
-      padding: 1px 10px 1px 8px;
-      margin-right: 10px;
-      font-size: 22px;
-    }
-    .header-meta {
-      text-align: right;
-    }
-    .week-badge {
-      display: inline-block;
-      background: var(--surface2);
-      border: 1px solid var(--border2);
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-    .updated-at {
-      font-size: 11px;
-      color: var(--dim);
-    }
-
-    /* ── MAIN ── */
-    main {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 40px 40px 80px;
-    }
-
-    /* ── SECTION TITLE ── */
-    .section-title {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* ── MACRO ── */
-    .macro-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 280px;
-      gap: 16px;
-      margin-bottom: 48px;
-    }
-
-    .status-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.15s;
-    }
-    .status-card:hover { transform: translateY(-2px); }
-    .status-card.green  { border-color: var(--green-border); background: var(--green-bg); }
-    .status-card.yellow { border-color: var(--yellow-border); background: var(--yellow-bg); }
-    .status-card.red    { border-color: var(--red-border); background: var(--red-bg); }
-    .status-card.active-filter { box-shadow: 0 0 0 2px currentColor; }
-
-    .card-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .card-label .dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      display: inline-block;
-      flex-shrink: 0;
-    }
-    .green .card-label { color: var(--green); }
-    .yellow .card-label { color: var(--yellow); }
-    .red .card-label { color: var(--red); }
-    .green .dot { background: var(--green); box-shadow: 0 0 8px var(--green); }
-    .yellow .dot { background: var(--yellow); box-shadow: 0 0 8px var(--yellow); }
-    .red .dot { background: var(--red); box-shadow: 0 0 8px var(--red); animation: pulse 2s infinite; }
-
-    @keyframes pulse {
-      0%,100% { box-shadow: 0 0 6px var(--red); }
-      50% { box-shadow: 0 0 14px var(--red); }
-    }
-
-    .card-number {
-      font-size: 52px;
-      font-weight: 800;
-      line-height: 1;
-      margin-bottom: 6px;
-      letter-spacing: -2px;
-    }
-    .green  .card-number { color: var(--green); }
-    .yellow .card-number { color: var(--yellow); }
-    .red    .card-number { color: var(--red); }
-
-    .card-pct {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-    }
-    .card-clients-label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    /* SCORE CARD */
-    .score-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    .score-ring-wrap {
-      position: relative;
-      width: 110px;
-      height: 110px;
-    }
-    .score-ring-wrap svg {
-      transform: rotate(-90deg);
-    }
-    .score-value {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 28px;
-      font-weight: 800;
-      color: #fff;
-      letter-spacing: -1px;
-    }
-    .score-label {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-align: center;
-    }
-    .health-bar {
-      width: 100%;
-      height: 6px;
-      border-radius: 3px;
-      background: var(--surface2);
-      overflow: hidden;
-      display: flex;
-      margin-top: 4px;
-    }
-    .health-bar .seg-g { background: var(--green); }
-    .health-bar .seg-y { background: var(--yellow); }
-    .health-bar .seg-r { background: var(--red); }
-
-    /* ── MANAGER GRID ── */
-    .manager-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-      margin-bottom: 48px;
-    }
-
-    .manager-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 18px;
-      cursor: pointer;
-      transition: border-color 0.2s, transform 0.15s;
-    }
-    .manager-card:hover, .manager-card.active { border-color: var(--border2); transform: translateY(-1px); }
-    .manager-card.active { border-color: #fff; }
-
-    .manager-name {
-      font-size: 15px;
-      font-weight: 700;
-      margin-bottom: 14px;
-      color: #fff;
-    }
-    .manager-stats {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-    .mgr-stat {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-    .mgr-stat .n { font-size: 20px; font-weight: 700; line-height: 1; }
-    .mgr-stat .l { font-size: 10px; font-weight: 500; letter-spacing: 0.5px; color: var(--muted); }
-    .n.g { color: var(--green); }
-    .n.y { color: var(--yellow); }
-    .n.r { color: var(--red); }
-
-    .mgr-bar {
-      height: 4px;
-      border-radius: 2px;
-      background: var(--surface2);
-      overflow: hidden;
-      display: flex;
-    }
-
-    .mgr-score-pill {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 600;
-      padding: 2px 8px;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
-    .score-high   { background: var(--green-bg);  color: var(--green);  border: 1px solid var(--green-border); }
-    .score-mid    { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
-    .score-low    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
-    .manager-total { font-size: 10px; color: var(--muted); margin-top: 6px; }
-
-    /* ── FILTER BAR ── */
-    .filter-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .filter-btn {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 6px 14px;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.15s;
-      font-family: 'Inter', sans-serif;
-    }
-    .filter-btn:hover { border-color: var(--border2); color: var(--text); }
-    .filter-btn.active { background: #fff; color: #000; border-color: #fff; }
-    .filter-separator { width: 1px; height: 28px; background: var(--border); }
-
-    /* ── CLIENT CARDS ── */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
-      gap: 16px;
-    }
-
-    .client-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      transition: border-color 0.2s, transform 0.15s;
-    }
-    .client-card:hover { border-color: var(--border2); transform: translateY(-1px); }
-    .client-card.red   { border-left: 3px solid var(--red); }
-    .client-card.yellow { border-left: 3px solid var(--yellow); }
-
-    .card-header {
-      padding: 18px 20px 16px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-      user-select: none;
-    }
-    .card-header-left { flex: 1; }
-
-    .card-status-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      padding: 3px 10px;
-      border-radius: 20px;
-    }
-    .status-pill.red    { background: var(--red-bg);    color: var(--red);    border: 1px solid var(--red-border); }
-    .status-pill.yellow { background: var(--yellow-bg); color: var(--yellow); border: 1px solid var(--yellow-border); }
-
-    .manager-pill {
-      font-size: 10px;
-      font-weight: 500;
-      color: var(--muted);
-      background: var(--surface2);
-      padding: 3px 10px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-    }
-    .funil-pill {
-      font-size: 10px;
-      font-weight: 500;
-      color: var(--dim);
-      background: var(--surface2);
-      padding: 3px 10px;
-      border-radius: 20px;
-      border: 1px solid var(--border);
-    }
-
-    .client-name {
-      font-size: 18px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.2;
-    }
-
-    .card-chevron {
-      color: var(--muted);
-      font-size: 18px;
-      flex-shrink: 0;
-      transition: transform 0.2s;
-      margin-top: 4px;
-    }
-    .card-chevron.open { transform: rotate(180deg); }
-
-    .card-body {
-      padding: 0 20px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.2s;
-    }
-    .card-body.open {
-      max-height: 2000px;
-      padding: 20px 20px;
-    }
-
-    .info-block {
-      margin-bottom: 16px;
-    }
-    .info-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 5px;
-    }
-    .info-text {
-      font-size: 13px;
-      color: var(--text);
-      line-height: 1.65;
-    }
-
-    /* CLAUDE INSIGHT */
-    .insight-block {
-      background: var(--ai-bg);
-      border: 1px solid var(--ai-border);
-      border-radius: 10px;
-      padding: 16px 18px;
-      margin-top: 4px;
-    }
-    .insight-header {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .insight-badge {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--ai-text);
-      background: rgba(99,102,241,0.15);
-      border: 1px solid var(--ai-border);
-      padding: 2px 10px;
-      border-radius: 10px;
-    }
-    .insight-text {
-      font-size: 13px;
-      color: #c7d2fe;
-      line-height: 1.7;
-    }
-
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--muted);
-      grid-column: 1 / -1;
-    }
-    .empty-state .big { font-size: 40px; margin-bottom: 12px; }
-    .empty-state p { font-size: 14px; }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .footer-logo { font-size: 14px; font-weight: 800; color: var(--dim); letter-spacing: 1px; }
-    .footer-info { font-size: 11px; color: var(--muted); text-align: right; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1100px) {
-      .macro-grid { grid-template-columns: 1fr 1fr; }
-      .manager-grid { grid-template-columns: repeat(3, 1fr); }
-      .cards-grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 700px) {
-      main { padding: 24px 16px 60px; }
-      .header { padding: 16px 20px; }
-      .macro-grid { grid-template-columns: 1fr; }
-      .manager-grid { grid-template-columns: repeat(2, 1fr); }
-      .logo { font-size: 20px; }
-    }
+    *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
+    :root {{
+      --bg:#080808;--surface:#111111;--surface2:#181818;--border:#232323;--border2:#2e2e2e;
+      --text:#f0f0f0;--muted:#6b6b6b;--dim:#3a3a3a;
+      --green:#22c55e;--green-bg:#061510;--green-border:#14532d;
+      --yellow:#f59e0b;--yellow-bg:#120d00;--yellow-border:#78350f;
+      --red:#ef4444;--red-bg:#120404;--red-border:#7f1d1d;
+      --ai-bg:#0d0d1a;--ai-border:#2a2850;--ai-text:#a5b4fc;
+    }}
+    html{{scroll-behavior:smooth;}}
+    body{{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6;}}
+    .header{{border-bottom:1px solid var(--border);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(8,8,8,.92);backdrop-filter:blur(12px);z-index:100;}}
+    .logo{{font-size:26px;font-weight:900;letter-spacing:-.5px;color:#fff;text-transform:uppercase;}}
+    .logo span{{display:inline-block;border:2px solid #fff;padding:1px 10px 1px 8px;margin-right:10px;font-size:22px;}}
+    .header-meta{{text-align:right;}}
+    .week-badge{{display:inline-block;background:var(--surface2);border:1px solid var(--border2);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;color:var(--muted);margin-bottom:4px;}}
+    .updated-at{{font-size:11px;color:var(--dim);}}
+    main{{max-width:1400px;margin:0 auto;padding:40px 40px 80px;}}
+    .section-title{{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border);}}
+    .macro-grid{{display:grid;grid-template-columns:1fr 1fr 1fr 280px;gap:16px;margin-bottom:48px;}}
+    .status-card{{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 24px;cursor:pointer;transition:border-color .2s,transform .15s;}}
+    .status-card:hover{{transform:translateY(-2px);}}
+    .status-card.green{{border-color:var(--green-border);background:var(--green-bg);}}
+    .status-card.yellow{{border-color:var(--yellow-border);background:var(--yellow-bg);}}
+    .status-card.red{{border-color:var(--red-border);background:var(--red-bg);}}
+    .card-label{{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}}
+    .card-label .dot{{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}}
+    .green .card-label{{color:var(--green);}} .yellow .card-label{{color:var(--yellow);}} .red .card-label{{color:var(--red);}}
+    .green .dot{{background:var(--green);box-shadow:0 0 8px var(--green);}}
+    .yellow .dot{{background:var(--yellow);box-shadow:0 0 8px var(--yellow);}}
+    .red .dot{{background:var(--red);box-shadow:0 0 8px var(--red);animation:pulse 2s infinite;}}
+    @keyframes pulse{{0%,100%{{box-shadow:0 0 6px var(--red);}}50%{{box-shadow:0 0 14px var(--red);}}}}
+    .card-number{{font-size:52px;font-weight:800;line-height:1;margin-bottom:6px;letter-spacing:-2px;}}
+    .green .card-number{{color:var(--green);}} .yellow .card-number{{color:var(--yellow);}} .red .card-number{{color:var(--red);}}
+    .card-pct{{font-size:13px;font-weight:500;color:var(--muted);}}
+    .card-clients-label{{font-size:12px;color:var(--muted);margin-top:4px;}}
+    .score-card{{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}}
+    .score-ring-wrap{{position:relative;width:110px;height:110px;}}
+    .score-ring-wrap svg{{transform:rotate(-90deg);}}
+    .score-value{{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;}}
+    .score-label{{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;}}
+    .health-bar{{width:100%;height:6px;border-radius:3px;background:var(--surface2);overflow:hidden;display:flex;margin-top:4px;}}
+    .health-bar .seg-g{{background:var(--green);}} .health-bar .seg-y{{background:var(--yellow);}} .health-bar .seg-r{{background:var(--red);}}
+    .manager-grid{{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:48px;}}
+    .manager-card{{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 18px;cursor:pointer;transition:border-color .2s,transform .15s;}}
+    .manager-card:hover,.manager-card.active{{border-color:var(--border2);transform:translateY(-1px);}}
+    .manager-card.active{{border-color:#fff;}}
+    .manager-name{{font-size:15px;font-weight:700;margin-bottom:14px;color:#fff;}}
+    .manager-stats{{display:flex;gap:10px;margin-bottom:14px;}}
+    .mgr-stat{{display:flex;flex-direction:column;gap:2px;}}
+    .mgr-stat .n{{font-size:20px;font-weight:700;line-height:1;}}
+    .mgr-stat .l{{font-size:10px;font-weight:500;letter-spacing:.5px;color:var(--muted);}}
+    .n.g{{color:var(--green);}} .n.y{{color:var(--yellow);}} .n.r{{color:var(--red);}}
+    .mgr-bar{{height:4px;border-radius:2px;background:var(--surface2);overflow:hidden;display:flex;}}
+    .mgr-score-pill{{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;margin-top:10px;}}
+    .score-high{{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}}
+    .score-mid{{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border);}}
+    .score-low{{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}}
+    .manager-total{{font-size:10px;color:var(--muted);margin-top:6px;}}
+    .filter-bar{{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center;}}
+    .filter-btn{{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}}
+    .filter-btn:hover{{border-color:var(--border2);color:var(--text);}}
+    .filter-btn.active{{background:#fff;color:#000;border-color:#fff;}}
+    .filter-separator{{width:1px;height:28px;background:var(--border);}}
+    .cards-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(600px,1fr));gap:16px;}}
+    .client-card{{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s,transform .15s;}}
+    .client-card:hover{{border-color:var(--border2);transform:translateY(-1px);}}
+    .client-card.red{{border-left:3px solid var(--red);}} .client-card.yellow{{border-left:3px solid var(--yellow);}}
+    .card-header{{padding:18px 20px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}}
+    .card-header-left{{flex:1;}}
+    .card-status-row{{display:flex;align-items:center;gap:8px;margin-bottom:8px;}}
+    .status-pill{{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:20px;}}
+    .status-pill.red{{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}}
+    .status-pill.yellow{{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border);}}
+    .manager-pill{{font-size:10px;font-weight:500;color:var(--muted);background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);}}
+    .funil-pill{{font-size:10px;font-weight:500;color:var(--dim);background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);}}
+    .client-name{{font-size:18px;font-weight:700;color:#fff;line-height:1.2;}}
+    .card-chevron{{color:var(--muted);font-size:18px;flex-shrink:0;transition:transform .2s;margin-top:4px;}}
+    .card-chevron.open{{transform:rotate(90deg);}}
+    .card-body{{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .2s;}}
+    .card-body.open{{max-height:2000px;padding:20px;}}
+    .info-block{{margin-bottom:16px;}}
+    .info-label{{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}}
+    .info-text{{font-size:13px;color:var(--text);line-height:1.65;}}
+    .insight-block{{background:var(--ai-bg);border:1px solid var(--ai-border);border-radius:10px;padding:16px 18px;margin-top:4px;}}
+    .insight-header{{display:flex;align-items:center;gap:8px;margin-bottom:10px;}}
+    .insight-badge{{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ai-text);background:rgba(99,102,241,.15);border:1px solid var(--ai-border);padding:2px 10px;border-radius:10px;}}
+    .insight-text{{font-size:13px;color:#c7d2fe;line-height:1.7;}}
+    .empty-state{{text-align:center;padding:60px 20px;color:var(--muted);grid-column:1/-1;}}
+    .empty-state .big{{font-size:40px;margin-bottom:12px;}}
+    footer{{border-top:1px solid var(--border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;}}
+    .footer-logo{{font-size:14px;font-weight:800;color:var(--dim);letter-spacing:1px;}}
+    .footer-info{{font-size:11px;color:var(--muted);text-align:right;}}
+    @media(max-width:1100px){{.macro-grid{{grid-template-columns:1fr 1fr;}}.manager-grid{{grid-template-columns:repeat(3,1fr);}}.cards-grid{{grid-template-columns:1fr;}}}}
+    @media(max-width:700px){{main{{padding:24px 16px 60px;}}.header{{padding:16px 20px;}}.macro-grid{{grid-template-columns:1fr;}}.manager-grid{{grid-template-columns:repeat(2,1fr);}}.logo{{font-size:20px;}}}}
   </style>
 </head>
 <body>
-
-<!-- HEADER -->
 <header class="header">
-  <div class="logo">
-    <span>S</span>CALE
-  </div>
+  <div class="logo"><span>S</span>CALE</div>
   <div class="header-meta">
     <div class="week-badge" id="weekBadge">Semana —</div>
     <div class="updated-at" id="updatedAt">Carregando...</div>
   </div>
 </header>
-
 <main>
-
-  <!-- MACRO -->
   <div class="section-title">Visão Macro — Saúde da Agência</div>
   <div class="macro-grid">
     <div class="status-card green" id="cardGreen" onclick="filterStatus('green')">
-      <div class="card-label"><span class="dot"></span> Saudáveis</div>
+      <div class="card-label"><span class="dot"></span>Saudáveis</div>
       <div class="card-number" id="numGreen">—</div>
       <div class="card-pct" id="pctGreen">—%</div>
       <div class="card-clients-label">clientes</div>
     </div>
     <div class="status-card yellow" id="cardYellow" onclick="filterStatus('yellow')">
-      <div class="card-label"><span class="dot"></span> Ponto de Atenção</div>
+      <div class="card-label"><span class="dot"></span>Ponto de Atenção</div>
       <div class="card-number" id="numYellow">—</div>
       <div class="card-pct" id="pctYellow">—%</div>
       <div class="card-clients-label">clientes</div>
     </div>
     <div class="status-card red" id="cardRed" onclick="filterStatus('red')">
-      <div class="card-label"><span class="dot"></span> Críticos</div>
+      <div class="card-label"><span class="dot"></span>Críticos</div>
       <div class="card-number" id="numRed">—</div>
       <div class="card-pct" id="pctRed">—%</div>
       <div class="card-clients-label">clientes</div>
@@ -538,8 +138,7 @@
         <svg width="110" height="110" viewBox="0 0 110 110">
           <circle cx="55" cy="55" r="46" fill="none" stroke="#1a1a1a" stroke-width="10"/>
           <circle id="scoreCircle" cx="55" cy="55" r="46" fill="none" stroke="#22c55e"
-            stroke-width="10" stroke-linecap="round"
-            stroke-dasharray="289" stroke-dashoffset="289"/>
+            stroke-width="10" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289"/>
         </svg>
         <div class="score-value" id="scoreValue">—</div>
       </div>
@@ -547,12 +146,8 @@
       <div class="health-bar" id="globalHealthBar" style="margin-top:8px;"></div>
     </div>
   </div>
-
-  <!-- MANAGERS -->
   <div class="section-title">Visão por Gestor</div>
   <div class="manager-grid" id="managerGrid"></div>
-
-  <!-- FILTER BAR -->
   <div class="filter-bar">
     <button class="filter-btn active" id="btnAll" onclick="filterStatus('all')">Todos os alertas</button>
     <button class="filter-btn" id="btnYellow" onclick="filterStatus('yellow')">🟡 Ponto de atenção</button>
@@ -560,447 +155,113 @@
     <div class="filter-separator"></div>
     <span id="managerFilterBtns"></span>
   </div>
-
-  <!-- CLIENT CARDS -->
   <div class="section-title">Clientes que precisam de ação</div>
   <div class="cards-grid" id="cardsGrid"></div>
-
 </main>
-
 <footer>
   <div class="footer-logo">SCALE</div>
-  <div class="footer-info">
-    Atualiza toda quarta-feira às 05h00 BRT<br>
-    Dados: ClickUp War Rooms
-  </div>
+  <div class="footer-info">Atualiza toda quarta-feira às 05h00 BRT<br>Dados: ClickUp War Rooms</div>
 </footer>
-
 <script>
-// ─────────────────────────────────────────────
-//  DATA — gerado automaticamente pelo script
-// ─────────────────────────────────────────────
 const DATA = {
-  week: "25/05 a 31/05",
-  updatedAt: "28/05/2026",
-  managers: [
+  "week": "—",
+  "updatedAt": "28/05/2026",
+  "managers": [
     {
-      name: "Erick",
-      verde: ["Máira", "Giaco", "Leo", "MonsterDay", "Medmaster", "VDK"],
-      clients: [
-        {
-          status: "yellow",
-          nome: "Wendell — Método Cronos",
-          funil: "VSL Venda Direta",
-          problema: "Suspensão na conta, CPM dobrou e não consigo subir novos ativos para testar público novo. Conta seguindo pausada.",
-          dados: "CPM dobrou: R$23,93 (fev) → R$58,04 (mai). Conv. checkout caindo mês a mês: 14,56% → 10,03% → 9,19% → 9,76%. CTR ainda bom (1,54%), o que prova que o problema não é o criativo.",
-          tentou: "Conta pausada por suspensão — impossibilitado de testar novos criativos ou públicos.",
-          sugestao: "Após resolver a suspensão: testar mais criativos para baratear o CPM e voltar a engatar.",
-          insight: "A suspensão é o bloqueador número 1 — sem resolver isso, nenhuma otimização adianta. Quanto ao CPM dobrado, é sinal forte de saturação de público + concorrência crescente no nicho. Ao retomar, recomendo começar com exclusões agressivas de públicos já convertidos e testar Lookalike de compradores (LAL 1-3%) para encontrar público fresco. Monitore se o CPM cai abaixo de R$35 nos primeiros 7 dias como termômetro de saúde."
-        },
-        {
-          status: "red",
-          nome: "Alice — Desafio 21 dias",
-          funil: "VSL Venda Direta",
-          problema: "Conversão de Checkout muito baixa e taxa de IC caindo consistentemente mês a mês.",
-          dados: "CTR melhorando: 1,30% (mar) → 1,45% (abr) → 1,56% (mai). Taxa IC caindo: 15% → 13% → 7%. Conv. checkout em 7,06% — pior dos últimos 3 meses.",
-          tentou: "Duplicar criativos campeões, testar criativos em aberto, novos ADS no conjunto de Lookalike validado, subir novos ads a cada 2-3 dias.",
-          sugestao: "Mudar a VSL urgente.",
-          insight: "Análise correta e urgência totalmente justificada. CTR melhorando + IC caindo é a combinação clássica de VSL saturada: os criativos atraem cliques, mas a VSL perdeu capacidade de converter. Com 7,06% no checkout, a oferta também está comprometida. Ações em paralelo: (1) nova VSL com ângulo radicalmente diferente — foco em transformação real vs. promessa genérica; (2) teste de checkout com ancoragem de preço e elemento de urgência real; (3) garantia mais destacada. Não espere a VSL nova para testar o checkout."
-        },
-        {
-          status: "red",
-          nome: "Alice — Mamãe sem Pochete",
-          funil: "VSL Venda Direta",
-          problema: "94% de abandono no checkout — taxa de conversão de checkout em 5,81%.",
-          dados: "CTR 1,14%, Connect Rate 64%, conv. checkout 5,81%. 172 iniciaram o checkout, apenas 10 fecharam. Mesmo dobrando o CTR o ROAS mal chegaria a 1,05.",
-          tentou: "Novos ads a cada 3 dias para público feminino em aberto — nenhum chegou a tracionar.",
-          sugestao: "Mudar o pitch de vendas e analisar a copy da VSL.",
-          insight: "A direção está certa, mas precisa de mais camadas. 94% de abandono no checkout indica que a oferta não convence após a VSL — o valor percebido está aquém do preço. CTR de 1,14% mostra que o criativo também é fraco. Recomendação em três frentes: (1) nova VSL com foco em transformação emocional e prova social forte; (2) teste A/B no checkout com ancoragem de preço + garantia destacada; (3) criativo de depoimento real com antes/depois. Atacar os 3 pontos em paralelo — esperar resolver um antes do outro atrasa a recuperação."
-        }
-      ]
+      "name": "Erick",
+      "verde": [],
+      "clients": []
     },
     {
-      name: "Edu",
-      verde: ["VHE — Lives Semanais", "VHE — LDE", "VHE — C2", "VHE — C1", "Davi — MP", "Davi — BFR", "Lucas — LowTicket", "Lucas — SSP-L25"],
-      clients: [
-        {
-          status: "red",
-          nome: "VHE — L3",
-          funil: "Lançamento",
-          problema: "CPL pipocou — ConvLP 10% pior que no lançamento anterior.",
-          dados: "CTR e CPM ligeiramente melhores que o lançamento anterior. ConvLP 10% pior. Connect Rate oscilou de 65% e subiu para 70% (lançamento anterior: 65%). 16 páginas criadas para teste sem resultado expressivo.",
-          tentou: "Lateralização de anúncios campeões, teste de interesses, público quente, TOP Ads VHE-L1, 16 páginas criadas para teste.",
-          sugestao: "Continuar testando páginas.",
-          insight: "Com CTR e CPM ok, o funil está quebrando na landing page. 16 páginas testadas sem resultado expressivo é um sinal de alerta: pode ser um problema de proposta de valor, não de design ou copy superficial. Recomendação: testar um ângulo radicalmente diferente na LP — urgência e escassez real (vagas limitadas com número) vs. benefícios genéricos. Além disso, verificar disparo do pixel: Connect Rate oscilando entre 65-70% pode indicar perda de eventos de visualização, comprometendo a otimização do algoritmo."
-        },
-        {
-          status: "yellow",
-          nome: "ESIN — Inverter",
-          funil: "Lançamento",
-          problema: "CPL caro — Connect Rate próximo de zero indicando problema de pixel.",
-          dados: "Connect Rate próximo de zero confirmou falha de pixel. Após correção, resultados foram reestabelecidos, mas seguem ligeiramente caros.",
-          tentou: "Identificação e correção do problema de pixel. Retomada das páginas WordPress para testes.",
-          sugestao: "Criar pixel novo para ir populando para próximo lançamento. Subir mais anúncios para teste.",
-          insight: "O problema de pixel precisava ser resolvido antes de qualquer outra ação — foi feito corretamente. Com o pixel restaurado, agora o algoritmo pode otimizar de verdade. Com resultados 'ligeiramente caros', a próxima prioridade é volume de testes: mais variações de anúncio com headlines e ângulos diferentes. O pixel novo para o próximo lançamento é uma decisão estratégica excelente — iniciar com dados limpos."
-        },
-        {
-          status: "yellow",
-          nome: "ESIN — Solares",
-          funil: "Lançamento",
-          problema: "ConvLP despencou de 32% para 5% — problema na landing page.",
-          dados: "ConvLP: 32% (antes) → 5% (queda crítica) → 24% (após troca por LP WordPress em 26/05).",
-          tentou: "Substituição da LP por versão WordPress — ConvLP recuperou para 24%.",
-          sugestao: "Continuar subindo mais anúncios para teste.",
-          insight: "Excelente diagnóstico e ação rápida — recuperar de 5% para 24% em menos de 24h é sinal de que o problema foi corretamente identificado. Próximos passos críticos: (1) monitorar estabilidade da ConvLP por 3-5 dias antes de escalar; (2) criar uma versão de backup da LP campeã em plataforma alternativa para eliminar ponto único de falha; (3) com LP estável, agora é hora de intensificar testes de criativos."
-        },
-        {
-          status: "yellow",
-          nome: "Guto — RH",
-          funil: "Lançamento",
-          problema: "Cliente listado em ponto de atenção — detalhes a serem documentados na próxima semana.",
-          dados: "Listado como amarelo no resumo da carteira da semana.",
-          tentou: "Monitoramento em andamento.",
-          sugestao: "Documentar métricas específicas para diagnóstico preciso.",
-          insight: "Dados insuficientes para análise aprofundada nesta semana. Recomendo documentar no próximo relatório as métricas-chave que geraram o alerta (CPL, ConvLP, ROAS) para permitir diagnóstico preciso e ação direcionada na próxima reunião."
-        }
-      ]
+      "name": "Edu",
+      "verde": [],
+      "clients": []
     },
     {
-      name: "Adryon",
-      verde: ["Carlos Beil", "Ecosmetics"],
-      clients: [
-        {
-          status: "red",
-          nome: "Partiu Empreender",
-          funil: "Workshop dos Namorados",
-          problema: "CPA caro (R$101,42) — taxas de checkout (7,01%) e finalização de compra (32,5%) extremamente baixas.",
-          dados: "CPA R$101,42, ROAS 1,45. Checkout 7,01%, finalização 32,5%, geral 2,28%. CPM R$26,02, CTR 1,48%, frequência 3,79. Cliente confirmou impossibilidade de entregar nova LP.",
-          tentou: "Testes de criativos (sem tração nos criativos em escala), teste de nova LP voltada a público frio (resultado pior: checkout 1,96%), 6 conjuntos de público frio com R$1.338,61.",
-          sugestao: "Pausar a ação principal; manter apenas público quente e campanha de teste de criativos enquanto ROAS >2. Pausar completamente caso volte a tomar prejuízo.",
-          insight: "Decisão estratégica madura. Com frequência 3,79 e cliente sem capacidade de entregar nova LP, continuar escalando é queimar o público quente que ainda está lucrativo. A preservação para a Imersão é a estratégia certa. Ponto de atenção: a frequência vai continuar subindo — risco real de queimar o público quente em 7-10 dias. Recomendação: definir com o cliente um prazo máximo formal (ex: 10 dias) para entregar a LP nova, caso contrário pausar completamente para proteger o público e a verba."
-        },
-        {
-          status: "yellow",
-          nome: "Edu Pura Pesca",
-          funil: "MIA — Perpétuo Low Ticket",
-          problema: "CPA caro (R$32,75), ROAS negativo (0,76) — gargalo na taxa de checkout extremamente baixa (6,58%).",
-          dados: "CPA R$32,75, ROAS 0,76. Taxa checkout 6,58%, finalização 82,43%, conversão geral 5,24%. CPM, CPC, CTR, connect rate e frequência saudáveis.",
-          tentou: "Aguardando entrega de nova LP pelo cliente. Monitoramento contínuo.",
-          sugestao: "Nível 1 (urgente): tirar menu âncora, colocar preço R$19,90 abaixo do 1° botão. Nível 2: novo layout de LP com mais segurança e clareza na oferta.",
-          insight: "Diagnóstico perfeito — o funil quebra exclusivamente no checkpoint de entrada. Com 82% de finalização após entrar no checkout mas apenas 6,58% chegando lá, o atrito está no primeiro passo. O teste Nível 1 é a ação mais rápida e de maior impacto potencial: mostrar o preço logo abaixo do CTA reduz atrito de curiosidade. Com ROAS 0,76, cada dia sem ação é prejuízo direto. Implementar Nível 1 hoje e definir deadline de 5 dias úteis para o Nível 2."
-        },
-        {
-          status: "yellow",
-          nome: "Briko Seguros",
-          funil: "Captação de Leads — Google Ads",
-          problema: "Campanhas não imprimem — baixo volume de pesquisas nas palavras-chave utilizadas.",
-          dados: "Falta de volume de busca nas palavras-chave originais. Adaptações de idioma e variações implementadas.",
-          tentou: "Alterado objetivo de CPC manual para maximizar cliques. Criadas versões das kw em inglês com restrição de idioma pt/es. Versão com 'for brazilians / for foreigners / for expatriates'.",
-          sugestao: "Meet de alinhamento com o cliente para apresentar primeiras métricas e explicar o contexto do Google Ads.",
-          insight: "Diagnóstico e ações corretos para o nicho. Palavras-chave de baixo volume são comuns em segmentos muito específicos (seguros para estrangeiros no Brasil). As adaptações de idioma e objetivo são a abordagem certa. Sugestão adicional: considerar campanhas de Display e YouTube como demand generation — como o público não busca ativamente, criar awareness pago pode ser mais eficaz que aguardar busca orgânica. No meet com o cliente, alinhar expectativas sobre o tempo de aprendizado do Google nesse nicho (4-6 semanas)."
-        }
-      ]
+      "name": "Adryon",
+      "verde": [],
+      "clients": []
     },
     {
-      name: "Leandro",
-      verde: ["Casinha — Arquitetando", "Clínica PRC", "Elisa Lobo"],
-      clients: [
-        {
-          status: "red",
-          nome: "Dr. Giovanni Finazzi",
-          funil: "Captação de Leads",
-          problema: "Campanhas trazendo apenas leads desqualificados — conta pausada por falta de saldo.",
-          dados: "Volume de mensagens baixo. Leads desqualificados mesmo com testes de públicos e criativos. Conta pausada por falta de saldo do cliente.",
-          tentou: "Testes de públicos e criativos. SM orientadas a voltar conteúdo sobre o procedimento.",
-          sugestao: "Ao retomar: segmentar por raio de 7km nos bairros mais nobres de SP, igual à estratégia da Dra. Mariana. Novos criativos com prova social.",
-          insight: "A segmentação geográfica por raio em bairros nobres é uma das estratégias mais eficazes para qualificação de lead em estética médica — aprovada. Dois bloqueadores em paralelo: sem saldo não há como avançar, e sem criativos de prova social o público desqualificado continua chegando. Recomendo mapear com o cliente um orçamento mínimo viável e garantir abastecimento contínuo. Ao retomar: (1) raio geográfico nobre; (2) criativo de depoimento em vídeo (naturalmente filtra leads desqualificados); (3) headline específica do procedimento para pré-qualificar intenção."
-        },
-        {
-          status: "red",
-          nome: "Mariana Torres",
-          funil: "Captação de Leads",
-          problema: "Volume de mensagens muito baixo — poucos criativos disponíveis para teste.",
-          dados: "CPM R$63,00 (normal para estética), CPC R$8,39 (grave), baixo alcance (grave). Apenas 3 mensagens geradas nos últimos 4 dias. Leads que responderam têm boa qualidade.",
-          tentou: "Manutenção das campanhas com criativos limitados.",
-          sugestao: "Teste de CBO com R$30 e 5 conjuntos duplicados do melhor anúncio (AD-09). Solicitar ao menos 3-5 novos criativos por semana em remessa única.",
-          insight: "CPC de R$8,39 é crítico e o gargalo está evidente: poucos criativos = algoritmo sem material para otimizar, resultando em alcance baixo e CPM alto. O CBO com AD-09 duplicado é a estratégia certa para forçar o algoritmo a encontrar novos clusters de público. O dado positivo é que os 3 leads que responderam têm boa qualidade — a oferta está certa, só falta volume. Estabelecer um SLA formal com o cliente para entrega de criativos (mínimo 3-5 por semana em remessa única) é a única solução estrutural para este caso."
-        },
-        {
-          status: "yellow",
-          nome: "Qpharma",
-          funil: "Captação de Leads",
-          problema: "Equipe comercial não converte — custo e volume de mensagens estão bons, o gargalo está no pós-captação.",
-          dados: "Volume e custo de mensagens abaixo do esperado (positivo). Problema está na conversão do time comercial pós-captação.",
-          tentou: "Sugestão de bater nos diferenciais da farmácia (prazo de entrega 24h), novos criativos em vídeo.",
-          sugestao: "Analisar conversas no Pedido Pago para identificar qualidade dos leads e atendimento da nova secretária.",
-          insight: "Correto — o gargalo não é o tráfego, é o comercial. A análise das conversas é o primeiro passo certo para identificar onde a venda quebra. Após isso, recomendo: criar um script de atendimento objetivo (5 perguntas de qualificação + apresentação da proposta em 3 pontos), fazer role-play com a secretária antes de cada semana, e implementar follow-up automatizado para leads sem resposta em 24h. Problema operacional, não de tráfego."
-        },
-        {
-          status: "yellow",
-          nome: "LC Agro",
-          funil: "Captação de Leads",
-          problema: "Leads frios e desqualificados — demora no abastecimento de saldo.",
-          dados: "Números no gerenciador bons: CPM R$25, CTR 2,21%, CPC R$1,76, bom volume de mensagens.",
-          tentou: "Campanhas de mensagem ativas com boas métricas de tráfego.",
-          sugestao: "Testar formulário para pré-qualificar o lead. Testar campanhas de mensagem em paralelo com campanha de cadastro.",
-          insight: "Métricas de tráfego boas + leads ruins = público amplo demais ou criativo atraindo o perfil errado. O formulário de pré-qualificação é a ação mais inteligente — adicionar 2-3 perguntas de qualificação (tamanho da propriedade, principal produto, estado) pode dobrar a qualidade sem impacto severo no volume. Paralelamente, revisar o copy dos criativos para incluir qualificadores naturais ('se você tem propriedade rural acima de X hectares...'). O teste paralelo de mensagem vs. cadastro vai revelar qual canal atrai o perfil mais quente."
-        },
-        {
-          status: "yellow",
-          nome: "Dr. Vínicius Mello",
-          funil: "Captação de Leads + Distribuição de Conteúdo",
-          problema: "Dificuldade em rastrear qual anúncio gera agendamentos. Secretária ainda não converte o suficiente. Pressão de mentoria externa sobre LP e atendimento.",
-          dados: "Meta de 400 leads/mês sendo atingida. CPL ~R$10, custo por seguidor abaixo de R$2. 21 agendamentos totais, 1 cirurgia fechada. Mentoria externa criticou a LP e enviou diretrizes de atendimento conflitantes.",
-          tentou: "Múltiplas calls sobre atendimento, manual de boas práticas enviado, apontamentos no CRM.",
-          sugestao: "Buscar ferramenta para rastrear mensagens via UTM.",
-          insight: "O tráfego está performando muito bem (CPL R$10 é excelente para o nicho médico). O gargalo é o funil pós-lead. Sobre a mentoria externa: é um risco real de conflito de diretrizes que pode comprometer o trabalho — recomendo propor uma reunião tripartite (agência + mentor + cliente) para unificar as diretrizes antes que gerem confusão no atendimento. O rastreamento por UTM no WhatsApp via redirect com encurtador é a solução mais prática para identificar quais anúncios geram cirurgia. Uma cirurgia fechada nesse nicho pode justificar todo o investimento do mês."
-        }
-      ]
+      "name": "Leandro",
+      "verde": [],
+      "clients": []
     },
     {
-      name: "Lucas",
-      verde: ["Imperio Médico — Distribuição", "Hermann Grebb — Typebot", "Thata — FSE Type", "Thata — FSE Nativo", "Thata — C2", "Thata — C1", "Pompeu — Webinários", "Pompeu — MPI", "Mayara — Typeform"],
-      clients: [
-        {
-          status: "red",
-          nome: "Dr. William — PZT",
-          funil: "Perpétuo",
-          problema: "Instagram restrito para anunciar — IC absurdamente caro (R$129) e campanhas principal paralisadas.",
-          dados: "Novo IG: CPM 1° teste R$70, CPM 2° teste R$30,08 (melhorou). IC em R$129. Campanhas pausadas em 19/05, retomadas em 26/05 com novo perfil de IG. Métricas secundárias voltando à normalidade.",
-          tentou: "Campanha de teste com novo perfil de Instagram (1° rodada: CPM alto). 2° rodada de testes com melhora nas métricas secundárias.",
-          sugestao: "Com métricas secundárias melhorando, retomar testes de criativos e públicos gradualmente para identificar possibilidade de escala.",
-          insight: "A estratégia de recomeço com novo IG está no caminho certo. CPM de R$30 no segundo teste vs R$70 no primeiro confirma que o algoritmo está aprendendo o perfil do novo IG — evolução positiva. IC em R$129 é esperado nessa fase inicial de aquecimento, onde o algoritmo ainda não tem histórico suficiente para otimizar. Recomendação: aumentar orçamento gradualmente apenas quando IC cair consistentemente abaixo de R$60. Manter paciência nas próximas 2-3 semanas. Evitar múltiplas mudanças simultâneas que possam reiniciar o aprendizado do algoritmo."
-        },
-        {
-          status: "yellow",
-          nome: "Império Médico — DCM-F8",
-          funil: "Perpétuo",
-          problema: "CPA muito instável — varia de dias bons (CPA <R$1K) a dias ruins (CPA >R$1,3K).",
-          dados: "CPM melhorando nos últimos 2 dias. CTR acima de 2%. CPA caindo de R$1,7K para R$1,3K. Teste de página com ticket de R$47 melhorou os resultados significativamente.",
-          tentou: "Teste de página com ticket de R$47 — resultado positivo.",
-          sugestao: "Testar LAL de Medmaster e LAL de compradores. Continuar testando criativos.",
-          insight: "CTR acima de 2% com CPA instável indica que o criativo está ok, mas o público que chega à página ainda não é o ideal. O LAL de Medmaster e de compradores é exatamente a estratégia certa — aproveitar audiências similares de produto de saúde já validado. O resultado positivo do ticket de R$47 é um sinal estratégico importante: considerar estruturar um funil com tripwire (R$47) + upsell de ticket maior, o que pode estabilizar o ROAS e reduzir a dependência de públicos frios sem histórico de compra."
-        }
-      ]
+      "name": "Lucas",
+      "verde": [],
+      "clients": []
     }
   ]
 };
-
-// ─────────────────────────────────────────────
-//  RENDER ENGINE
-// ─────────────────────────────────────────────
-(function () {
-  // Aggregate
-  let totalGreen = 0, totalYellow = 0, totalRed = 0;
-  DATA.managers.forEach(m => {
-    totalGreen  += m.verde.length;
-    totalYellow += m.clients.filter(c => c.status === 'yellow').length;
-    totalRed    += m.clients.filter(c => c.status === 'red').length;
-  });
-  const total = totalGreen + totalYellow + totalRed;
-  const score = Math.round((totalGreen * 100 + totalYellow * 50) / total);
-
-  // Header
-  document.getElementById('weekBadge').textContent = 'Semana ' + DATA.week;
-  document.getElementById('updatedAt').textContent = 'Atualizado em ' + DATA.updatedAt;
-
-  // Macro cards
-  document.getElementById('numGreen').textContent  = totalGreen;
-  document.getElementById('numYellow').textContent = totalYellow;
-  document.getElementById('numRed').textContent    = totalRed;
-  document.getElementById('pctGreen').textContent  = ((totalGreen  / total) * 100).toFixed(1) + '%';
-  document.getElementById('pctYellow').textContent = ((totalYellow / total) * 100).toFixed(1) + '%';
-  document.getElementById('pctRed').textContent    = ((totalRed    / total) * 100).toFixed(1) + '%';
-  document.getElementById('scoreValue').textContent = score;
-
-  // Score ring
-  const circ = 2 * Math.PI * 46; // ~289
-  const offset = circ - (score / 100) * circ;
-  const ringColor = score >= 70 ? '#22c55e' : score >= 50 ? '#f59e0b' : '#ef4444';
-  const sc = document.getElementById('scoreCircle');
-  sc.style.strokeDasharray  = circ;
-  sc.style.strokeDashoffset = circ;
-  sc.style.stroke = ringColor;
-  setTimeout(() => { sc.style.transition = 'stroke-dashoffset 1.2s ease'; sc.style.strokeDashoffset = offset; }, 200);
-
-  // Global health bar
-  const ghb = document.getElementById('globalHealthBar');
-  ghb.innerHTML =
-    `<div class="seg-g" style="width:${(totalGreen /total*100).toFixed(1)}%"></div>` +
-    `<div class="seg-y" style="width:${(totalYellow/total*100).toFixed(1)}%"></div>` +
-    `<div class="seg-r" style="width:${(totalRed   /total*100).toFixed(1)}%"></div>`;
-
-  // Manager grid
-  const mgGrid = document.getElementById('managerGrid');
-  DATA.managers.forEach(m => {
-    const v = m.verde.length;
-    const y = m.clients.filter(c => c.status === 'yellow').length;
-    const r = m.clients.filter(c => c.status === 'red').length;
-    const t = v + y + r;
-    const ms = Math.round((v * 100 + y * 50) / t);
-    const scoreClass = ms >= 70 ? 'score-high' : ms >= 50 ? 'score-mid' : 'score-low';
-
-    const card = document.createElement('div');
-    card.className = 'manager-card';
-    card.dataset.manager = m.name;
-    card.innerHTML = `
-      <div class="manager-name">${m.name}</div>
-      <div class="manager-stats">
-        <div class="mgr-stat"><div class="n g">${v}</div><div class="l">Saudáveis</div></div>
-        <div class="mgr-stat"><div class="n y">${y}</div><div class="l">Atenção</div></div>
-        <div class="mgr-stat"><div class="n r">${r}</div><div class="l">Críticos</div></div>
-      </div>
-      <div class="mgr-bar">
-        <div class="seg-g" style="width:${(v/t*100).toFixed(0)}%"></div>
-        <div class="seg-y" style="width:${(y/t*100).toFixed(0)}%"></div>
-        <div class="seg-r" style="width:${(r/t*100).toFixed(0)}%"></div>
-      </div>
-      <div class="mgr-score-pill ${scoreClass}">Score ${ms}/100</div>
-      <div class="manager-total">${t} clientes na carteira</div>
-    `;
-    card.addEventListener('click', () => filterManager(m.name, card));
+(function(){{
+  let tg=0,ty=0,tr=0;
+  DATA.managers.forEach(m=>{{tg+=m.verde.length;ty+=m.clients.filter(c=>c.status==='yellow').length;tr+=m.clients.filter(c=>c.status==='red').length;}});
+  const tot=tg+ty+tr,score=Math.round((tg*100+ty*50)/tot);
+  document.getElementById('weekBadge').textContent='Semana '+DATA.week;
+  document.getElementById('updatedAt').textContent='Atualizado em '+DATA.updatedAt;
+  document.getElementById('numGreen').textContent=tg;
+  document.getElementById('numYellow').textContent=ty;
+  document.getElementById('numRed').textContent=tr;
+  document.getElementById('pctGreen').textContent=((tg/tot)*100).toFixed(1)+'%';
+  document.getElementById('pctYellow').textContent=((ty/tot)*100).toFixed(1)+'%';
+  document.getElementById('pctRed').textContent=((tr/tot)*100).toFixed(1)+'%';
+  document.getElementById('scoreValue').textContent=score;
+  const circ=2*Math.PI*46,offset=circ-(score/100)*circ;
+  const ringColor=score>=70?'#22c55e':score>=50?'#f59e0b':'#ef4444';
+  const sc=document.getElementById('scoreCircle');
+  sc.style.strokeDasharray=circ;sc.style.stroke=ringColor;sc.style.strokeDashoffset=circ;
+  setTimeout(()=>{{sc.style.transition='stroke-dashoffset 1.2s ease';sc.style.strokeDashoffset=offset;}},200);
+  const ghb=document.getElementById('globalHealthBar');
+  ghb.innerHTML=`<div class="seg-g" style="width:${{(tg/tot*100).toFixed(1)}}%"></div><div class="seg-y" style="width:${{(ty/tot*100).toFixed(1)}}%"></div><div class="seg-r" style="width:${{(tr/tot*100).toFixed(1)}}%"></div>`;
+  const mgGrid=document.getElementById('managerGrid');
+  DATA.managers.forEach(m=>{{
+    const v=m.verde.length,y=m.clients.filter(c=>c.status==='yellow').length,r=m.clients.filter(c=>c.status==='red').length,t=v+y+r;
+    const ms=Math.round((v*100+y*50)/t);
+    const sc2=ms>=70?'score-high':ms>=50?'score-mid':'score-low';
+    const card=document.createElement('div');card.className='manager-card';card.dataset.manager=m.name;
+    card.innerHTML=`<div class="manager-name">${{m.name}}</div><div class="manager-stats"><div class="mgr-stat"><div class="n g">${{v}}</div><div class="l">Saudáveis</div></div><div class="mgr-stat"><div class="n y">${{y}}</div><div class="l">Atenção</div></div><div class="mgr-stat"><div class="n r">${{r}}</div><div class="l">Críticos</div></div></div><div class="mgr-bar"><div class="seg-g" style="width:${{(v/t*100).toFixed(0)}}%"></div><div class="seg-y" style="width:${{(y/t*100).toFixed(0)}}%"></div><div class="seg-r" style="width:${{(r/t*100).toFixed(0)}}%"></div></div><div class="mgr-score-pill ${{sc2}}">Score ${{ms}}/100</div><div class="manager-total">${{t}} clientes</div>`;
+    card.addEventListener('click',()=>filterManager(m.name,card));
     mgGrid.appendChild(card);
-  });
-
-  // Manager filter buttons
-  const mfb = document.getElementById('managerFilterBtns');
-  DATA.managers.forEach(m => {
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.dataset.manager = m.name;
-    btn.textContent = m.name;
-    btn.addEventListener('click', () => filterManager(m.name, btn));
-    mfb.appendChild(btn);
-  });
-
-  // All alert clients (red first, then yellow)
-  const allAlerts = [];
-  DATA.managers.forEach(m => {
-    m.clients.filter(c => c.status === 'red').forEach(c => allAlerts.push({...c, manager: m.name}));
-    m.clients.filter(c => c.status === 'yellow').forEach(c => allAlerts.push({...c, manager: m.name}));
-  });
-
-  window._allAlerts = allAlerts;
-  window._statusFilter = 'all';
-  window._managerFilter = null;
-
+  }});
+  const mfb=document.getElementById('managerFilterBtns');
+  DATA.managers.forEach(m=>{{const btn=document.createElement('button');btn.className='filter-btn';btn.dataset.manager=m.name;btn.textContent=m.name;btn.addEventListener('click',()=>filterManager(m.name,btn));mfb.appendChild(btn);}});
+  const allAlerts=[];
+  DATA.managers.forEach(m=>{{m.clients.filter(c=>c.status==='red').forEach(c=>allAlerts.push({{...c,manager:m.name}}));m.clients.filter(c=>c.status==='yellow').forEach(c=>allAlerts.push({{...c,manager:m.name}}));}});
+  window._allAlerts=allAlerts;window._statusFilter='all';window._managerFilter=null;
   renderCards();
-
-  // ── Donut animation on load
-  window.addEventListener('load', () => {
-    setTimeout(() => { sc.style.strokeDashoffset = offset; }, 100);
-  });
-})();
-
-function renderCards() {
-  const grid = document.getElementById('cardsGrid');
-  grid.innerHTML = '';
-  const sf = window._statusFilter;
-  const mf = window._managerFilter;
-
-  let filtered = window._allAlerts;
-  if (sf === 'red')    filtered = filtered.filter(c => c.status === 'red');
-  if (sf === 'yellow') filtered = filtered.filter(c => c.status === 'yellow');
-  if (mf)              filtered = filtered.filter(c => c.manager === mf);
-
-  if (filtered.length === 0) {
-    grid.innerHTML = '<div class="empty-state"><div class="big">✦</div><p>Nenhum cliente encontrado para este filtro</p></div>';
-    return;
-  }
-
-  filtered.forEach((c, idx) => {
-    const card = document.createElement('div');
-    card.className = 'client-card ' + c.status;
-    const statusLabel = c.status === 'red' ? '🔴 Crítico' : '🟡 Atenção';
-    card.innerHTML = `
-      <div class="card-header" onclick="toggleCard(this)">
-        <div class="card-header-left">
-          <div class="card-status-row">
-            <span class="status-pill ${c.status}">${statusLabel}</span>
-            <span class="manager-pill">${c.manager}</span>
-            <span class="funil-pill">${c.funil}</span>
-          </div>
-          <div class="client-name">${c.nome}</div>
-        </div>
-        <div class="card-chevron">›</div>
-      </div>
-      <div class="card-body ${idx < 3 ? 'open' : ''}">
-        <div class="info-block">
-          <div class="info-label">Problema</div>
-          <div class="info-text">${c.problema}</div>
-        </div>
-        <div class="info-block">
-          <div class="info-label">O que os dados mostram</div>
-          <div class="info-text">${c.dados}</div>
-        </div>
-        <div class="info-block">
-          <div class="info-label">O que já foi tentado</div>
-          <div class="info-text">${c.tentou}</div>
-        </div>
-        <div class="info-block">
-          <div class="info-label">Sugestão do gestor</div>
-          <div class="info-text">${c.sugestao}</div>
-        </div>
-        <div class="insight-block">
-          <div class="insight-header">
-            <span class="insight-badge">✦ Insight Claude</span>
-          </div>
-          <div class="insight-text">${c.insight}</div>
-        </div>
-      </div>
-    `;
-    // Fix chevron for open cards
-    if (idx < 3) {
-      const ch = card.querySelector('.card-chevron');
-      ch.textContent = '›';
-      ch.classList.add('open');
-    }
+}})();
+function renderCards(){{
+  const grid=document.getElementById('cardsGrid');grid.innerHTML='';
+  const sf=window._statusFilter,mf=window._managerFilter;
+  let filtered=window._allAlerts;
+  if(sf==='red') filtered=filtered.filter(c=>c.status==='red');
+  if(sf==='yellow') filtered=filtered.filter(c=>c.status==='yellow');
+  if(mf) filtered=filtered.filter(c=>c.manager===mf);
+  if(filtered.length===0){{grid.innerHTML='<div class="empty-state"><div class="big">✦</div><p>Nenhum cliente para este filtro</p></div>';return;}}
+  filtered.forEach((c,idx)=>{{
+    const card=document.createElement('div');card.className='client-card '+c.status;
+    const sl=c.status==='red'?'🔴 Crítico':'🟡 Atenção';
+    card.innerHTML=`<div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-status-row"><span class="status-pill ${{c.status}}">${{sl}}</span><span class="manager-pill">${{c.manager}}</span><span class="funil-pill">${{c.funil}}</span></div><div class="client-name">${{c.nome}}</div></div><div class="card-chevron ${{idx<3?'open':''}}">›</div></div><div class="card-body ${{idx<3?'open':''}}"><div class="info-block"><div class="info-label">Problema</div><div class="info-text">${{c.problema}}</div></div><div class="info-block"><div class="info-label">O que os dados mostram</div><div class="info-text">${{c.dados}}</div></div><div class="info-block"><div class="info-label">O que já foi tentado</div><div class="info-text">${{c.tentou}}</div></div><div class="info-block"><div class="info-label">Sugestão do gestor</div><div class="info-text">${{c.sugestao}}</div></div><div class="insight-block"><div class="insight-header"><span class="insight-badge">✦ Insight Claude</span></div><div class="insight-text">${{c.insight}}</div></div></div>`;
     grid.appendChild(card);
-  });
-}
-
-function toggleCard(header) {
-  const body = header.nextElementSibling;
-  const ch   = header.querySelector('.card-chevron');
-  const isOpen = body.classList.contains('open');
-  body.classList.toggle('open', !isOpen);
-  ch.classList.toggle('open', !isOpen);
-}
-
-let _activeMgr = null;
-function filterManager(name, el) {
-  const isSame = window._managerFilter === name;
-  window._managerFilter = isSame ? null : name;
-  _activeMgr = isSame ? null : name;
-
-  // Sync manager card
-  document.querySelectorAll('.manager-card').forEach(c => c.classList.toggle('active', c.dataset.manager === _activeMgr));
-  // Sync manager filter btn
-  document.querySelectorAll('[data-manager]').forEach(b => b.classList.toggle('active', b.dataset.manager === _activeMgr));
-
+  }});
+}}
+function toggleCard(h){{const b=h.nextElementSibling,ch=h.querySelector('.card-chevron');b.classList.toggle('open');ch.classList.toggle('open');}}
+let _am=null;
+function filterManager(name,el){{
+  const same=window._managerFilter===name;window._managerFilter=same?null:name;_am=same?null:name;
+  document.querySelectorAll('.manager-card').forEach(c=>c.classList.toggle('active',c.dataset.manager===_am));
+  document.querySelectorAll('[data-manager]').forEach(b=>b.classList.toggle('active',b.dataset.manager===_am));
   renderCards();
-}
-
-function filterStatus(s) {
-  window._statusFilter = s;
-
-  // Sync buttons
-  document.getElementById('btnAll').classList.toggle('active',    s === 'all');
-  document.getElementById('btnYellow').classList.toggle('active', s === 'yellow');
-  document.getElementById('btnRed').classList.toggle('active',    s === 'red');
-
-  // Sync status cards
-  document.getElementById('cardGreen').classList.toggle('active-filter',  s === 'green');
-  document.getElementById('cardYellow').classList.toggle('active-filter', s === 'yellow');
-  document.getElementById('cardRed').classList.toggle('active-filter',    s === 'red');
-
-  // If green clicked, show empty (no cards for green)
-  if (s === 'green') {
-    document.getElementById('cardsGrid').innerHTML = '<div class="empty-state"><div class="big">🟢</div><p>Clientes saudáveis — nenhuma ação necessária</p></div>';
-    return;
-  }
+}}
+function filterStatus(s){{
+  window._statusFilter=s;
+  document.getElementById('btnAll').classList.toggle('active',s==='all');
+  document.getElementById('btnYellow').classList.toggle('active',s==='yellow');
+  document.getElementById('btnRed').classList.toggle('active',s==='red');
+  if(s==='green'){{document.getElementById('cardsGrid').innerHTML='<div class="empty-state"><div class="big">🟢</div><p>Clientes saudáveis — nenhuma ação necessária</p></div>';return;}}
   renderCards();
-}
+}}
 </script>
 </body>
 </html>
