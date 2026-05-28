@@ -4,17 +4,18 @@ Roda toda quarta-feira às 05h00 BRT via GitHub Actions.
 
 Fluxo:
   1. Para cada gestor, busca a página mais recente "Semana DD/MM..."
-     na sua carteira do ClickUp (ignora página MODELO).
-  2. Faz parse do markdown para extrair Verdes / Amarelos / Vermelhos.
-  3. Para cada cliente não-verde, gera um insight via Anthropic API.
-  4. Grava docs/index.html com os dados embutidos.
+  2. Faz parse APENAS da tabela "Resumo da Carteira" para Verde/Amarelo/Vermelho.
+     (A tabela é a ÚNICA fonte de verdade para contagem e nomes de clientes.)
+  3. Para cada cliente não-verde, busca o bloco de detalhes no markdown por
+     correspondência parcial de palavras no nome do cliente.
+  4. Gera insight via Anthropic API.
+  5. Grava docs/index.html com os dados embutidos.
 """
 
 import os
 import re
 import sys
 import json
-import textwrap
 import datetime
 import requests
 
@@ -59,9 +60,8 @@ def list_pages(doc_id):
     """Retorna lista plana de todas as páginas do documento."""
     data = cu_get(f"/workspaces/{WORKSPACE_ID}/docs/{doc_id}/pages",
                   params={"max_page_depth": -1})
-    print(f"  list_pages raw type: {type(data)}", flush=True)
-
     pages = []
+
     def flatten(lst):
         if not isinstance(lst, list):
             return
@@ -72,14 +72,10 @@ def list_pages(doc_id):
             if p.get("pages"):
                 flatten(p["pages"])
 
-    # ClickUp v3 pode retornar lista direta OU {"pages": [...]}
     if isinstance(data, list):
         flatten(data)
     elif isinstance(data, dict):
         flatten(data.get("pages", []))
-    else:
-        print(f"  ⚠ Formato inesperado: {data}", flush=True)
-
     return pages
 
 
@@ -93,9 +89,8 @@ def get_page_content(doc_id, page_id):
 
 def find_latest_week_page(pages):
     """
-    Retorna o page_id da página com nome que começa com
-    '📋 Semana' e NÃO é o MODELO. Prioriza a de data mais recente
-    (ordena pelo campo date_updated desc).
+    Retorna o (page_id, page_name) da página de semana mais recente.
+    Ignora a página MODELO (DD/MM).
     """
     candidates = []
     modelo_re = re.compile(r"DD/MM", re.IGNORECASE)
@@ -111,42 +106,71 @@ def find_latest_week_page(pages):
 
 # ── MARKDOWN PARSER ─────────────────────────────────────────────────────────
 
-def parse_table_clients(md: str):
+def parse_resumo_table(md: str):
     """
-    Extrai listas verde / amarelo / vermelho da tabela de resumo.
-    Suporta <br> e vírgula como separadores dentro de cada célula.
-    """
-    # Procura linha da tabela de dados (depois do header e do ---separator)
-    table_re = re.compile(
-        r"\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|",
-        re.IGNORECASE
-    )
-    rows = table_re.findall(md)
+    Extrai APENAS a tabela dentro de '## Resumo da Carteira'.
+    Retorna (verde_list, amarelo_list, vermelho_list).
 
-    def split_cell(cell):
-        # Substituir <br> e variantes por vírgula, depois split
-        cell = re.sub(r"<br\s*/?>", ",", cell, flags=re.IGNORECASE)
-        items = [i.strip() for i in cell.split(",") if i.strip()]
-        # Remove emojis / marcadores de header
-        items = [re.sub(r"[🟢🟡🔴✅⏳❌]", "", i).strip() for i in items]
-        items = [i for i in items if i and i.lower() not in
-                 ("verdes", "amarelos", "vermelhos", "verde", "amarelo", "vermelho",
-                  "---", "nome", "ação decidida", "prazo", "status")]
+    A tabela do Resumo é a ÚNICA fonte de verdade para contagem e nomes.
+    Outras tabelas do documento (ex: Pendências) são completamente ignoradas.
+    """
+    # Extrai somente o bloco "## Resumo da Carteira" até o próximo ## ou * * *
+    m = re.search(
+        r'##\s+Resumo da Carteira\s*\n(.*?)(?=\n\*\s*\*\s*\*|\n---+\n|\n## |\Z)',
+        md, re.DOTALL | re.IGNORECASE
+    )
+    if not m:
+        print("  ⚠ Seção 'Resumo da Carteira' não encontrada.", flush=True)
+        return [], [], []
+
+    section = m.group(1)
+
+    # Regex para linhas de tabela com pelo menos 3 colunas pipe-delimitadas
+    row_re = re.compile(r'^\|(.+?)\|(.+?)\|(.+?)(?:\|.*)?$', re.MULTILINE)
+    rows = row_re.findall(section)
+
+    SKIP_WORDS = {"verdes", "amarelos", "vermelhos", "verde", "amarelo", "vermelho", ""}
+
+    def split_names(cell: str) -> list:
+        # <br> vira newline
+        cell = re.sub(r'<br\s*/?>', '\n', cell, flags=re.IGNORECASE)
+        # Separa por newline ou vírgula
+        items = [i.strip() for i in re.split(r'[\n,]+', cell) if i.strip()]
+        # Remove emojis e formatação markdown
+        items = [re.sub(r'[🟢🟡🔴✅⏳❌_*\\]', '', i).strip() for i in items]
+        # Remove colchetes e parênteses extras mantendo o conteúdo
+        items = [re.sub(r'^[\[\(]+|[\]\)]+$', '', i).strip() for i in items]
+        # Filtra cabeçalhos, separadores e vazios
+        items = [i for i in items if i and i.lower().strip() not in SKIP_WORDS]
         return items
 
     verde, amarelo, vermelho = [], [], []
     for row in rows:
-        v, a, r = row
-        if "Verdes" in v or "Verde" in v:
-            continue  # header row
-        # skip separator row
-        if set(v.replace("-","").strip()) == set():
+        v, a, r = [x.strip() for x in row]
+        lv = v.lower()
+        # Pula linha de cabeçalho
+        if any(kw in lv for kw in ("verde", "amarelo", "vermelho")):
             continue
-        verde   += split_cell(v)
-        amarelo += split_cell(a)
-        vermelho+= split_cell(r)
+        # Pula linhas de separador (--- ou vazio)
+        if re.fullmatch(r'[\s\-]+', v.replace('|', '')):
+            continue
+        verde   += split_names(v)
+        amarelo += split_names(a)
+        vermelho += split_names(r)
 
     return verde, amarelo, vermelho
+
+
+def _normalize(s: str) -> str:
+    """Remove caracteres especiais e acentos, retorna lowercase."""
+    return re.sub(r'[^a-zA-Z0-9\s]', '', s.lower()).strip()
+
+
+def _significant_words(name: str) -> list:
+    """Retorna palavras com 3+ caracteres do nome normalizado (excluindo stopwords)."""
+    STOPWORDS = {"the", "dos", "das", "del", "von", "van", "para", "com"}
+    words = [w for w in _normalize(name).split() if len(w) >= 3 and w not in STOPWORDS]
+    return words
 
 
 def _extract_field(pattern, text):
@@ -155,79 +179,88 @@ def _extract_field(pattern, text):
     if not m:
         return "—"
     val = m.group(1)
-    val = re.sub(r"^\*+", "", val).strip()
-    val = re.split(r"\n\*\*", val)[0]
-    val = re.sub(r"[\*_]{1,2}", "", val)
-    val = re.sub(r"<!--.*?-->", "", val, flags=re.DOTALL)
-    val = re.sub(r"\[[ xX]\]", "", val)
-    val = re.sub(r"[-*]\s+", "", val)
-    val = re.sub(r"\n+", " ", val).strip()
+    val = re.sub(r'^\*+', '', val).strip()
+    val = re.split(r'\n\*\*', val)[0]
+    val = re.sub(r'[\*_]{1,2}', '', val)
+    val = re.sub(r'<!--.*?-->', '', val, flags=re.DOTALL)
+    val = re.sub(r'!\[.*?\]\(.*?\)', '', val)   # remove imagens
+    val = re.sub(r'\[[ xX]\]', '', val)          # remove checkboxes
+    val = re.sub(r'[-*]\s+', ' ', val)
+    val = re.sub(r'\n+', ' ', val).strip()
+    val = re.sub(r'\s{2,}', ' ', val)
     return val if val else "—"
 
 
 def _parse_client_block(block: str, nome: str) -> dict:
-    """Extrai todos os campos de um bloco de cliente."""
+    """Extrai todos os campos estruturados de um bloco de cliente."""
     return {
         "nome":     nome,
-        "funil":    _extract_field(r"\*\*Funil(?:\(is\))? afetado(?:\(s\))?[:\s]*\*\*\s*(.+?)(?=\n\*\*|\Z)", block),
-        "problema": _extract_field(r"\*\*Qual o problema\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block),
-        "dados":    _extract_field(r"\*\*O que os dados mostram\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block),
-        "tentou":   _extract_field(r"\*\*O que (?:eu )?já tentei\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block),
-        "sugestao": _extract_field(r"\*\*Minha sugestão de próximo passo[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block),
+        "funil":    _extract_field(
+            r'\*\*Funil(?:\(is\))? afetado(?:\(s\))?[:\s]*\*\*\s*(.+?)(?=\n\*\*|\Z)', block),
+        "problema": _extract_field(
+            r'\*\*Qual o problema\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)', block),
+        "dados":    _extract_field(
+            r'\*\*O que os dados mostram\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)', block),
+        "tentou":   _extract_field(
+            r'\*\*O que (?:eu )?já tentei\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)', block),
+        "sugestao": _extract_field(
+            r'\*\*Minha sugestão de próximo passo[:\s]*\*\*(.+?)(?=\n\*\*|\Z)', block),
     }
 
 
-def parse_client_sections(md: str, status_emoji: str):
+def find_section_content(md: str, client_name: str) -> dict:
     """
-    Extrai todos os clientes com o emoji de status correspondente.
-    Suporta DOIS formatos usados pelos gestores:
-      Formato A (seção + subsection): ## 🔴 Clientes Críticos  →  ### Cliente: Nome
-      Formato B (direto):             ## 🔴 Cliente: Nome
-    """
-    clients = []
-    seen   = set()
+    Busca a seção do cliente no markdown usando correspondência parcial de palavras.
 
-    # Divide o markdown em blocos de ## sections
-    # Cada bloco começa em um ## heading
-    raw_sections = re.split(r"(?m)^(?=## )", md)
+    Estratégia:
+    - Divide o MD em blocos de ## e ### sections
+    - Para cada bloco de "cliente", verifica se alguma palavra significativa
+      do nome do cliente aparece no texto do bloco (primeiros 500 chars)
+    - Se encontrado, extrai os campos estruturados
+
+    Isso resolve o problema de nomes diferentes entre tabela e seção
+    (ex: tabela "VHE - L3" ↔ seção "### Cliente: VHE")
+    """
+    words = _significant_words(client_name)
+    if not words:
+        return {"nome": client_name, "funil": "—", "problema": "—",
+                "dados": "—", "tentou": "—", "sugestao": "—"}
+
+    # Divide em seções ## e ###
+    raw_sections = re.split(r'(?m)^(?=#{2,3}\s)', md)
+
+    best_match = None
+    best_score = 0
 
     for sec in raw_sections:
-        first_line = sec.split("\n", 1)[0].strip()
-
-        if status_emoji not in first_line:
+        first_line = sec.split('\n', 1)[0].strip()
+        # Só analisa seções relacionadas a clientes
+        is_client_section = (
+            'cliente' in first_line.lower() or
+            any(emoji in first_line for emoji in ('🔴', '🟡', '🟢'))
+        )
+        if not is_client_section:
             continue
 
-        # ── Formato B: ## 🔴 Cliente: Nome (heading direto) ──
-        if re.search(r"##\s*[^\n#]*Cliente[:\s]", first_line, re.IGNORECASE):
-            nome_m = re.search(r"Cliente[:\s]+(.+)", first_line, re.IGNORECASE)
-            if nome_m:
-                nome = nome_m.group(1).strip().strip("[]\\").strip()
-                if nome and nome not in seen:
-                    seen.add(nome)
-                    clients.append(_parse_client_block(sec, nome))
-            continue
+        # Normaliza os primeiros 600 chars do bloco para busca
+        norm_sec = _normalize(sec[:600])
+        # Conta quantas palavras significativas batem
+        score = sum(1 for w in words if w in norm_sec)
+        if score > best_score:
+            best_score = score
+            best_match = sec
 
-        # ── Formato A: ## 🔴 Clientes Críticos  com ### Cliente: subsections ──
-        sub_blocks = re.split(r"(?=###\s+Cliente)", sec, flags=re.IGNORECASE)
-        for block in sub_blocks:
-            nome_m = re.search(r"###\s+Cliente[:\s]+(.+)", block, re.IGNORECASE)
-            if not nome_m:
-                continue
-            nome = nome_m.group(1).strip().strip("[]\\").strip()
-            if nome and nome not in seen:
-                seen.add(nome)
-                clients.append(_parse_client_block(block, nome))
+    if best_match and best_score > 0:
+        return _parse_client_block(best_match, client_name)
 
-    return clients
+    print(f"    ⚠ Seção não encontrada para '{client_name}' — usando campos vazios.", flush=True)
+    return {"nome": client_name, "funil": "—", "problema": "—",
+            "dados": "—", "tentou": "—", "sugestao": "—"}
 
 
 # ── ANTHROPIC INSIGHT ────────────────────────────────────────────────────────
 
 def generate_insight(client: dict) -> str:
-    """
-    Gera um insight objetivo sobre o caso do cliente.
-    Retorna string HTML-safe.
-    """
     if not HAS_ANTHROPIC or not ANTHROPIC_KEY:
         return (
             "Insight automático indisponível (ANTHROPIC_API_KEY não configurada). "
@@ -236,7 +269,7 @@ def generate_insight(client: dict) -> str:
 
     prompt = f"""Você é um especialista sênior em tráfego pago e funis de vendas digitais.
 Analise o caso abaixo e gere um insight objetivo, direto e acionável em português brasileiro.
-Diga claramente se a sugestão do gestor faz sentido ou não, e acrescente sua visão técnica sobre o problema e como resolver.
+Diga claramente se a sugestão do gestor faz sentido ou não, e acrescente sua visão técnica.
 Seja específico, cite métricas quando relevante. Máximo 4 frases. Sem markdown.
 
 Cliente: {client['nome']}
@@ -276,43 +309,35 @@ def fetch_manager_data(mgr: dict) -> dict:
     print(f"  📋 Página: {page_name} (id: {page_id})", flush=True)
 
     content = get_page_content(doc_id, page_id)
-    verde, amarelo_names, vermelho_names = parse_table_clients(content)
+
+    # ── Tabela Resumo é a ÚNICA fonte de verdade para nomes e contagem ──
+    verde, amarelo_names, vermelho_names = parse_resumo_table(content)
 
     print(f"  🟢 {len(verde)} verde(s): {verde}", flush=True)
-    print(f"  🟡 {len(amarelo_names)} amarelo(s)", flush=True)
-    print(f"  🔴 {len(vermelho_names)} vermelho(s)", flush=True)
+    print(f"  🟡 {len(amarelo_names)} amarelo(s): {amarelo_names}", flush=True)
+    print(f"  🔴 {len(vermelho_names)} vermelho(s): {vermelho_names}", flush=True)
+    print(f"  📊 Total: {len(verde)+len(amarelo_names)+len(vermelho_names)} clientes", flush=True)
 
-    # Parse detailed sections
-    red_clients    = parse_client_sections(content, "🔴")
-    yellow_clients = parse_client_sections(content, "🟡")
-
-    # Merge table names into detailed clients (handles cases where table has extra names)
-    red_names_found = {c["nome"] for c in red_clients}
-    yellow_names_found = {c["nome"] for c in yellow_clients}
+    # ── Para cada alerta, busca detalhes no markdown por nome ──
+    all_alert_clients = []
 
     for nm in vermelho_names:
-        if nm and nm not in red_names_found:
-            red_clients.append({"nome": nm, "funil": "—", "problema": "—",
-                                  "dados": "—", "tentou": "—", "sugestao": "—"})
-    for nm in amarelo_names:
-        if nm and nm not in yellow_names_found:
-            yellow_clients.append({"nome": nm, "funil": "—", "problema": "—",
-                                    "dados": "—", "tentou": "—", "sugestao": "—"})
+        print(f"  🔴 Processando: {nm}", flush=True)
+        client = find_section_content(content, nm)
+        client["nome"]    = nm
+        client["status"]  = "red"
+        client["manager"] = name
+        client["insight"] = generate_insight(client)
+        all_alert_clients.append(client)
 
-    # Generate insights
-    all_alert_clients = []
-    for c in red_clients:
-        print(f"  🔴 Gerando insight: {c['nome']}", flush=True)
-        c["status"]  = "red"
-        c["manager"] = name
-        c["insight"] = generate_insight(c)
-        all_alert_clients.append(c)
-    for c in yellow_clients:
-        print(f"  🟡 Gerando insight: {c['nome']}", flush=True)
-        c["status"]  = "yellow"
-        c["manager"] = name
-        c["insight"] = generate_insight(c)
-        all_alert_clients.append(c)
+    for nm in amarelo_names:
+        print(f"  🟡 Processando: {nm}", flush=True)
+        client = find_section_content(content, nm)
+        client["nome"]    = nm
+        client["status"]  = "yellow"
+        client["manager"] = name
+        client["insight"] = generate_insight(client)
+        all_alert_clients.append(client)
 
     return {
         "name":    name,
@@ -403,12 +428,12 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     .client-card.red{{border-left:3px solid var(--red);}} .client-card.yellow{{border-left:3px solid var(--yellow);}}
     .card-header{{padding:18px 20px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}}
     .card-header-left{{flex:1;}}
-    .card-status-row{{display:flex;align-items:center;gap:8px;margin-bottom:8px;}}
+    .card-status-row{{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}}
     .status-pill{{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:20px;}}
     .status-pill.red{{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}}
     .status-pill.yellow{{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border);}}
     .manager-pill{{font-size:10px;font-weight:500;color:var(--muted);background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);}}
-    .funil-pill{{font-size:10px;font-weight:500;color:var(--dim);background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);}}
+    .funil-pill{{font-size:10px;font-weight:500;color:var(--dim);background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}}
     .client-name{{font-size:18px;font-weight:700;color:#fff;line-height:1.2;}}
     .card-chevron{{color:var(--muted);font-size:18px;flex-shrink:0;transition:transform .2s;margin-top:4px;}}
     .card-chevron.open{{transform:rotate(90deg);}}
@@ -492,8 +517,13 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 const DATA = {DATA_JSON};
 (function(){{
   let tg=0,ty=0,tr=0;
-  DATA.managers.forEach(m=>{{tg+=m.verde.length;ty+=m.clients.filter(c=>c.status==='yellow').length;tr+=m.clients.filter(c=>c.status==='red').length;}});
-  const tot=tg+ty+tr,score=Math.round((tg*100+ty*50)/tot);
+  DATA.managers.forEach(m=>{{
+    tg+=m.verde.length;
+    ty+=m.clients.filter(c=>c.status==='yellow').length;
+    tr+=m.clients.filter(c=>c.status==='red').length;
+  }});
+  const tot=tg+ty+tr;
+  const score=Math.round((tg*100+ty*50)/tot);
   document.getElementById('weekBadge').textContent='Semana '+DATA.week;
   document.getElementById('updatedAt').textContent='Atualizado em '+DATA.updatedAt;
   document.getElementById('numGreen').textContent=tg;
@@ -503,49 +533,79 @@ const DATA = {DATA_JSON};
   document.getElementById('pctYellow').textContent=((ty/tot)*100).toFixed(1)+'%';
   document.getElementById('pctRed').textContent=((tr/tot)*100).toFixed(1)+'%';
   document.getElementById('scoreValue').textContent=score;
-  const circ=2*Math.PI*46,offset=circ-(score/100)*circ;
+  const circ=2*Math.PI*46;
+  const offset=circ-(score/100)*circ;
   const ringColor=score>=70?'#22c55e':score>=50?'#f59e0b':'#ef4444';
   const sc=document.getElementById('scoreCircle');
-  sc.style.strokeDasharray=circ;sc.style.stroke=ringColor;sc.style.strokeDashoffset=circ;
+  sc.style.strokeDasharray=circ;
+  sc.style.stroke=ringColor;
+  sc.style.strokeDashoffset=circ;
   setTimeout(()=>{{sc.style.transition='stroke-dashoffset 1.2s ease';sc.style.strokeDashoffset=offset;}},200);
   const ghb=document.getElementById('globalHealthBar');
   ghb.innerHTML=`<div class="seg-g" style="width:${{(tg/tot*100).toFixed(1)}}%"></div><div class="seg-y" style="width:${{(ty/tot*100).toFixed(1)}}%"></div><div class="seg-r" style="width:${{(tr/tot*100).toFixed(1)}}%"></div>`;
   const mgGrid=document.getElementById('managerGrid');
   DATA.managers.forEach(m=>{{
-    const v=m.verde.length,y=m.clients.filter(c=>c.status==='yellow').length,r=m.clients.filter(c=>c.status==='red').length,t=v+y+r;
-    const ms=Math.round((v*100+y*50)/t);
+    const v=m.verde.length;
+    const y=m.clients.filter(c=>c.status==='yellow').length;
+    const r=m.clients.filter(c=>c.status==='red').length;
+    const t=v+y+r;
+    const ms=t>0?Math.round((v*100+y*50)/t):0;
     const sc2=ms>=70?'score-high':ms>=50?'score-mid':'score-low';
-    const card=document.createElement('div');card.className='manager-card';card.dataset.manager=m.name;
-    card.innerHTML=`<div class="manager-name">${{m.name}}</div><div class="manager-stats"><div class="mgr-stat"><div class="n g">${{v}}</div><div class="l">Saudáveis</div></div><div class="mgr-stat"><div class="n y">${{y}}</div><div class="l">Atenção</div></div><div class="mgr-stat"><div class="n r">${{r}}</div><div class="l">Críticos</div></div></div><div class="mgr-bar"><div class="seg-g" style="width:${{(v/t*100).toFixed(0)}}%"></div><div class="seg-y" style="width:${{(y/t*100).toFixed(0)}}%"></div><div class="seg-r" style="width:${{(r/t*100).toFixed(0)}}%"></div></div><div class="mgr-score-pill ${{sc2}}">Score ${{ms}}/100</div><div class="manager-total">${{t}} clientes</div>`;
+    const card=document.createElement('div');
+    card.className='manager-card';
+    card.dataset.manager=m.name;
+    card.innerHTML=`<div class="manager-name">${{m.name}}</div><div class="manager-stats"><div class="mgr-stat"><div class="n g">${{v}}</div><div class="l">Saudáveis</div></div><div class="mgr-stat"><div class="n y">${{y}}</div><div class="l">Atenção</div></div><div class="mgr-stat"><div class="n r">${{r}}</div><div class="l">Críticos</div></div></div><div class="mgr-bar"><div class="seg-g" style="width:${{t>0?(v/t*100).toFixed(0):0}}%"></div><div class="seg-y" style="width:${{t>0?(y/t*100).toFixed(0):0}}%"></div><div class="seg-r" style="width:${{t>0?(r/t*100).toFixed(0):0}}%"></div></div><div class="mgr-score-pill ${{sc2}}">Score ${{ms}}/100</div><div class="manager-total">${{t}} clientes no total</div>`;
     card.addEventListener('click',()=>filterManager(m.name,card));
     mgGrid.appendChild(card);
   }});
   const mfb=document.getElementById('managerFilterBtns');
-  DATA.managers.forEach(m=>{{const btn=document.createElement('button');btn.className='filter-btn';btn.dataset.manager=m.name;btn.textContent=m.name;btn.addEventListener('click',()=>filterManager(m.name,btn));mfb.appendChild(btn);}});
+  DATA.managers.forEach(m=>{{
+    const btn=document.createElement('button');
+    btn.className='filter-btn';
+    btn.dataset.manager=m.name;
+    btn.textContent=m.name;
+    btn.addEventListener('click',()=>filterManager(m.name,btn));
+    mfb.appendChild(btn);
+  }});
   const allAlerts=[];
-  DATA.managers.forEach(m=>{{m.clients.filter(c=>c.status==='red').forEach(c=>allAlerts.push({{...c,manager:m.name}}));m.clients.filter(c=>c.status==='yellow').forEach(c=>allAlerts.push({{...c,manager:m.name}}));}});
-  window._allAlerts=allAlerts;window._statusFilter='all';window._managerFilter=null;
+  DATA.managers.forEach(m=>{{
+    m.clients.filter(c=>c.status==='red').forEach(c=>allAlerts.push({{...c,manager:m.name}}));
+    m.clients.filter(c=>c.status==='yellow').forEach(c=>allAlerts.push({{...c,manager:m.name}}));
+  }});
+  window._allAlerts=allAlerts;
+  window._statusFilter='all';
+  window._managerFilter=null;
   renderCards();
 }})();
 function renderCards(){{
-  const grid=document.getElementById('cardsGrid');grid.innerHTML='';
+  const grid=document.getElementById('cardsGrid');
+  grid.innerHTML='';
   const sf=window._statusFilter,mf=window._managerFilter;
   let filtered=window._allAlerts;
   if(sf==='red') filtered=filtered.filter(c=>c.status==='red');
   if(sf==='yellow') filtered=filtered.filter(c=>c.status==='yellow');
   if(mf) filtered=filtered.filter(c=>c.manager===mf);
-  if(filtered.length===0){{grid.innerHTML='<div class="empty-state"><div class="big">✦</div><p>Nenhum cliente para este filtro</p></div>';return;}}
+  if(filtered.length===0){{
+    grid.innerHTML='<div class="empty-state"><div class="big">✦</div><p>Nenhum cliente para este filtro</p></div>';
+    return;
+  }}
   filtered.forEach((c,idx)=>{{
-    const card=document.createElement('div');card.className='client-card '+c.status;
+    const card=document.createElement('div');
+    card.className='client-card '+c.status;
     const sl=c.status==='red'?'🔴 Crítico':'🟡 Atenção';
-    card.innerHTML=`<div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-status-row"><span class="status-pill ${{c.status}}">${{sl}}</span><span class="manager-pill">${{c.manager}}</span><span class="funil-pill">${{c.funil}}</span></div><div class="client-name">${{c.nome}}</div></div><div class="card-chevron ${{idx<3?'open':''}}">›</div></div><div class="card-body ${{idx<3?'open':''}}"><div class="info-block"><div class="info-label">Problema</div><div class="info-text">${{c.problema}}</div></div><div class="info-block"><div class="info-label">O que os dados mostram</div><div class="info-text">${{c.dados}}</div></div><div class="info-block"><div class="info-label">O que já foi tentado</div><div class="info-text">${{c.tentou}}</div></div><div class="info-block"><div class="info-label">Sugestão do gestor</div><div class="info-text">${{c.sugestao}}</div></div><div class="insight-block"><div class="insight-header"><span class="insight-badge">✦ Insight Claude</span></div><div class="insight-text">${{c.insight}}</div></div></div>`;
+    card.innerHTML=`<div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-status-row"><span class="status-pill ${{c.status}}">${{sl}}</span><span class="manager-pill">${{c.manager}}</span><span class="funil-pill" title="${{c.funil}}">${{c.funil}}</span></div><div class="client-name">${{c.nome}}</div></div><div class="card-chevron ${{idx<3?'open':''}}">›</div></div><div class="card-body ${{idx<3?'open':''}}"><div class="info-block"><div class="info-label">Problema</div><div class="info-text">${{c.problema}}</div></div><div class="info-block"><div class="info-label">O que os dados mostram</div><div class="info-text">${{c.dados}}</div></div><div class="info-block"><div class="info-label">O que já foi tentado</div><div class="info-text">${{c.tentou}}</div></div><div class="info-block"><div class="info-label">Sugestão do gestor</div><div class="info-text">${{c.sugestao}}</div></div><div class="insight-block"><div class="insight-header"><span class="insight-badge">✦ Insight Claude</span></div><div class="insight-text">${{c.insight}}</div></div></div>`;
     grid.appendChild(card);
   }});
 }}
-function toggleCard(h){{const b=h.nextElementSibling,ch=h.querySelector('.card-chevron');b.classList.toggle('open');ch.classList.toggle('open');}}
+function toggleCard(h){{
+  const b=h.nextElementSibling,ch=h.querySelector('.card-chevron');
+  b.classList.toggle('open');ch.classList.toggle('open');
+}}
 let _am=null;
 function filterManager(name,el){{
-  const same=window._managerFilter===name;window._managerFilter=same?null:name;_am=same?null:name;
+  const same=window._managerFilter===name;
+  window._managerFilter=same?null:name;
+  _am=same?null:name;
   document.querySelectorAll('.manager-card').forEach(c=>c.classList.toggle('active',c.dataset.manager===_am));
   document.querySelectorAll('[data-manager]').forEach(b=>b.classList.toggle('active',b.dataset.manager===_am));
   renderCards();
@@ -555,7 +615,10 @@ function filterStatus(s){{
   document.getElementById('btnAll').classList.toggle('active',s==='all');
   document.getElementById('btnYellow').classList.toggle('active',s==='yellow');
   document.getElementById('btnRed').classList.toggle('active',s==='red');
-  if(s==='green'){{document.getElementById('cardsGrid').innerHTML='<div class="empty-state"><div class="big">🟢</div><p>Clientes saudáveis — nenhuma ação necessária</p></div>';return;}}
+  if(s==='green'){{
+    document.getElementById('cardsGrid').innerHTML='<div class="empty-state"><div class="big">🟢</div><p>Clientes saudáveis — nenhuma ação necessária</p></div>';
+    return;
+  }}
   renderCards();
 }}
 </script>
@@ -566,7 +629,6 @@ function filterStatus(s){{
 def build_html(managers_data: list, week_str: str) -> str:
     today = datetime.date.today().strftime("%d/%m/%Y")
 
-    # Build JS-safe data object
     js_managers = []
     for m in managers_data:
         js_managers.append({
@@ -595,10 +657,9 @@ def build_html(managers_data: list, week_str: str) -> str:
     }
 
     data_json = json.dumps(data_obj, ensure_ascii=False, indent=2)
-    # 1) Injeta o JSON dos dados
+    # 1) Injeta o JSON
     html = HTML_TEMPLATE.replace("{DATA_JSON}", data_json)
-    # 2) Converte {{ e }} de escape do template para { e } no HTML final
-    #    (json.dumps nunca gera {{ ou }}, então só afeta o CSS/JS do template)
+    # 2) Converte {{ e }} do template para { e } no HTML final
     html = html.replace("{{", "{").replace("}}", "}")
     return html
 
@@ -613,9 +674,7 @@ def main():
     print(f"🚀 Scale Dashboard Generator — {datetime.date.today()}", flush=True)
 
     managers_data = []
-    week_str = DATA["week"] if False else "—"  # será sobrescrito
-
-    # Detect week from first successful fetch
+    week_str = "—"
     week_detected = False
 
     for mgr in MANAGERS:
@@ -623,12 +682,12 @@ def main():
             data = fetch_manager_data(mgr)
             managers_data.append(data)
             if not week_detected and data.get("week"):
-                # Extract "25/05 a 31/05" from "📋 Semana 25/05 a 31/05"
                 w = re.sub(r".*Semana\s*", "", data["week"]).strip()
                 week_str = w
                 week_detected = True
         except Exception as e:
             print(f"  ❌ Erro ao processar {mgr['name']}: {e}", flush=True)
+            import traceback; traceback.print_exc()
             managers_data.append({"name": mgr["name"], "week": None, "verde": [], "clients": []})
 
     print(f"\n✅ Todos os gestores processados.", flush=True)
@@ -643,6 +702,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # Allow passing DATA dict reference in build mode (unused import guard)
-    DATA = {}
     main()

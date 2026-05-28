@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scale — Saude da Carteira</title>
+  <title>Scale — Saúde da Carteira</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
@@ -16,92 +16,92 @@
       --red:#ef4444;--red-bg:#120404;--red-border:#7f1d1d;
       --ai-bg:#0d0d1a;--ai-border:#2a2850;--ai-text:#a5b4fc;
     }
-    html { scroll-behavior: smooth; }
-    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; font-size:14px; line-height:1.6; }
-    .header { border-bottom:1px solid var(--border); padding:24px 40px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; background:rgba(8,8,8,.92); backdrop-filter:blur(12px); z-index:100; }
-    .logo { font-size:26px; font-weight:900; letter-spacing:-.5px; color:#fff; text-transform:uppercase; }
-    .logo span { display:inline-block; border:2px solid #fff; padding:1px 10px 1px 8px; margin-right:10px; font-size:22px; }
-    .header-meta { text-align:right; }
-    .week-badge { display:inline-block; background:var(--surface2); border:1px solid var(--border2); padding:4px 12px; border-radius:20px; font-size:12px; font-weight:500; color:var(--muted); margin-bottom:4px; }
-    .updated-at { font-size:11px; color:var(--dim); }
-    main { max-width:1400px; margin:0 auto; padding:40px 40px 80px; }
-    .section-title { font-size:11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:20px; padding-bottom:10px; border-bottom:1px solid var(--border); }
-    .macro-grid { display:grid; grid-template-columns:1fr 1fr 1fr 280px; gap:16px; margin-bottom:48px; }
-    .status-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px 24px; cursor:pointer; transition:border-color .2s,transform .15s; }
-    .status-card:hover { transform:translateY(-2px); }
-    .status-card.green { border-color:var(--green-border); background:var(--green-bg); }
-    .status-card.yellow { border-color:var(--yellow-border); background:var(--yellow-bg); }
-    .status-card.red { border-color:var(--red-border); background:var(--red-bg); }
-    .card-label { font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
-    .card-label .dot { width:8px; height:8px; border-radius:50%; display:inline-block; flex-shrink:0; }
-    .green .card-label { color:var(--green); } .yellow .card-label { color:var(--yellow); } .red .card-label { color:var(--red); }
-    .green .dot { background:var(--green); box-shadow:0 0 8px var(--green); }
-    .yellow .dot { background:var(--yellow); box-shadow:0 0 8px var(--yellow); }
-    .red .dot { background:var(--red); box-shadow:0 0 8px var(--red); animation:pulse 2s infinite; }
-    @keyframes pulse { 0%,100% { box-shadow:0 0 6px var(--red); } 50% { box-shadow:0 0 14px var(--red); } }
-    .card-number { font-size:52px; font-weight:800; line-height:1; margin-bottom:6px; letter-spacing:-2px; }
-    .green .card-number { color:var(--green); } .yellow .card-number { color:var(--yellow); } .red .card-number { color:var(--red); }
-    .card-pct { font-size:13px; font-weight:500; color:var(--muted); }
-    .card-clients-label { font-size:12px; color:var(--muted); margin-top:4px; }
-    .score-card { background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:28px 24px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; }
-    .score-ring-wrap { position:relative; width:110px; height:110px; }
-    .score-ring-wrap svg { transform:rotate(-90deg); }
-    .score-value { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:28px; font-weight:800; color:#fff; letter-spacing:-1px; }
-    .score-label { font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; color:var(--muted); text-align:center; }
-    .health-bar { width:100%; height:6px; border-radius:3px; background:var(--surface2); overflow:hidden; display:flex; margin-top:4px; }
-    .health-bar .seg-g { background:var(--green); } .health-bar .seg-y { background:var(--yellow); } .health-bar .seg-r { background:var(--red); }
-    .manager-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:48px; }
-    .manager-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 18px; cursor:pointer; transition:border-color .2s,transform .15s; }
-    .manager-card:hover,.manager-card.active { border-color:var(--border2); transform:translateY(-1px); }
-    .manager-card.active { border-color:#fff; }
-    .manager-name { font-size:15px; font-weight:700; margin-bottom:14px; color:#fff; }
-    .manager-stats { display:flex; gap:10px; margin-bottom:14px; }
-    .mgr-stat { display:flex; flex-direction:column; gap:2px; }
-    .mgr-stat .n { font-size:20px; font-weight:700; line-height:1; }
-    .mgr-stat .l { font-size:10px; font-weight:500; letter-spacing:.5px; color:var(--muted); }
-    .n.g { color:var(--green); } .n.y { color:var(--yellow); } .n.r { color:var(--red); }
-    .mgr-bar { height:4px; border-radius:2px; background:var(--surface2); overflow:hidden; display:flex; }
-    .mgr-score-pill { display:inline-block; font-size:10px; font-weight:600; padding:2px 8px; border-radius:10px; margin-top:10px; }
-    .score-high { background:var(--green-bg); color:var(--green); border:1px solid var(--green-border); }
-    .score-mid { background:var(--yellow-bg); color:var(--yellow); border:1px solid var(--yellow-border); }
-    .score-low { background:var(--red-bg); color:var(--red); border:1px solid var(--red-border); }
-    .manager-total { font-size:10px; color:var(--muted); margin-top:6px; }
-    .filter-bar { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; align-items:center; }
-    .filter-btn { background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:6px 14px; font-size:12px; font-weight:500; color:var(--muted); cursor:pointer; transition:all .15s; font-family:'Inter',sans-serif; }
-    .filter-btn:hover { border-color:var(--border2); color:var(--text); }
-    .filter-btn.active { background:#fff; color:#000; border-color:#fff; }
-    .filter-separator { width:1px; height:28px; background:var(--border); }
-    .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(600px,1fr)); gap:16px; }
-    .client-card { background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:border-color .2s,transform .15s; }
-    .client-card:hover { border-color:var(--border2); transform:translateY(-1px); }
-    .client-card.red { border-left:3px solid var(--red); } .client-card.yellow { border-left:3px solid var(--yellow); }
-    .card-header { padding:18px 20px 16px; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; border-bottom:1px solid var(--border); cursor:pointer; user-select:none; }
-    .card-header-left { flex:1; }
-    .card-status-row { display:flex; align-items:center; gap:8px; margin-bottom:8px; flex-wrap:wrap; }
-    .status-pill { display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; padding:3px 10px; border-radius:20px; }
-    .status-pill.red { background:var(--red-bg); color:var(--red); border:1px solid var(--red-border); }
-    .status-pill.yellow { background:var(--yellow-bg); color:var(--yellow); border:1px solid var(--yellow-border); }
-    .manager-pill { font-size:10px; font-weight:500; color:var(--muted); background:var(--surface2); padding:3px 10px; border-radius:20px; border:1px solid var(--border); }
-    .funil-pill { font-size:10px; font-weight:500; color:var(--dim); background:var(--surface2); padding:3px 10px; border-radius:20px; border:1px solid var(--border); }
-    .client-name { font-size:18px; font-weight:700; color:#fff; line-height:1.2; }
-    .card-chevron { color:var(--muted); font-size:18px; flex-shrink:0; transition:transform .2s; margin-top:4px; }
-    .card-chevron.open { transform:rotate(90deg); }
-    .card-body { padding:0 20px; max-height:0; overflow:hidden; transition:max-height .4s ease,padding .2s; }
-    .card-body.open { max-height:2000px; padding:20px; }
-    .info-block { margin-bottom:16px; }
-    .info-label { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
-    .info-text { font-size:13px; color:var(--text); line-height:1.65; }
-    .insight-block { background:var(--ai-bg); border:1px solid var(--ai-border); border-radius:10px; padding:16px 18px; margin-top:4px; }
-    .insight-header { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-    .insight-badge { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--ai-text); background:rgba(99,102,241,.15); border:1px solid var(--ai-border); padding:2px 10px; border-radius:10px; }
-    .insight-text { font-size:13px; color:#c7d2fe; line-height:1.7; }
-    .empty-state { text-align:center; padding:60px 20px; color:var(--muted); grid-column:1/-1; }
-    .empty-state .big { font-size:40px; margin-bottom:12px; }
-    footer { border-top:1px solid var(--border); padding:20px 40px; display:flex; align-items:center; justify-content:space-between; }
-    .footer-logo { font-size:14px; font-weight:800; color:var(--dim); letter-spacing:1px; }
-    .footer-info { font-size:11px; color:var(--muted); text-align:right; }
-    @media(max-width:1100px) { .macro-grid { grid-template-columns:1fr 1fr; } .manager-grid { grid-template-columns:repeat(3,1fr); } .cards-grid { grid-template-columns:1fr; } }
-    @media(max-width:700px) { main { padding:24px 16px 60px; } .header { padding:16px 20px; } .macro-grid { grid-template-columns:1fr; } .manager-grid { grid-template-columns:repeat(2,1fr); } .logo { font-size:20px; } }
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;line-height:1.6;}
+    .header{border-bottom:1px solid var(--border);padding:24px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(8,8,8,.92);backdrop-filter:blur(12px);z-index:100;}
+    .logo{font-size:26px;font-weight:900;letter-spacing:-.5px;color:#fff;text-transform:uppercase;}
+    .logo span{display:inline-block;border:2px solid #fff;padding:1px 10px 1px 8px;margin-right:10px;font-size:22px;}
+    .header-meta{text-align:right;}
+    .week-badge{display:inline-block;background:var(--surface2);border:1px solid var(--border2);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:500;color:var(--muted);margin-bottom:4px;}
+    .updated-at{font-size:11px;color:var(--dim);}
+    main{max-width:1400px;margin:0 auto;padding:40px 40px 80px;}
+    .section-title{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+    .macro-grid{display:grid;grid-template-columns:1fr 1fr 1fr 280px;gap:16px;margin-bottom:48px;}
+    .status-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 24px;cursor:pointer;transition:border-color .2s,transform .15s;}
+    .status-card:hover{transform:translateY(-2px);}
+    .status-card.green{border-color:var(--green-border);background:var(--green-bg);}
+    .status-card.yellow{border-color:var(--yellow-border);background:var(--yellow-bg);}
+    .status-card.red{border-color:var(--red-border);background:var(--red-bg);}
+    .card-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
+    .card-label .dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
+    .green .card-label{color:var(--green);} .yellow .card-label{color:var(--yellow);} .red .card-label{color:var(--red);}
+    .green .dot{background:var(--green);box-shadow:0 0 8px var(--green);}
+    .yellow .dot{background:var(--yellow);box-shadow:0 0 8px var(--yellow);}
+    .red .dot{background:var(--red);box-shadow:0 0 8px var(--red);animation:pulse 2s infinite;}
+    @keyframes pulse{0%,100%{box-shadow:0 0 6px var(--red);}50%{box-shadow:0 0 14px var(--red);}}
+    .card-number{font-size:52px;font-weight:800;line-height:1;margin-bottom:6px;letter-spacing:-2px;}
+    .green .card-number{color:var(--green);} .yellow .card-number{color:var(--yellow);} .red .card-number{color:var(--red);}
+    .card-pct{font-size:13px;font-weight:500;color:var(--muted);}
+    .card-clients-label{font-size:12px;color:var(--muted);margin-top:4px;}
+    .score-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px 24px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+    .score-ring-wrap{position:relative;width:110px;height:110px;}
+    .score-ring-wrap svg{transform:rotate(-90deg);}
+    .score-value{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:28px;font-weight:800;color:#fff;letter-spacing:-1px;}
+    .score-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;}
+    .health-bar{width:100%;height:6px;border-radius:3px;background:var(--surface2);overflow:hidden;display:flex;margin-top:4px;}
+    .health-bar .seg-g{background:var(--green);} .health-bar .seg-y{background:var(--yellow);} .health-bar .seg-r{background:var(--red);}
+    .manager-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:48px;}
+    .manager-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 18px;cursor:pointer;transition:border-color .2s,transform .15s;}
+    .manager-card:hover,.manager-card.active{border-color:var(--border2);transform:translateY(-1px);}
+    .manager-card.active{border-color:#fff;}
+    .manager-name{font-size:15px;font-weight:700;margin-bottom:14px;color:#fff;}
+    .manager-stats{display:flex;gap:10px;margin-bottom:14px;}
+    .mgr-stat{display:flex;flex-direction:column;gap:2px;}
+    .mgr-stat .n{font-size:20px;font-weight:700;line-height:1;}
+    .mgr-stat .l{font-size:10px;font-weight:500;letter-spacing:.5px;color:var(--muted);}
+    .n.g{color:var(--green);} .n.y{color:var(--yellow);} .n.r{color:var(--red);}
+    .mgr-bar{height:4px;border-radius:2px;background:var(--surface2);overflow:hidden;display:flex;}
+    .mgr-score-pill{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;margin-top:10px;}
+    .score-high{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
+    .score-mid{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border);}
+    .score-low{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}
+    .manager-total{font-size:10px;color:var(--muted);margin-top:6px;}
+    .filter-bar{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center;}
+    .filter-btn{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:500;color:var(--muted);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;}
+    .filter-btn:hover{border-color:var(--border2);color:var(--text);}
+    .filter-btn.active{background:#fff;color:#000;border-color:#fff;}
+    .filter-separator{width:1px;height:28px;background:var(--border);}
+    .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(600px,1fr));gap:16px;}
+    .client-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color .2s,transform .15s;}
+    .client-card:hover{border-color:var(--border2);transform:translateY(-1px);}
+    .client-card.red{border-left:3px solid var(--red);} .client-card.yellow{border-left:3px solid var(--yellow);}
+    .card-header{padding:18px 20px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;}
+    .card-header-left{flex:1;}
+    .card-status-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+    .status-pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:20px;}
+    .status-pill.red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}
+    .status-pill.yellow{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border);}
+    .manager-pill{font-size:10px;font-weight:500;color:var(--muted);background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);}
+    .funil-pill{font-size:10px;font-weight:500;color:var(--dim);background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .client-name{font-size:18px;font-weight:700;color:#fff;line-height:1.2;}
+    .card-chevron{color:var(--muted);font-size:18px;flex-shrink:0;transition:transform .2s;margin-top:4px;}
+    .card-chevron.open{transform:rotate(90deg);}
+    .card-body{padding:0 20px;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .2s;}
+    .card-body.open{max-height:2000px;padding:20px;}
+    .info-block{margin-bottom:16px;}
+    .info-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+    .info-text{font-size:13px;color:var(--text);line-height:1.65;}
+    .insight-block{background:var(--ai-bg);border:1px solid var(--ai-border);border-radius:10px;padding:16px 18px;margin-top:4px;}
+    .insight-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+    .insight-badge{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--ai-text);background:rgba(99,102,241,.15);border:1px solid var(--ai-border);padding:2px 10px;border-radius:10px;}
+    .insight-text{font-size:13px;color:#c7d2fe;line-height:1.7;}
+    .empty-state{text-align:center;padding:60px 20px;color:var(--muted);grid-column:1/-1;}
+    .empty-state .big{font-size:40px;margin-bottom:12px;}
+    footer{border-top:1px solid var(--border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;}
+    .footer-logo{font-size:14px;font-weight:800;color:var(--dim);letter-spacing:1px;}
+    .footer-info{font-size:11px;color:var(--muted);text-align:right;}
+    @media(max-width:1100px){.macro-grid{grid-template-columns:1fr 1fr;}.manager-grid{grid-template-columns:repeat(3,1fr);}.cards-grid{grid-template-columns:1fr;}}
+    @media(max-width:700px){main{padding:24px 16px 60px;}.header{padding:16px 20px;}.macro-grid{grid-template-columns:1fr;}.manager-grid{grid-template-columns:repeat(2,1fr);}.logo{font-size:20px;}}
   </style>
 </head>
 <body>
@@ -113,22 +113,22 @@
   </div>
 </header>
 <main>
-  <div class="section-title">Visao Macro — Saude da Agencia</div>
+  <div class="section-title">Visão Macro — Saúde da Agência</div>
   <div class="macro-grid">
     <div class="status-card green" id="cardGreen" onclick="filterStatus('green')">
-      <div class="card-label"><span class="dot"></span>Saudaveis</div>
+      <div class="card-label"><span class="dot"></span>Saudáveis</div>
       <div class="card-number" id="numGreen">—</div>
       <div class="card-pct" id="pctGreen">—%</div>
       <div class="card-clients-label">clientes</div>
     </div>
     <div class="status-card yellow" id="cardYellow" onclick="filterStatus('yellow')">
-      <div class="card-label"><span class="dot"></span>Ponto de Atencao</div>
+      <div class="card-label"><span class="dot"></span>Ponto de Atenção</div>
       <div class="card-number" id="numYellow">—</div>
       <div class="card-pct" id="pctYellow">—%</div>
       <div class="card-clients-label">clientes</div>
     </div>
     <div class="status-card red" id="cardRed" onclick="filterStatus('red')">
-      <div class="card-label"><span class="dot"></span>Criticos</div>
+      <div class="card-label"><span class="dot"></span>Críticos</div>
       <div class="card-number" id="numRed">—</div>
       <div class="card-pct" id="pctRed">—%</div>
       <div class="card-clients-label">clientes</div>
@@ -142,25 +142,25 @@
         </svg>
         <div class="score-value" id="scoreValue">—</div>
       </div>
-      <div class="score-label">Score de Saude</div>
+      <div class="score-label">Score de Saúde</div>
       <div class="health-bar" id="globalHealthBar" style="margin-top:8px;"></div>
     </div>
   </div>
-  <div class="section-title">Visao por Gestor</div>
+  <div class="section-title">Visão por Gestor</div>
   <div class="manager-grid" id="managerGrid"></div>
   <div class="filter-bar">
     <button class="filter-btn active" id="btnAll" onclick="filterStatus('all')">Todos os alertas</button>
-    <button class="filter-btn" id="btnYellow" onclick="filterStatus('yellow')">🟡 Ponto de atencao</button>
-    <button class="filter-btn" id="btnRed" onclick="filterStatus('red')">🔴 Criticos</button>
+    <button class="filter-btn" id="btnYellow" onclick="filterStatus('yellow')">🟡 Ponto de atenção</button>
+    <button class="filter-btn" id="btnRed" onclick="filterStatus('red')">🔴 Críticos</button>
     <div class="filter-separator"></div>
     <span id="managerFilterBtns"></span>
   </div>
-  <div class="section-title">Clientes que precisam de acao</div>
+  <div class="section-title">Clientes que precisam de ação</div>
   <div class="cards-grid" id="cardsGrid"></div>
 </main>
 <footer>
   <div class="footer-logo">SCALE</div>
-  <div class="footer-info">Atualiza toda quarta-feira as 05h00 BRT<br>Dados: ClickUp War Rooms</div>
+  <div class="footer-info">Atualiza toda quarta-feira às 05h00 BRT<br>Dados: ClickUp War Rooms</div>
 </footer>
 <script>
 const DATA = {
@@ -169,90 +169,83 @@ const DATA = {
   "managers": [
     {
       "name": "Erick",
-      "verde": ["Maira", "Giaco", "Leo", "MonsterDay", "Medmaster", "VDK"],
+      "verde": ["Máira", "Giaco", "Leo", "MonsterDay", "Medmaster", "VDK"],
       "clients": [
         {
-          "status": "red",
-          "manager": "Erick",
-          "nome": "Alice — Desafio 21 dias",
-          "funil": "VSL Venda Direta",
-          "problema": "Conversao de Checkout muito baixa e taxa de IC caindo consistentemente mes a mes.",
-          "dados": "CTR melhorando: 1,30% (mar) > 1,45% (abr) > 1,56% (mai). Taxa IC caindo: 15% > 13% > 7%. Conv. checkout em 7,06% — pior dos ultimos 3 meses.",
-          "tentou": "Duplicar criativos campoes, testar criativos em aberto, novos ADS no conjunto de Lookalike validado, subir novos ads a cada 2-3 dias.",
+          "status": "red", "manager": "Erick",
+          "nome": "Alice (Desafio 21 dias)",
+          "funil": "VSL - Venda direta",
+          "problema": "Conversão de Checkout muito baixa e taxa de IC vem caindo mês a mês, mesmo com CTR e CPC melhorando.",
+          "dados": "CTR crescendo mês a mês: 1,30% em março, 1,45% em abril, 1,56% em maio. Porém taxa de IC caindo: 15% em março, 13% em abril, 7% em maio. Conversão de checkout no pior nível dos últimos 3 meses: 7,06%. Sinal claro de saturação da VSL.",
+          "tentou": "Duplicar criativos que mais venderam, testar criativos em aberto, testar novos ADS no conjunto de LL validado, subir novos ads de 2/3 dias.",
           "sugestao": "Mudar a VSL urgente.",
-          "insight": "Analise correta e urgencia totalmente justificada. CTR melhorando + IC caindo e a combinacao classica de VSL saturada: os criativos atraem cliques, mas a VSL perdeu capacidade de converter. Acoes em paralelo: (1) nova VSL com angulo radicalmente diferente — foco em transformacao real vs. promessa generica; (2) teste de checkout com ancoragem de preco e elemento de urgencia real; (3) garantia mais destacada. Nao espere a VSL nova para testar o checkout."
+          "insight": "A queda na taxa de IC de 15% para 7% com CTR crescente é um diagnóstico claro de saturação de VSL — a sugestão do gestor está correta e urgente. Criar uma nova VSL com ângulo diferente deve ser prioridade absoluta antes de qualquer outro teste de tráfego. Enquanto a nova VSL não estiver pronta, evite escalonamento para preservar o ROI e o histórico da conta."
         },
         {
-          "status": "red",
-          "manager": "Erick",
-          "nome": "Alice — Mamae sem Pochete",
-          "funil": "VSL Venda Direta",
-          "problema": "Conversao de Checkout baixa — 94% de abandono no checkout. CTR fraco (1,14%) e oferta nao convence.",
-          "dados": "CTR 1,14%, Connect Rate 64%, conv. checkout 5,81%. 172 iniciaram o checkout, apenas 10 fecharam. Mesmo dobrando o CTR o ROAS mal chegaria em 1,05. Taxa de IC positiva em comparacao ao Desafio 21 dias, porem com conversao de checkout bem pior (5,81%).",
-          "tentou": "Novos ads a cada 3 dias para publico feminino em aberto — nenhum chegou a tracionar.",
+          "status": "red", "manager": "Erick",
+          "nome": "Alice (Mamae sem Pochete)",
+          "funil": "VSL - Venda direta",
+          "problema": "Conversão de Checkout baixa (5,81%) e criativos sem tração.",
+          "dados": "CTR 1,14%, Connect Rate 64%, conversão de checkout em 5,81% — 172 iniciaram, só 10 fecharam, 94% de abandono. Mesmo dobrando o CTR para 2,28% (cenário otimista), o ROAS mal chegaria em 1,05.",
+          "tentou": "Subindo novos ads de 3 em 3 dias em aberto para mulheres, nenhum chegou a tracionar.",
           "sugestao": "Mudar o pitch de vendas e analisar a copy da VSL.",
-          "insight": "A direcao esta certa, mas precisa de mais camadas. 94% de abandono no checkout indica que a oferta nao convence apos a VSL — o valor percebido esta aquem do preco. CTR de 1,14% mostra que o criativo tambem e fraco. Recomendacao em tres frentes: (1) nova VSL com foco em transformacao emocional e prova social forte; (2) teste A/B no checkout com ancoragem de preco + garantia destacada; (3) criativo de depoimento real com antes/depois. Atacar os 3 pontos em paralelo — esperar resolver um antes do outro atrasa a recuperacao."
+          "insight": "Com 94% de abandono no checkout e ROAS impossível mesmo em cenário otimista, o problema central está na oferta e na página de vendas — não nos criativos. A sugestão de revisar a copy da VSL e o pitch está correta. Priorize um redesign da página de checkout com foco em clareza da oferta, garantia visível e remoção de fricção antes de qualquer novo investimento em tráfego."
         },
         {
-          "status": "yellow",
-          "manager": "Erick",
-          "nome": "Wendell — Metodo Cronos",
-          "funil": "VSL Venda Direta",
-          "problema": "Suspensao na conta, CPM dobrou, impossibilitado de subir novos ativos para testar publico novo. Conta pausada.",
-          "dados": "CPM dobrou: R$23,93 (fev) > R$58,04 (mai). Conv. checkout caindo mes a mes: 14,56% > 10,03% > 9,19% > 9,76%. CTR ainda bom (1,54%), o que prova que o problema nao e o criativo.",
-          "tentou": "Conta pausada por suspensao — impossibilitado de testar novos criativos ou publicos.",
-          "sugestao": "Apos resolver a suspensao: testar mais criativos para baratear o CPM e voltar a engatar.",
-          "insight": "A suspensao e o bloqueador numero 1 — sem resolver isso, nenhuma otimizacao adianta. Quanto ao CPM dobrado, e sinal forte de saturacao de publico + concorrencia crescente no nicho. Ao retomar, recomendo comecar com exclusoes agressivas de publicos ja convertidos e testar Lookalike de compradores (LAL 1-3%) para encontrar publico fresco. Monitore se o CPM cai abaixo de R$35 nos primeiros 7 dias como termometro de saude."
+          "status": "yellow", "manager": "Erick",
+          "nome": "Wendell - Metodo Cronos",
+          "funil": "VSL venda direta",
+          "problema": "Suspensão na conta, CPM dobrou, impossível subir novos ativos para testar público novo. Taxa de IC caindo (5,88% em maio). Conta seguindo pausada.",
+          "dados": "CPM dobrou de R$ 23,93 em fevereiro para R$ 58,04 em maio. Conversão de checkout caindo: 14,56% fev → 10,03% mar → 9,19% abr → 9,76% mai. CTR ainda bom (1,54%), provando que o problema não é o criativo.",
+          "tentou": "—",
+          "sugestao": "Após resolver a suspensão da conta, testar mais criativos para baratear o CPM e voltar a escalar.",
+          "insight": "A suspensão é o bloqueio principal e o CPM dobrado confirma que o algoritmo perdeu histórico de qualidade — a sugestão do gestor está correta. Ao retomar, comece com orçamentos baixos em campanhas novas para re-aquecimento gradual da conta, priorizando públicos quentes (retargeting e LAL de compradores) antes de ir para públicos frios."
         }
       ]
     },
     {
       "name": "Edu",
-      "verde": ["VHE — Lives Semanais", "VHE — LDE", "VHE — C2", "VHE — C1", "Davi — MP", "Davi — BFR", "Lucas — LowTicket", "Lucas — SSP-L25"],
+      "verde": ["VHE - Lives Semanais", "VHE - LDE", "VHE - C2", "VHE - C1", "Davi - MP", "Davi - BFR", "Lucas - LowTicket", "Lucas - SSP-L25"],
       "clients": [
         {
-          "status": "red",
-          "manager": "Edu",
-          "nome": "VHE — L3",
-          "funil": "Lancamento",
-          "problema": "CPL pipocou — ConvLP 10% pior que no lancamento anterior.",
-          "dados": "CTR e CPM ligeiramente melhores que o lancamento anterior. ConvLP 10% pior. Connect Rate oscilou de 65% e subiu para 70%. 16 paginas criadas para teste sem resultado expressivo.",
-          "tentou": "Lateralizacao de anuncios campoes, teste de interesses, publico quente, TOP Ads VHE-L1, 16 paginas criadas para teste.",
-          "sugestao": "Continuar testando paginas.",
-          "insight": "Com CTR e CPM ok, o funil esta quebrando na landing page. 16 paginas testadas sem resultado expressivo e um sinal de alerta: pode ser um problema de proposta de valor, nao de design ou copy superficial. Recomendacao: testar um angulo radicalmente diferente na LP — urgencia e escassez real (vagas limitadas com numero) vs. beneficios genericos. Alem disso, verificar disparo do pixel: Connect Rate oscilando entre 65-70% pode indicar perda de eventos de visualizacao, comprometendo a otimizacao do algoritmo."
+          "status": "red", "manager": "Edu",
+          "nome": "VHE - L3",
+          "funil": "Lançamento",
+          "problema": "CPL pipocou. Mesmo com todas as métricas de topo do funil melhorando em relação ao lançamento anterior, o CPL ficou mais caro.",
+          "dados": "CPM, CPC e CPV ligeiramente mais baratos que o último lançamento. CPL mais caro. ConvLP estava 10% pior que o lançamento anterior. Connect Rate oscilou próximo de 65% e depois subiu para 70%. 16 páginas criadas para testes.",
+          "tentou": "Lateralização de anúncios campeões, teste de interesses, teste de público quente, subir TOP Ads VHE-L1, criação de 16 páginas para teste.",
+          "sugestao": "Continuar testando páginas de captura.",
+          "insight": "CPL caro com métricas de topo melhorando aponta diretamente para um problema de conversão na landing page de captura — a sugestão de continuar testando páginas está correta. Com 16 páginas já testadas, priorize analisar os padrões das que performaram melhor para criar hipóteses de CRO mais específicas, em vez de continuar testando sem uma direção clara."
         },
         {
-          "status": "yellow",
-          "manager": "Edu",
-          "nome": "ESIN — Inverter",
-          "funil": "Lancamento",
-          "problema": "CPL caro — Connect Rate proximo de zero indicando problema de pixel.",
-          "dados": "Connect Rate proximo de zero confirmou falha de pixel. Apos correcao, resultados foram reestabelecidos, mas seguem ligeiramente caros.",
-          "tentou": "Identificacao e correcao do problema de pixel. Retomada das paginas WordPress para testes.",
-          "sugestao": "Criar pixel novo para ir populando para proximo lancamento. Subir mais anuncios para teste.",
-          "insight": "O problema de pixel precisava ser resolvido antes de qualquer outra acao — foi feito corretamente. Com o pixel restaurado, agora o algoritmo pode otimizar de verdade. Com resultados ligeiramente caros, a proxima prioridade e volume de testes: mais variacoes de anuncio com headlines e angulos diferentes. O pixel novo para o proximo lancamento e uma decisao estrategica excelente — iniciar com dados limpos."
+          "status": "yellow", "manager": "Edu",
+          "nome": "Guto - RH",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Sem dados reportados pelo gestor nesta semana, não é possível gerar um insight técnico específico. Recomenda-se preencher as informações de problema, dados e próximos passos no War Room para que a situação possa ser analisada adequadamente na reunião de quarta."
         },
         {
-          "status": "yellow",
-          "manager": "Edu",
-          "nome": "ESIN — Solares",
-          "funil": "Lancamento",
-          "problema": "ConvLP despencou de 32% para 5% — problema na landing page.",
-          "dados": "ConvLP: 32% (antes) > 5% (queda critica) > 24% (apos troca por LP WordPress em 26/05).",
-          "tentou": "Substituicao da LP por versao WordPress — ConvLP recuperou para 24%.",
-          "sugestao": "Continuar subindo mais anuncios para teste.",
-          "insight": "Excelente diagnostico e acao rapida — recuperar de 5% para 24% em menos de 24h e sinal de que o problema foi corretamente identificado. Proximos passos criticos: (1) monitorar estabilidade da ConvLP por 3-5 dias antes de escalar; (2) criar uma versao de backup da LP campea em plataforma alternativa para eliminar ponto unico de falha; (3) com LP estavel, agora e hora de intensificar testes de criativos."
+          "status": "yellow", "manager": "Edu",
+          "nome": "ESIN - Inverter",
+          "funil": "Lançamento",
+          "problema": "CPL pipocou. Connect Rate próximo de zero por problema de pixel.",
+          "dados": "Connect Rate perto de zero confirmado como problema de pixel. Após correção com páginas WordPress, resultados foram reestabelecidos, mas seguem ligeiramente caros.",
+          "tentou": "—",
+          "sugestao": "Páginas do Wordpress voltaram a ser testadas e reestabelecidas como solução. Subir mais anúncios para teste.",
+          "insight": "A recuperação após o problema de pixel é positiva, mas resultados ainda caros indicam que o algoritmo está re-aprendendo. Não perturbe os conjuntos que estão estabilizando — teste novos criativos em duplicatas paralelas mantendo os conjuntos originais intocados até o CPL estabilizar por completo."
         },
         {
-          "status": "yellow",
-          "manager": "Edu",
-          "nome": "Guto — RH",
-          "funil": "Lancamento",
-          "problema": "Cliente listado em ponto de atencao — detalhes a serem documentados.",
-          "dados": "Listado como amarelo no resumo da carteira da semana.",
-          "tentou": "Monitoramento em andamento.",
-          "sugestao": "Documentar metricas especificas para diagnostico preciso.",
-          "insight": "Dados insuficientes para analise aprofundada nesta semana. Recomendo documentar no proximo relatorio as metricas-chave que geraram o alerta (CPL, ConvLP, ROAS) para permitir diagnostico preciso e acao direcionada na proxima reuniao."
+          "status": "yellow", "manager": "Edu",
+          "nome": "ESIN - Solares",
+          "funil": "Lançamento",
+          "problema": "Conversão de página despencou de 32% para 5%.",
+          "dados": "ConvLP caiu de 32% para 5%. Após substituição por página WordPress campeã (26/05), a ConvLP subiu de 5% para 24% no dia seguinte — confirmando que a landing page era o único gargalo.",
+          "tentou": "—",
+          "sugestao": "Continuar testando páginas WordPress. Subir mais anúncios para teste.",
+          "insight": "A melhora dramática de 5% para 24% na ConvLP após a troca de página confirma que a landing page era o gargalo real — a sugestão de subir mais anúncios agora está correta. Monitore a estabilidade do 24% por 3 a 5 dias antes de escalar o budget para garantir que o resultado não é pontual."
         }
       ]
     },
@@ -261,268 +254,223 @@ const DATA = {
       "verde": ["Carlos Beil", "Ecosmetics"],
       "clients": [
         {
-          "status": "red",
-          "manager": "Adryon",
+          "status": "red", "manager": "Adryon",
           "nome": "Partiu Empreender",
           "funil": "Workshop dos Namorados",
-          "problema": "CPA caro (R$101,42) — taxas de checkout (7,01%) e finalizacao de compra (32,5%) extremamente baixas.",
-          "dados": "CPA R$101,42, ROAS 1,45. Checkout 7,01%, finalizacao 32,5%, geral 2,28%. CPM R$26,02, CTR 1,48%, frequencia 3,79. Cliente confirmou impossibilidade de entregar nova LP.",
-          "tentou": "Testes de criativos (sem tracao nos criativos em escala), teste de nova LP voltada a publico frio (resultado pior: checkout 1,96%), 6 conjuntos de publico frio com R$1.338,61.",
-          "sugestao": "Pausar a acao principal; manter apenas publico quente e campanha de teste de criativos enquanto ROAS maior que 2. Pausar completamente caso volte a tomar prejuizo.",
-          "insight": "Decisao estrategica madura. Com frequencia 3,79 e cliente sem capacidade de entregar nova LP, continuar escalando e queimar o publico quente que ainda esta lucrativo. A preservacao para a Imersao e a estrategia certa. Ponto de atencao: a frequencia vai continuar subindo — risco real de queimar o publico quente em 7-10 dias. Recomendacao: definir com o cliente um prazo maximo formal (ex: 10 dias) para entregar a LP nova, caso contrario pausar completamente para proteger o publico e a verba."
+          "problema": "CPA caro (R$101,42, ROAS 1,45) devido a taxas da página extremamente baixas no checkout e na finalização de compra.",
+          "dados": "Taxa de checkout 7,01%, finalização de compra 32,5%, geral 2,28%. CPM, CPC, CTR e connect rate saudáveis, mas frequência em 3,79 — público saturando.",
+          "tentou": "Testes de criativos sem impacto nas taxas de conversão. Teste de página para público frio ficou pior (checkout 1,96%, finalização 50%, geral 0,98%). Testes de 6 conjuntos de públicos frios: checkout 3,76%, finalização 17,24%, geral 0,65%.",
+          "sugestao": "Focar em alterações nas páginas para melhorar taxa de checkout. Cliente confirmou que não conseguirá entregar melhorias na página e considera pausar enquanto ROAS estiver acima de 2, focando na Imersão.",
+          "insight": "Com frequência em 3,79 e taxa de checkout de 7%, o público está saturado e a página é o gargalo real. A sugestão de pausar e focar na Imersão faz sentido estratégico — continuar gastando com ROAS de 1,45 em uma página fraca é queimar verba. Para o retorno, a prioridade absoluta deve ser uma nova landing page de checkout testada antes de reativar campanhas."
         },
         {
-          "status": "yellow",
-          "manager": "Adryon",
+          "status": "yellow", "manager": "Adryon",
           "nome": "Edu Pura Pesca",
-          "funil": "MIA — Perpetuo Low Ticket",
-          "problema": "CPA caro (R$32,75), ROAS negativo (0,76) — gargalo na taxa de checkout extremamente baixa (6,58%).",
-          "dados": "CPA R$32,75, ROAS 0,76. Taxa checkout 6,58%, finalizacao 82,43%, conversao geral 5,24%. CPM, CPC, CTR, connect rate e frequencia saudaveis.",
-          "tentou": "Aguardando entrega de nova LP pelo cliente. Monitoramento continuo.",
-          "sugestao": "Nivel 1 (urgente): tirar menu ancora, colocar preco R$19,90 abaixo do 1 botao. Nivel 2: novo layout de LP com mais seguranca e clareza na oferta.",
-          "insight": "Diagnostico perfeito — o funil quebra exclusivamente no checkpoint de entrada. Com 82% de finalizacao apos entrar no checkout mas apenas 6,58% chegando la, o atrito esta no primeiro passo. O teste Nivel 1 e a acao mais rapida e de maior impacto potencial: mostrar o preco logo abaixo do CTA reduz atrito de curiosidade. Com ROAS 0,76, cada dia sem acao e prejuizo direto. Implementar Nivel 1 hoje e definir deadline de 5 dias uteis para o Nivel 2."
+          "funil": "MIA (Perpetuo - Low Ticket)",
+          "problema": "CPA caro (ROAS 0,76) devido a taxa de checkout da página extremamente baixa (6,58%).",
+          "dados": "CPA R$ 32,75, ROAS 0,76. Taxa de checkout 6,58%, finalização de compra 82,43%, geral 5,24%. CPM, CPC, CTR, connect rate e frequência saudáveis — gargalo está somente na conversão para o checkout.",
+          "tentou": "—",
+          "sugestao": "Teste Nível 1: remover menu âncora e mostrar preço logo abaixo do primeiro botão para aumentar taxa de view page para checkout. Teste Nível 2 (se N1 não resolver): novo layout da LP com mais segurança e clareza na oferta. Cobrar mais criativos para não limitar a otimização.",
+          "insight": "ROAS de 0,76 com finalização de compra de 82% indica que quem chega ao checkout fecha — o único gargalo é trazer mais pessoas até lá. O teste Nível 1 sugerido é uma mudança de baixo risco e alto potencial: implemente imediatamente e meça o impacto antes de partir para o redesign completo do Nível 2."
         },
         {
-          "status": "yellow",
-          "manager": "Adryon",
+          "status": "yellow", "manager": "Adryon",
           "nome": "Briko Seguros",
-          "funil": "Captacao de Leads — Google Ads",
-          "problema": "Campanhas nao imprimem — baixo volume de pesquisas nas palavras-chave utilizadas.",
-          "dados": "Falta de volume de busca nas palavras-chave originais. Adaptacoes de idioma e variacoes implementadas.",
-          "tentou": "Alterado objetivo de CPC manual para maximizar cliques. Criadas versoes das kw em ingles com restricao de idioma pt/es. Versao com 'for brazilians / for foreigners / for expatriates'.",
-          "sugestao": "Meet de alinhamento com o cliente para apresentar primeiras metricas e explicar o contexto do Google Ads.",
-          "insight": "Diagnostico e acoes corretos para o nicho. Palavras-chave de baixo volume sao comuns em segmentos muito especificos (seguros para estrangeiros no Brasil). As adaptacoes de idioma e objetivo sao a abordagem certa. Sugestao adicional: considerar campanhas de Display e YouTube como demand generation — como o publico nao busca ativamente, criar awareness pago pode ser mais eficaz que aguardar busca organica. No meet com o cliente, alinhar expectativas sobre o tempo de aprendizado do Google nesse nicho (4-6 semanas)."
+          "funil": "Captacao de leads - Google Ads",
+          "problema": "Campanhas não imprimem por falta de volume de pesquisas nas palavras-chave utilizadas.",
+          "dados": "Problema estrutural de mercado — volume de busca baixo para as palavras-chave do nicho, não um problema de otimização.",
+          "tentou": "—",
+          "sugestao": "Alterar objetivo para maximizar cliques (implementado). Criar versões das palavras-chave em inglês com idioma limitado ao português/espanhol (implementado). Versão com termos 'for brazilians', 'for foreigners', 'for expatriates' (implementado). Meet de alinhamento com cliente para apresentar primeiras métricas.",
+          "insight": "A falta de volume de busca é um desafio estrutural para esse nicho em Google Search — as adaptações implementadas são corretas e necessárias. Considere complementar com campanhas de Display e Demand Gen segmentadas por interesse em seguros internacionais para gerar demanda ativa onde a demanda existente é insuficiente."
         }
       ]
     },
     {
       "name": "Leandro",
-      "verde": ["Casinha — Arquitetando", "Clinica PRC", "Elisa Lobo"],
+      "verde": ["Casinha - Arquitetando", "Clínica PRC", "Elisa Lobo"],
       "clients": [
         {
-          "status": "red",
-          "manager": "Leandro",
-          "nome": "Dr. Giovanni Finazzi",
-          "funil": "Captacao de Leads",
-          "problema": "Campanhas trazendo apenas leads desqualificados — conta pausada por falta de saldo.",
-          "dados": "Volume de mensagens baixo. Leads desqualificados mesmo com testes de publicos e criativos. Conta pausada por falta de saldo do cliente.",
-          "tentou": "Testes de publicos e criativos. SM orientadas a voltar conteudo sobre o procedimento.",
-          "sugestao": "Ao retomar: segmentar por raio de 7km nos bairros mais nobres de SP, igual a estrategia da Dra. Mariana. Novos criativos com prova social.",
-          "insight": "A segmentacao geografica por raio em bairros nobres e uma das estrategias mais eficazes para qualificacao de lead em estetica medica — aprovada. Dois bloqueadores em paralelo: sem saldo nao ha como avancar, e sem criativos de prova social o publico desqualificado continua chegando. Recomendo mapear com o cliente um orcamento minimo viavel e garantir abastecimento continuo. Ao retomar: (1) raio geografico nobre; (2) criativo de depoimento em video (naturalmente filtra leads desqualificados); (3) headline especifica do procedimento para pre-qualificar intencao."
+          "status": "red", "manager": "Leandro",
+          "nome": "Dr Finazzi",
+          "funil": "Captacao de leads",
+          "problema": "Campanha de mensagem trazendo apenas leads desqualificados. Conta pausada por falta de saldo.",
+          "dados": "Volume de mensagens gerado, mas leads completamente desqualificados. CTR, CPM e CPC disponíveis, porém sem utilidade por qualidade do lead.",
+          "tentou": "Testes de públicos e criativos.",
+          "sugestao": "Orientar equipe de SM a voltar todo conteúdo sobre o procedimento. Prova social e novos criativos. Ao retomar, segmentar em raio de 7km nos bairros mais nobres de São Paulo.",
+          "insight": "Leads desqualificados em campanha de mensagem indica desalinhamento entre a segmentação e o público ideal do procedimento. O raio de 7km nos bairros nobres é uma hipótese sólida para qualificar o público. Combine com criativos que pré-qualifiquem o lead (mencionando valor do procedimento ou perfil do paciente ideal) para reduzir volume de mensagens fora do perfil."
         },
         {
-          "status": "red",
-          "manager": "Leandro",
+          "status": "red", "manager": "Leandro",
           "nome": "Mariana Torres",
-          "funil": "Captacao de Leads",
-          "problema": "Volume de mensagens muito baixo — poucos criativos disponiveis para teste.",
-          "dados": "CPM R$63,00 (normal para estetica), CPC R$8,39 (grave), baixo alcance (grave). Apenas 3 mensagens geradas nos ultimos 4 dias. Leads que responderam tem boa qualidade.",
-          "tentou": "Manutencao das campanhas com criativos limitados.",
-          "sugestao": "Teste de CBO com R$30 e 5 conjuntos duplicados do melhor anuncio (AD-09). Solicitar ao menos 3-5 novos criativos por semana em remessa unica.",
-          "insight": "CPC de R$8,39 e critico e o gargalo esta evidente: poucos criativos = algoritmo sem material para otimizar, resultando em alcance baixo e CPM alto. O CBO com AD-09 duplicado e a estrategia certa para forcar o algoritmo a encontrar novos clusters de publico. O dado positivo e que os 3 leads que responderam tem boa qualidade — a oferta esta certa, so falta volume. Estabelecer um SLA formal com o cliente para entrega de criativos (minimo 3-5 por semana em remessa unica) e a unica solucao estrutural para este caso."
+          "funil": "Captacao de leads",
+          "problema": "Volume de mensagens baixo e poucos criativos disponíveis para testar.",
+          "dados": "CPM R$ 63,00 (esperado para estética médica), CPC R$ 8,39 (grave), baixo alcance (grave). Os poucos leads que chegaram, no entanto, estavam respondendo bem ao atendimento.",
+          "tentou": "—",
+          "sugestao": "Urgente: pelo menos 4 criativos novos para testar e aumentar verba de R$ 15 para R$ 30. Teste de CBO com R$30 e 5 conjuntos duplicados com melhor anúncio (AD-09) para encontrar novo cluster de público e baixar a frequência que está saturando o alcance.",
+          "insight": "CPM de R$63 com baixo alcance indica frequência alta e público saturando — o CBO com conjuntos duplicados é a abordagem correta para explorar novos clusters. A qualidade dos leads que chegam é o ponto positivo a preservar. Novos criativos são prioridade urgente: sem material novo, o algoritmo não tem como encontrar públicos diferentes."
         },
         {
-          "status": "yellow",
-          "manager": "Leandro",
+          "status": "yellow", "manager": "Leandro",
           "nome": "Qpharma",
-          "funil": "Captacao de Leads",
-          "problema": "Equipe comercial nao converte — custo e volume de mensagens estao bons, o gargalo esta no pos-captacao.",
-          "dados": "Volume e custo de mensagens abaixo do esperado (positivo). Problema esta na conversao do time comercial pos-captacao.",
-          "tentou": "Sugestao de bater nos diferenciais da farmacia (prazo de entrega 24h), novos criativos em video.",
-          "sugestao": "Analisar conversas no Pedido Pago para identificar qualidade dos leads e atendimento da nova secretaria.",
-          "insight": "Correto — o gargalo nao e o trafego, e o comercial. A analise das conversas e o primeiro passo certo para identificar onde a venda quebra. Apos isso, recomendo: criar um script de atendimento objetivo (5 perguntas de qualificacao + apresentacao da proposta em 3 pontos), fazer role-play com a secretaria antes de cada semana, e implementar follow-up automatizado para leads sem resposta em 24h. Problema operacional, nao de trafego."
+          "funil": "Captacao de leads",
+          "problema": "Equipe comercial não converte os leads gerados. Campanha rodando para público quente com lista de clientes.",
+          "dados": "Volume e custo de mensagens bons e abaixo do esperado para o nicho. O problema está claramente na etapa de vendas, não no tráfego.",
+          "tentou": "—",
+          "sugestao": "Bater nos diferenciais da farmácia: prazo de entrega em até 24h após aprovação. Novos criativos em vídeo. Analisar conversas no CRM (Pedido Pago) para identificar qualidade dos leads e atendimento da nova secretária.",
+          "insight": "Volume e custo de mensagens bons com time comercial sem converter aponta para um problema de processo de vendas, não de tráfego. A análise das conversas no CRM é o próximo passo mais importante — mapeie as principais objeções e crie um script de atendimento baseado nas conversas que mais fecharam."
         },
         {
-          "status": "yellow",
-          "manager": "Leandro",
+          "status": "yellow", "manager": "Leandro",
+          "nome": "Vínicius Mello",
+          "funil": "Captacao de leads + Distribuicao de conteudo",
+          "problema": "Impossível identificar qual anúncio gera mais agendamentos (sem rastreamento de mensagem). Secretária ainda não converte o número necessário de agendamentos. Mentoria externa alterou a LP.",
+          "dados": "Meta de 400 leads/mês sendo atingida, CPL ~R$ 10. 21 agendamentos no total e 1 cirurgia realizada. Custo por seguidor mantido abaixo de R$ 2,00.",
+          "tentou": "Várias calls sobre qualidade de atendimento, envio de manual de boas práticas, acompanhamento e feedback via CRM.",
+          "sugestao": "Buscar ferramenta para rastrear mensagens de WhatsApp via UTM.",
+          "insight": "Com meta de leads atingida e CPL de R$10, o funil de topo está funcionando — o gargalo está no rastreamento e na conversão comercial. O rastreamento via UTM no WhatsApp é a prioridade técnica correta. Quanto à LP trocada pela mentoria externa, monitore o impacto nos agendamentos antes de aceitar qualquer conclusão da consultoria."
+        },
+        {
+          "status": "yellow", "manager": "Leandro",
           "nome": "LC Agro",
-          "funil": "Captacao de Leads",
-          "problema": "Leads frios e desqualificados — demora no abastecimento de saldo.",
-          "dados": "Numeros no gerenciador bons: CPM R$25, CTR 2,21%, CPC R$1,76, bom volume de mensagens.",
-          "tentou": "Campanhas de mensagem ativas com boas metricas de trafego.",
-          "sugestao": "Testar formulario para pre-qualificar o lead. Testar campanhas de mensagem em paralelo com campanha de cadastro.",
-          "insight": "Metricas de trafego boas + leads ruins = publico amplo demais ou criativo atraindo o perfil errado. O formulario de pre-qualificacao e a acao mais inteligente — adicionar 2-3 perguntas de qualificacao (tamanho da propriedade, principal produto, estado) pode dobrar a qualidade sem impacto severo no volume. Paralelamente, revisar o copy dos criativos para incluir qualificadores naturais ('se voce tem propriedade rural acima de X hectares...'). O teste paralelo de mensagem vs. cadastro vai revelar qual canal atrai o perfil mais quente."
-        },
-        {
-          "status": "yellow",
-          "manager": "Leandro",
-          "nome": "Dr. Vinicius Mello",
-          "funil": "Captacao de Leads + Distribuicao de Conteudo",
-          "problema": "Dificuldade em rastrear qual anuncio gera agendamentos. Secretaria ainda nao converte o suficiente. Pressao de mentoria externa sobre LP e atendimento.",
-          "dados": "Meta de 400 leads/mes sendo atingida. CPL ~R$10, custo por seguidor abaixo de R$2. 21 agendamentos totais, 1 cirurgia fechada. Mentoria externa criticou a LP e enviou diretrizes de atendimento conflitantes.",
-          "tentou": "Multiplas calls sobre atendimento, manual de boas praticas enviado, apontamentos no CRM.",
-          "sugestao": "Buscar ferramenta para rastrear mensagens via UTM.",
-          "insight": "O trafego esta performando muito bem (CPL R$10 e excelente para o nicho medico). O gargalo e o funil pos-lead. Sobre a mentoria externa: e um risco real de conflito de diretrizes que pode comprometer o trabalho — recomendo propor uma reuniao tripartite (agencia + mentor + cliente) para unificar as diretrizes antes que gerem confusao no atendimento. O rastreamento por UTM no WhatsApp via redirect com encurtador e a solucao mais pratica para identificar quais anuncios geram cirurgia. Uma cirurgia fechada nesse nicho pode justificar todo o investimento do mes."
+          "funil": "Captacao de leads",
+          "problema": "Leads bem frios e desqualificados. Demora no abastecimento de saldo pelo cliente.",
+          "dados": "Números no gerenciador saudáveis: bom volume de mensagens, baixo custo por msg, CPM R$ 25, CTR 2,21%, CPC R$ 1,76.",
+          "tentou": "—",
+          "sugestao": "Testar formulário de cadastro para preparar melhor o lead antes da abordagem comercial. Acompanhar se volume de leads do gerenciador bate com o Kommo. Testar campanhas de mensagem em paralelo com campanha de cadastro.",
+          "insight": "Métricas de topo excelentes com leads desqualificados é um sinal clássico de desalinhamento no criativo — o anúncio atrai cliques mas não pré-qualifica o lead. O teste de formulário com 1 ou 2 perguntas de qualificação (ex: tamanho da propriedade, cultura principal) é a abordagem correta para filtrar antes do primeiro contato comercial."
         }
       ]
     },
     {
       "name": "Lucas",
-      "verde": ["Imperio Medico — Distribuicao", "Hermann Grebb — Typebot", "Thata — FSE Type", "Thata — FSE Nativo", "Thata — C2", "Thata — C1", "Pompeu — Webinarios", "Pompeu — MPI", "Mayara — Typeform"],
+      "verde": ["Imperio Medico - Distribuicao", "Hermann Grebb - Typebot", "Thata - FSE Type", "Thata - FSE nativo", "Thata - C2", "Thata - C1", "Pompeu - Webnarios", "Pompeu - MPI", "Mayara - Typeform"],
       "clients": [
         {
-          "status": "red",
-          "manager": "Lucas",
-          "nome": "Dr. William — PZT",
+          "status": "red", "manager": "Lucas",
+          "nome": "Dr. William - PZT",
           "funil": "Perpetuo",
-          "problema": "Instagram restrito para anunciar — IC absurdamente caro (R$129) e campanhas principal paralisadas.",
-          "dados": "Novo IG: CPM 1 teste R$70, CPM 2 teste R$30,08 (melhorou). IC em R$129. Campanhas pausadas em 19/05, retomadas em 26/05 com novo perfil de IG. Metricas secundarias voltando a normalidade.",
-          "tentou": "Campanha de teste com novo perfil de Instagram (1 rodada: CPM alto). 2 rodada de testes com melhora nas metricas secundarias.",
-          "sugestao": "Com metricas secundarias melhorando, retomar testes de criativos e publicos gradualmente para identificar possibilidade de escala.",
-          "insight": "A estrategia de recomeço com novo IG esta no caminho certo. CPM de R$30 no segundo teste vs R$70 no primeiro confirma que o algoritmo esta aprendendo o perfil do novo IG — evolucao positiva. IC em R$129 e esperado nessa fase inicial de aquecimento, onde o algoritmo ainda nao tem historico suficiente para otimizar. Recomendacao: aumentar orcamento gradualmente apenas quando IC cair consistentemente abaixo de R$60. Manter paciencia nas proximas 2-3 semanas. Evitar multiplas mudancas simultaneas que possam reiniciar o aprendizado do algoritmo."
+          "problema": "Instagram restrito para anunciar. CPM subiu, custo por IC dobrou e ROAS ficou negativo nas campanhas remanescentes.",
+          "dados": "Teste em novo perfil do Instagram: CPM normal R$29 → R$70 no 1º teste (absurdo). Campanhas paralisadas em 19/05. Retorno dos testes em 26/05 com CPM melhor (R$ 30,08), mas IC ainda absurdamente caro: R$ 129.",
+          "tentou": "Voltar a testar campanhas para o novo perfil do Instagram, que vem mostrando métricas secundárias melhores que o primeiro teste.",
+          "sugestao": "Com métricas secundárias voltando à normalidade, retomar testes de criativos, públicos e estruturas gradualmente para sentir a possibilidade de escala.",
+          "insight": "A restrição do Instagram é o problema raiz e os testes estão no caminho certo. O IC de R$129 no novo perfil indica que o algoritmo ainda não tem histórico suficiente — o re-aquecimento gradual é obrigatório. Escale 20 a 30% de verba por semana e só aumente o ritmo quando o IC voltar à faixa histórica normal anterior à restrição."
         },
         {
-          "status": "yellow",
-          "manager": "Lucas",
-          "nome": "Imperio Medico — DCM-F8",
-          "funil": "Perpetuo",
-          "problema": "CPA muito instavel — varia de dias bons (CPA menor que R$1K) a dias ruins (CPA maior que R$1,3K).",
-          "dados": "CPM melhorando nos ultimos 2 dias. CTR acima de 2%. CPA caindo de R$1,7K para R$1,3K. Teste de pagina com ticket de R$47 melhorou os resultados significativamente.",
-          "tentou": "Teste de pagina com ticket de R$47 — resultado positivo.",
-          "sugestao": "Testar LAL de Medmaster e LAL de compradores. Continuar testando criativos.",
-          "insight": "CTR acima de 2% com CPA instavel indica que o criativo esta ok, mas o publico que chega a pagina ainda nao e o ideal. O LAL de Medmaster e de compradores e exatamente a estrategia certa — aproveitar audiencias similares de produto de saude ja validado. O resultado positivo do ticket de R$47 e um sinal estrategico importante: considerar estruturar um funil com tripwire (R$47) + upsell de ticket maior, o que pode estabilizar o ROAS e reduzir a dependencia de publicos frios sem historico de compra."
+          "status": "yellow", "manager": "Lucas",
+          "nome": "DCM-F8",
+          "funil": "Imperio Medico - DCM-F8",
+          "problema": "CPA muito instável: variando de dias bons (CPA abaixo de R$1.000) a dias ruins (CPA acima de R$1.300).",
+          "dados": "CPM em melhora nos últimos 2 dias, CTR acima de 2%, CPA vem baixando (de R$1,7k para R$1,3k no momento). Após testar página com ticket de R$47, os resultados melhoraram significativamente.",
+          "tentou": "—",
+          "sugestao": "Seguir testando criativos. Testar público de lookalike do Medmaster. Testar novamente público de lookalike de compradores.",
+          "insight": "A melhora expressiva após o teste com ticket de R$47 confirma sensibilidade ao preço na decisão de compra — considere tornar essa oferta de entrada o foco principal da campanha. Os lookalikes de compradores tendem a ter melhor ROAS para ofertas de ticket médio: priorize esse teste antes do lookalike do Medmaster."
         }
       ]
     }
   ]
 };
-
-(function() {
-  let tg=0, ty=0, tr=0;
-  DATA.managers.forEach(m => {
-    tg += m.verde.length;
-    ty += m.clients.filter(c => c.status==='yellow').length;
-    tr += m.clients.filter(c => c.status==='red').length;
+(function(){
+  let tg=0,ty=0,tr=0;
+  DATA.managers.forEach(m=>{
+    tg+=m.verde.length;
+    ty+=m.clients.filter(c=>c.status==='yellow').length;
+    tr+=m.clients.filter(c=>c.status==='red').length;
   });
-  const tot = tg+ty+tr;
-  const score = Math.round((tg*100 + ty*50) / tot);
-
-  document.getElementById('weekBadge').textContent = 'Semana ' + DATA.week;
-  document.getElementById('updatedAt').textContent = 'Atualizado em ' + DATA.updatedAt;
-  document.getElementById('numGreen').textContent  = tg;
-  document.getElementById('numYellow').textContent = ty;
-  document.getElementById('numRed').textContent    = tr;
-  document.getElementById('pctGreen').textContent  = ((tg/tot)*100).toFixed(1) + '%';
-  document.getElementById('pctYellow').textContent = ((ty/tot)*100).toFixed(1) + '%';
-  document.getElementById('pctRed').textContent    = ((tr/tot)*100).toFixed(1) + '%';
-  document.getElementById('scoreValue').textContent = score;
-
-  const circ = 2 * Math.PI * 46;
-  const offset = circ - (score/100) * circ;
-  const ringColor = score >= 70 ? '#22c55e' : score >= 50 ? '#f59e0b' : '#ef4444';
-  const sc = document.getElementById('scoreCircle');
-  sc.style.strokeDasharray = circ;
-  sc.style.stroke = ringColor;
-  sc.style.strokeDashoffset = circ;
-  setTimeout(() => { sc.style.transition = 'stroke-dashoffset 1.2s ease'; sc.style.strokeDashoffset = offset; }, 200);
-
-  const ghb = document.getElementById('globalHealthBar');
-  ghb.innerHTML = `<div class="seg-g" style="width:${(tg/tot*100).toFixed(1)}%"></div><div class="seg-y" style="width:${(ty/tot*100).toFixed(1)}%"></div><div class="seg-r" style="width:${(tr/tot*100).toFixed(1)}%"></div>`;
-
-  const mgGrid = document.getElementById('managerGrid');
-  DATA.managers.forEach(m => {
-    const v = m.verde.length;
-    const y = m.clients.filter(c => c.status==='yellow').length;
-    const r = m.clients.filter(c => c.status==='red').length;
-    const t = v+y+r;
-    const ms = Math.round((v*100 + y*50) / t);
-    const sc2 = ms >= 70 ? 'score-high' : ms >= 50 ? 'score-mid' : 'score-low';
-    const card = document.createElement('div');
-    card.className = 'manager-card';
-    card.dataset.manager = m.name;
-    card.innerHTML = `<div class="manager-name">${m.name}</div><div class="manager-stats"><div class="mgr-stat"><div class="n g">${v}</div><div class="l">Saudaveis</div></div><div class="mgr-stat"><div class="n y">${y}</div><div class="l">Atencao</div></div><div class="mgr-stat"><div class="n r">${r}</div><div class="l">Criticos</div></div></div><div class="mgr-bar"><div class="seg-g" style="width:${(v/t*100).toFixed(0)}%"></div><div class="seg-y" style="width:${(y/t*100).toFixed(0)}%"></div><div class="seg-r" style="width:${(r/t*100).toFixed(0)}%"></div></div><div class="mgr-score-pill ${sc2}">Score ${ms}/100</div><div class="manager-total">${t} clientes</div>`;
-    card.addEventListener('click', () => filterManager(m.name, card));
+  const tot=tg+ty+tr;
+  const score=Math.round((tg*100+ty*50)/tot);
+  document.getElementById('weekBadge').textContent='Semana '+DATA.week;
+  document.getElementById('updatedAt').textContent='Atualizado em '+DATA.updatedAt;
+  document.getElementById('numGreen').textContent=tg;
+  document.getElementById('numYellow').textContent=ty;
+  document.getElementById('numRed').textContent=tr;
+  document.getElementById('pctGreen').textContent=((tg/tot)*100).toFixed(1)+'%';
+  document.getElementById('pctYellow').textContent=((ty/tot)*100).toFixed(1)+'%';
+  document.getElementById('pctRed').textContent=((tr/tot)*100).toFixed(1)+'%';
+  document.getElementById('scoreValue').textContent=score;
+  const circ=2*Math.PI*46;
+  const offset=circ-(score/100)*circ;
+  const ringColor=score>=70?'#22c55e':score>=50?'#f59e0b':'#ef4444';
+  const sc=document.getElementById('scoreCircle');
+  sc.style.strokeDasharray=circ;
+  sc.style.stroke=ringColor;
+  sc.style.strokeDashoffset=circ;
+  setTimeout(()=>{sc.style.transition='stroke-dashoffset 1.2s ease';sc.style.strokeDashoffset=offset;},200);
+  const ghb=document.getElementById('globalHealthBar');
+  ghb.innerHTML=`<div class="seg-g" style="width:${(tg/tot*100).toFixed(1)}%"></div><div class="seg-y" style="width:${(ty/tot*100).toFixed(1)}%"></div><div class="seg-r" style="width:${(tr/tot*100).toFixed(1)}%"></div>`;
+  const mgGrid=document.getElementById('managerGrid');
+  DATA.managers.forEach(m=>{
+    const v=m.verde.length;
+    const y=m.clients.filter(c=>c.status==='yellow').length;
+    const r=m.clients.filter(c=>c.status==='red').length;
+    const t=v+y+r;
+    const ms=t>0?Math.round((v*100+y*50)/t):0;
+    const sc2=ms>=70?'score-high':ms>=50?'score-mid':'score-low';
+    const card=document.createElement('div');
+    card.className='manager-card';
+    card.dataset.manager=m.name;
+    card.innerHTML=`<div class="manager-name">${m.name}</div><div class="manager-stats"><div class="mgr-stat"><div class="n g">${v}</div><div class="l">Saudáveis</div></div><div class="mgr-stat"><div class="n y">${y}</div><div class="l">Atenção</div></div><div class="mgr-stat"><div class="n r">${r}</div><div class="l">Críticos</div></div></div><div class="mgr-bar"><div class="seg-g" style="width:${t>0?(v/t*100).toFixed(0):0}%"></div><div class="seg-y" style="width:${t>0?(y/t*100).toFixed(0):0}%"></div><div class="seg-r" style="width:${t>0?(r/t*100).toFixed(0):0}%"></div></div><div class="mgr-score-pill ${sc2}">Score ${ms}/100</div><div class="manager-total">${t} clientes no total</div>`;
+    card.addEventListener('click',()=>filterManager(m.name,card));
     mgGrid.appendChild(card);
   });
-
-  const mfb = document.getElementById('managerFilterBtns');
-  DATA.managers.forEach(m => {
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.dataset.manager = m.name;
-    btn.textContent = m.name;
-    btn.addEventListener('click', () => filterManager(m.name, btn));
+  const mfb=document.getElementById('managerFilterBtns');
+  DATA.managers.forEach(m=>{
+    const btn=document.createElement('button');
+    btn.className='filter-btn';
+    btn.dataset.manager=m.name;
+    btn.textContent=m.name;
+    btn.addEventListener('click',()=>filterManager(m.name,btn));
     mfb.appendChild(btn);
   });
-
-  const allAlerts = [];
-  DATA.managers.forEach(m => {
-    m.clients.filter(c => c.status==='red').forEach(c => allAlerts.push({...c, manager: m.name}));
-    m.clients.filter(c => c.status==='yellow').forEach(c => allAlerts.push({...c, manager: m.name}));
+  const allAlerts=[];
+  DATA.managers.forEach(m=>{
+    m.clients.filter(c=>c.status==='red').forEach(c=>allAlerts.push({...c,manager:m.name}));
+    m.clients.filter(c=>c.status==='yellow').forEach(c=>allAlerts.push({...c,manager:m.name}));
   });
-  window._allAlerts = allAlerts;
-  window._statusFilter = 'all';
-  window._managerFilter = null;
+  window._allAlerts=allAlerts;
+  window._statusFilter='all';
+  window._managerFilter=null;
   renderCards();
 })();
-
-function renderCards() {
-  const grid = document.getElementById('cardsGrid');
-  grid.innerHTML = '';
-  const sf = window._statusFilter, mf = window._managerFilter;
-  let filtered = window._allAlerts;
-  if (sf === 'red')    filtered = filtered.filter(c => c.status === 'red');
-  if (sf === 'yellow') filtered = filtered.filter(c => c.status === 'yellow');
-  if (mf)              filtered = filtered.filter(c => c.manager === mf);
-
-  if (filtered.length === 0) {
-    grid.innerHTML = '<div class="empty-state"><div class="big">✦</div><p>Nenhum cliente para este filtro</p></div>';
+function renderCards(){
+  const grid=document.getElementById('cardsGrid');
+  grid.innerHTML='';
+  const sf=window._statusFilter,mf=window._managerFilter;
+  let filtered=window._allAlerts;
+  if(sf==='red') filtered=filtered.filter(c=>c.status==='red');
+  if(sf==='yellow') filtered=filtered.filter(c=>c.status==='yellow');
+  if(mf) filtered=filtered.filter(c=>c.manager===mf);
+  if(filtered.length===0){
+    grid.innerHTML='<div class="empty-state"><div class="big">✦</div><p>Nenhum cliente para este filtro</p></div>';
     return;
   }
-  filtered.forEach((c, idx) => {
-    const card = document.createElement('div');
-    card.className = 'client-card ' + c.status;
-    const sl = c.status === 'red' ? '🔴 Critico' : '🟡 Atencao';
-    card.innerHTML = `
-      <div class="card-header" onclick="toggleCard(this)">
-        <div class="card-header-left">
-          <div class="card-status-row">
-            <span class="status-pill ${c.status}">${sl}</span>
-            <span class="manager-pill">${c.manager}</span>
-            <span class="funil-pill">${c.funil}</span>
-          </div>
-          <div class="client-name">${c.nome}</div>
-        </div>
-        <div class="card-chevron ${idx < 3 ? 'open' : ''}">›</div>
-      </div>
-      <div class="card-body ${idx < 3 ? 'open' : ''}">
-        <div class="info-block"><div class="info-label">Problema</div><div class="info-text">${c.problema}</div></div>
-        <div class="info-block"><div class="info-label">O que os dados mostram</div><div class="info-text">${c.dados}</div></div>
-        <div class="info-block"><div class="info-label">O que ja foi tentado</div><div class="info-text">${c.tentou}</div></div>
-        <div class="info-block"><div class="info-label">Sugestao do gestor</div><div class="info-text">${c.sugestao}</div></div>
-        <div class="insight-block">
-          <div class="insight-header"><span class="insight-badge">✦ Insight Claude</span></div>
-          <div class="insight-text">${c.insight}</div>
-        </div>
-      </div>`;
+  filtered.forEach((c,idx)=>{
+    const card=document.createElement('div');
+    card.className='client-card '+c.status;
+    const sl=c.status==='red'?'🔴 Crítico':'🟡 Atenção';
+    card.innerHTML=`<div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-status-row"><span class="status-pill ${c.status}">${sl}</span><span class="manager-pill">${c.manager}</span><span class="funil-pill" title="${c.funil}">${c.funil}</span></div><div class="client-name">${c.nome}</div></div><div class="card-chevron ${idx<3?'open':''}">›</div></div><div class="card-body ${idx<3?'open':''}"><div class="info-block"><div class="info-label">Problema</div><div class="info-text">${c.problema}</div></div><div class="info-block"><div class="info-label">O que os dados mostram</div><div class="info-text">${c.dados}</div></div><div class="info-block"><div class="info-label">O que já foi tentado</div><div class="info-text">${c.tentou}</div></div><div class="info-block"><div class="info-label">Sugestão do gestor</div><div class="info-text">${c.sugestao}</div></div><div class="insight-block"><div class="insight-header"><span class="insight-badge">✦ Insight Claude</span></div><div class="insight-text">${c.insight}</div></div></div>`;
     grid.appendChild(card);
   });
 }
-
-function toggleCard(h) {
-  const b = h.nextElementSibling;
-  const ch = h.querySelector('.card-chevron');
-  b.classList.toggle('open');
-  ch.classList.toggle('open');
+function toggleCard(h){
+  const b=h.nextElementSibling,ch=h.querySelector('.card-chevron');
+  b.classList.toggle('open');ch.classList.toggle('open');
 }
-
-let _am = null;
-function filterManager(name, el) {
-  const same = window._managerFilter === name;
-  window._managerFilter = same ? null : name;
-  _am = same ? null : name;
-  document.querySelectorAll('.manager-card').forEach(c => c.classList.toggle('active', c.dataset.manager === _am));
-  document.querySelectorAll('[data-manager]').forEach(b => b.classList.toggle('active', b.dataset.manager === _am));
+let _am=null;
+function filterManager(name,el){
+  const same=window._managerFilter===name;
+  window._managerFilter=same?null:name;
+  _am=same?null:name;
+  document.querySelectorAll('.manager-card').forEach(c=>c.classList.toggle('active',c.dataset.manager===_am));
+  document.querySelectorAll('[data-manager]').forEach(b=>b.classList.toggle('active',b.dataset.manager===_am));
   renderCards();
 }
-
-function filterStatus(s) {
-  window._statusFilter = s;
-  document.getElementById('btnAll').classList.toggle('active',    s === 'all');
-  document.getElementById('btnYellow').classList.toggle('active', s === 'yellow');
-  document.getElementById('btnRed').classList.toggle('active',    s === 'red');
-  if (s === 'green') {
-    document.getElementById('cardsGrid').innerHTML = '<div class="empty-state"><div class="big">🟢</div><p>Clientes saudaveis — nenhuma acao necessaria</p></div>';
+function filterStatus(s){
+  window._statusFilter=s;
+  document.getElementById('btnAll').classList.toggle('active',s==='all');
+  document.getElementById('btnYellow').classList.toggle('active',s==='yellow');
+  document.getElementById('btnRed').classList.toggle('active',s==='red');
+  if(s==='green'){
+    document.getElementById('cardsGrid').innerHTML='<div class="empty-state"><div class="big">🟢</div><p>Clientes saudáveis — nenhuma ação necessária</p></div>';
     return;
   }
   renderCards();
