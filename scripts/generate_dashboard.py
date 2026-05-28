@@ -585,7 +585,12 @@ def build_html(managers_data: list, week_str: str) -> str:
     }
 
     data_json = json.dumps(data_obj, ensure_ascii=False, indent=2)
-    return HTML_TEMPLATE.replace("{DATA_JSON}", data_json)
+    # 1) Injeta o JSON dos dados
+    html = HTML_TEMPLATE.replace("{DATA_JSON}", data_json)
+    # 2) Converte {{ e }} de escape do template para { e } no HTML final
+    #    (json.dumps nunca gera {{ ou }}, então só afeta o CSS/JS do template)
+    html = html.replace("{{", "{").replace("}}", "}")
+    return html
 
 
 # ── ENTRY POINT ──────────────────────────────────────────────────────────────
