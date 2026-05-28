@@ -59,20 +59,36 @@ def list_pages(doc_id):
     """Retorna lista plana de todas as páginas do documento."""
     data = cu_get(f"/workspaces/{WORKSPACE_ID}/docs/{doc_id}/pages",
                   params={"max_page_depth": -1})
+    print(f"  list_pages raw type: {type(data)}", flush=True)
+
     pages = []
     def flatten(lst):
+        if not isinstance(lst, list):
+            return
         for p in lst:
+            if not isinstance(p, dict):
+                continue
             pages.append(p)
             if p.get("pages"):
                 flatten(p["pages"])
-    flatten(data.get("pages", []))
+
+    # ClickUp v3 pode retornar lista direta OU {"pages": [...]}
+    if isinstance(data, list):
+        flatten(data)
+    elif isinstance(data, dict):
+        flatten(data.get("pages", []))
+    else:
+        print(f"  ⚠ Formato inesperado: {data}", flush=True)
+
     return pages
 
 
 def get_page_content(doc_id, page_id):
     data = cu_get(f"/workspaces/{WORKSPACE_ID}/docs/{doc_id}/pages/{page_id}",
                   params={"content_format": "text/md"})
-    return data.get("content", "")
+    if isinstance(data, dict):
+        return data.get("content", "")
+    return ""
 
 
 def find_latest_week_page(pages):
