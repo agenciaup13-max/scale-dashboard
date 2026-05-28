@@ -149,64 +149,74 @@ def parse_table_clients(md: str):
     return verde, amarelo, vermelho
 
 
+def _extract_field(pattern, text):
+    """Extrai um campo de texto markdown e limpa a formatação."""
+    m = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
+    if not m:
+        return "—"
+    val = m.group(1)
+    val = re.sub(r"^\*+", "", val).strip()
+    val = re.split(r"\n\*\*", val)[0]
+    val = re.sub(r"[\*_]{1,2}", "", val)
+    val = re.sub(r"<!--.*?-->", "", val, flags=re.DOTALL)
+    val = re.sub(r"\[[ xX]\]", "", val)
+    val = re.sub(r"[-*]\s+", "", val)
+    val = re.sub(r"\n+", " ", val).strip()
+    return val if val else "—"
+
+
+def _parse_client_block(block: str, nome: str) -> dict:
+    """Extrai todos os campos de um bloco de cliente."""
+    return {
+        "nome":     nome,
+        "funil":    _extract_field(r"\*\*Funil(?:\(is\))? afetado(?:\(s\))?[:\s]*\*\*\s*(.+?)(?=\n\*\*|\Z)", block),
+        "problema": _extract_field(r"\*\*Qual o problema\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block),
+        "dados":    _extract_field(r"\*\*O que os dados mostram\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block),
+        "tentou":   _extract_field(r"\*\*O que (?:eu )?já tentei\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block),
+        "sugestao": _extract_field(r"\*\*Minha sugestão de próximo passo[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block),
+    }
+
+
 def parse_client_sections(md: str, status_emoji: str):
     """
-    Extrai seções de clientes críticos (🔴) ou de atenção (🟡).
-    Retorna lista de dicts com: nome, funil, problema, dados, tentou, sugestao.
+    Extrai todos os clientes com o emoji de status correspondente.
+    Suporta DOIS formatos usados pelos gestores:
+      Formato A (seção + subsection): ## 🔴 Clientes Críticos  →  ### Cliente: Nome
+      Formato B (direto):             ## 🔴 Cliente: Nome
     """
-    # Encontra a seção correta
-    sec_re = re.compile(
-        rf"##\s*{re.escape(status_emoji)}.*?\n(.*?)(?=\n##\s|$)",
-        re.DOTALL | re.IGNORECASE
-    )
-    sec_match = sec_re.search(md)
-    if not sec_match:
-        return []
-
-    section_text = sec_match.group(1)
-
-    # Divide por subsection ### Cliente:
-    client_blocks = re.split(r"(?=###\s+Cliente)", section_text, flags=re.IGNORECASE)
-
     clients = []
-    for block in client_blocks:
-        if not block.strip():
+    seen   = set()
+
+    # Divide o markdown em blocos de ## sections
+    # Cada bloco começa em um ## heading
+    raw_sections = re.split(r"(?m)^(?=## )", md)
+
+    for sec in raw_sections:
+        first_line = sec.split("\n", 1)[0].strip()
+
+        if status_emoji not in first_line:
             continue
-        # Nome
-        nome_m = re.search(r"###\s+Cliente[:\s]+(.+)", block, re.IGNORECASE)
-        nome = nome_m.group(1).strip().strip("[]\\") if nome_m else "—"
 
-        def extract_field(pattern, text):
-            m = re.search(pattern, text, re.IGNORECASE | re.DOTALL)
-            if not m:
-                return "—"
-            val = m.group(1)
-            # Remove leading bold marker if any
-            val = re.sub(r"^\*+", "", val).strip()
-            # Trim at next bold field
-            val = re.split(r"\n\*\*", val)[0]
-            # Clean up markdown
-            val = re.sub(r"[\*_]{1,2}", "", val)
-            val = re.sub(r"<!--.*?-->", "", val, flags=re.DOTALL)
-            val = re.sub(r"\[[ xX]\]", "", val)      # checkboxes
-            val = re.sub(r"[-*]\s+", "", val)         # list markers
-            val = re.sub(r"\n+", " ", val).strip()
-            return val if val else "—"
+        # ── Formato B: ## 🔴 Cliente: Nome (heading direto) ──
+        if re.search(r"##\s*[^\n#]*Cliente[:\s]", first_line, re.IGNORECASE):
+            nome_m = re.search(r"Cliente[:\s]+(.+)", first_line, re.IGNORECASE)
+            if nome_m:
+                nome = nome_m.group(1).strip().strip("[]\\").strip()
+                if nome and nome not in seen:
+                    seen.add(nome)
+                    clients.append(_parse_client_block(sec, nome))
+            continue
 
-        funil   = extract_field(r"\*\*Funil(?:\(is\))? afetado(?:\(s\))?[:\s]*\*\*\s*(.+?)(?=\n\*\*|\Z)", block)
-        problema= extract_field(r"\*\*Qual o problema\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block)
-        dados   = extract_field(r"\*\*O que os dados mostram\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block)
-        tentou  = extract_field(r"\*\*O que (?:eu )?já tentei\?[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block)
-        sugestao= extract_field(r"\*\*Minha sugestão de próximo passo[:\s]*\*\*(.+?)(?=\n\*\*|\Z)", block)
-
-        clients.append({
-            "nome":     nome,
-            "funil":    funil,
-            "problema": problema,
-            "dados":    dados,
-            "tentou":   tentou,
-            "sugestao": sugestao,
-        })
+        # ── Formato A: ## 🔴 Clientes Críticos  com ### Cliente: subsections ──
+        sub_blocks = re.split(r"(?=###\s+Cliente)", sec, flags=re.IGNORECASE)
+        for block in sub_blocks:
+            nome_m = re.search(r"###\s+Cliente[:\s]+(.+)", block, re.IGNORECASE)
+            if not nome_m:
+                continue
+            nome = nome_m.group(1).strip().strip("[]\\").strip()
+            if nome and nome not in seen:
+                seen.add(nome)
+                clients.append(_parse_client_block(block, nome))
 
     return clients
 
