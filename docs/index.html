@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scale â€” SaÃºde da Carteira</title>
+  <title>Scale — Saúde da Carteira</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
@@ -108,29 +108,29 @@
 <header class="header">
   <div class="logo"><span>S</span>CALE</div>
   <div class="header-meta">
-    <div class="week-badge" id="weekBadge">Semana â€”</div>
+    <div class="week-badge" id="weekBadge">Semana —</div>
     <div class="updated-at" id="updatedAt">Carregando...</div>
   </div>
 </header>
 <main>
-  <div class="section-title">VisÃ£o Macro â€” SaÃºde da AgÃªncia</div>
+  <div class="section-title">Visão Macro — Saúde da Agência</div>
   <div class="macro-grid">
     <div class="status-card green" id="cardGreen" onclick="filterStatus('green')">
-      <div class="card-label"><span class="dot"></span>SaudÃ¡veis</div>
-      <div class="card-number" id="numGreen">â€”</div>
-      <div class="card-pct" id="pctGreen">â€”%</div>
+      <div class="card-label"><span class="dot"></span>Saudáveis</div>
+      <div class="card-number" id="numGreen">—</div>
+      <div class="card-pct" id="pctGreen">—%</div>
       <div class="card-clients-label">clientes</div>
     </div>
     <div class="status-card yellow" id="cardYellow" onclick="filterStatus('yellow')">
-      <div class="card-label"><span class="dot"></span>Ponto de AtenÃ§Ã£o</div>
-      <div class="card-number" id="numYellow">â€”</div>
-      <div class="card-pct" id="pctYellow">â€”%</div>
+      <div class="card-label"><span class="dot"></span>Ponto de Atenção</div>
+      <div class="card-number" id="numYellow">—</div>
+      <div class="card-pct" id="pctYellow">—%</div>
       <div class="card-clients-label">clientes</div>
     </div>
     <div class="status-card red" id="cardRed" onclick="filterStatus('red')">
-      <div class="card-label"><span class="dot"></span>CrÃ­ticos</div>
-      <div class="card-number" id="numRed">â€”</div>
-      <div class="card-pct" id="pctRed">â€”%</div>
+      <div class="card-label"><span class="dot"></span>Críticos</div>
+      <div class="card-number" id="numRed">—</div>
+      <div class="card-pct" id="pctRed">—%</div>
       <div class="card-clients-label">clientes</div>
     </div>
     <div class="score-card">
@@ -140,57 +140,528 @@
           <circle id="scoreCircle" cx="55" cy="55" r="46" fill="none" stroke="#22c55e"
             stroke-width="10" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289"/>
         </svg>
-        <div class="score-value" id="scoreValue">â€”</div>
+        <div class="score-value" id="scoreValue">—</div>
       </div>
-      <div class="score-label">Score de SaÃºde</div>
+      <div class="score-label">Score de Saúde</div>
       <div class="health-bar" id="globalHealthBar" style="margin-top:8px;"></div>
     </div>
   </div>
-  <div class="section-title">VisÃ£o por Gestor</div>
+  <div class="section-title">Visão por Gestor</div>
   <div class="manager-grid" id="managerGrid"></div>
   <div class="filter-bar">
     <button class="filter-btn active" id="btnAll" onclick="filterStatus('all')">Todos os alertas</button>
-    <button class="filter-btn" id="btnYellow" onclick="filterStatus('yellow')">ðŸŸ¡ Ponto de atenÃ§Ã£o</button>
-    <button class="filter-btn" id="btnRed" onclick="filterStatus('red')">ðŸ”´ CrÃ­ticos</button>
+    <button class="filter-btn" id="btnYellow" onclick="filterStatus('yellow')">🟡 Ponto de atenção</button>
+    <button class="filter-btn" id="btnRed" onclick="filterStatus('red')">🔴 Críticos</button>
     <div class="filter-separator"></div>
     <span id="managerFilterBtns"></span>
   </div>
-  <div class="section-title">Clientes que precisam de aÃ§Ã£o</div>
+  <div class="section-title">Clientes que precisam de ação</div>
   <div class="cards-grid" id="cardsGrid"></div>
 </main>
 <footer>
   <div class="footer-logo">SCALE</div>
-  <div class="footer-info">Atualiza toda quarta-feira Ã s 05h00 BRT<br>Dados: ClickUp War Rooms</div>
+  <div class="footer-info">Atualiza toda quarta-feira às 05h00 BRT<br>Dados: ClickUp War Rooms</div>
 </footer>
 <script>
 const DATA = {
-  "week": "â€”",
+  "week": "25/05 a 31/05",
   "updatedAt": "28/05/2026",
   "managers": [
     {
       "name": "Erick",
-      "verde": [],
-      "clients": []
+      "verde": [
+        "Máira",
+        "Giaco",
+        "Leo",
+        "MonsterDay",
+        "Medmaster",
+        "VDK",
+        "Cliente",
+        "data",
+        "o que foi combinado"
+      ],
+      "clients": [
+        {
+          "status": "red",
+          "manager": "Erick",
+          "nome": "Alice (Desafio 21 dias)",
+          "funil": "VSL Venda direta",
+          "problema": "Conversão de Checkout muito baixa, e tx de IC vem caindo",
+          "dados": "o CTR e CPC filtrando pelo os meses anteriores esta atrativo a cada mês, de março foi de (1,30% (março) (1,45% abril) (1,56% maio) porem mesmo com o CTR e CPC melhorando, a tx de IC e de conversão de checkout vem caindo, (15% em março) (13% em abril) (7% em maio) o que prova nitidamente que a VSL vem saturando, mesmo com as métricas do tráfego melhorando, além da taxa de conversão do Checkout tb ser a pior dos últimos 3 meses (7,06%)",
+          "tentou": "Duplicar os criativos que mais venderam, testar os criativos que mais venderam em aberto, testar novos ADS no nosso conjunto de LL validado, subir novos ads de 2/3 dias",
+          "sugestao": "Mudar a VSL urgente",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "red",
+          "manager": "Erick",
+          "nome": "Alice (Mamae sem pochete)",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "red",
+          "manager": "Erick",
+          "nome": "/  /",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Erick",
+          "nome": "Wendell de carvalho - Metodo cronos",
+          "funil": "VSL venda direta",
+          "problema": "Suspensão na conta, CPM dobrou, não consigo subir mais ativos pra tentar bater um público novo e baratear o CPM, e tx de IC tb vem caindo ao decorrer dos meses atualmente estando em 5,88%, mesmo com o CTR dos criativos ok (1,66%) gostaria de testar mais ads, porem não consigo por causa do problema de suspensão na conta, então a conta segue pausado",
+          "dados": "CPM (que dobrou de R$ 23,93 em fev pra R$ 58,04 em maio). a conv. checkout vem caindo mês a mês (14,56% fev → 10,03% mar → 9,19% abr → 9,76% mai) mesmo com o CTR ainda bom (1,54%), o que prova que o problema não é o criativo",
+          "tentou": "—",
+          "sugestao": "depois de resolver a suspensão na conta, testar mais criativos pra ver se conseguimos baratear o CPM e voltar a engatar de novo",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Erick",
+          "nome": "Wendell - Metodo cronos",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Erick",
+          "nome": "Feito /  Em andamento /  Não feito",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Erick",
+          "nome": "data",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        }
+      ]
     },
     {
       "name": "Edu",
-      "verde": [],
-      "clients": []
+      "verde": [
+        "VHE - Lives Semanais",
+        "VHE - LDE",
+        "VHE - C2",
+        "VHE - C1",
+        "Davi - MP",
+        "Davi - BFR",
+        "Lucas - LowTicket",
+        "Lucas - SSP-L25",
+        "Cliente",
+        "data",
+        "o que foi combinado"
+      ],
+      "clients": [
+        {
+          "status": "red",
+          "manager": "Edu",
+          "nome": "VHE",
+          "funil": "Lançamento",
+          "problema": "CPL pipocou",
+          "dados": "Todas as métricas estavam mais baratas que a do ultimo lançamento, CPM; CPC e CPV ligeiramente mais baratos. CPL mais caro. O ponto de conversão ConvLP estava 10% pior Connect Rate oscilou perto de 65% depois subiu pros 70%. Lançamento anterior foi 65%",
+          "tentou": "Lateralização de Anúncios campeões Teste de Interesses Teste de publico quente Subir TOP Ads VHE-L1 16 páginas criadas para testes",
+          "sugestao": "Continuar testando páginas",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "red",
+          "manager": "Edu",
+          "nome": "VHE - L3",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "red",
+          "manager": "Edu",
+          "nome": "/  /",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Edu",
+          "nome": "ESIN - Inverter",
+          "funil": "Lançamento",
+          "problema": "CPL pipocou",
+          "dados": "Connect Rate perto de zero, problema de pixel",
+          "tentou": "—",
+          "sugestao": "Páginas do Wordpress voltaram a ser testadas, os resultados foram reestabelecidos, mas seguem ligeiramente caros. Subir mais Anúncios para teste",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Edu",
+          "nome": "ESIN - Solares",
+          "funil": "Lançamento",
+          "problema": "Conversão de Página despencou",
+          "dados": "ConvLP saiu de 32 para 5%",
+          "tentou": "—",
+          "sugestao": "Páginas do Wordpress voltaram a ser testadas, a campeã dentre todas foi uma do Wordpress. Hoje, dia seguinte à substituição, a Conv LP saiu de 5% para 24% (no horário da leitura 2026-05-26 18:20 Subir mais Anúncios para teste",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Edu",
+          "nome": "Guto - RH",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Edu",
+          "nome": "Feito /  Em andamento /  Não feito",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Edu",
+          "nome": "data",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        }
+      ]
     },
     {
       "name": "Adryon",
-      "verde": [],
-      "clients": []
+      "verde": [
+        "Carlos Beil",
+        "Ecosmetics",
+        "Cliente",
+        "data",
+        "o que foi combinado"
+      ],
+      "clients": [
+        {
+          "status": "red",
+          "manager": "Adryon",
+          "nome": "Partiu Empreender",
+          "funil": "Workshop dos Namorados",
+          "problema": "CPA caro devido a taxas da página extremamente baixas, tanto no checkout quanto na finalização de compra.",
+          "dados": "Métricas relevantes:    CPA em R$ 101,42 e ROAS em 1,45.    Taxa de checkout em 7,01%, finalização de compra em 32,5% e geral em 2,28%.    CPM, CPC, CTR e connect rate estão saudáveis, porém a frequencia está em 3,79.",
+          "tentou": "Testes de criativos.    Ainda tenho criativos sendo testados, porém todos os que estavam em escala começaram a encarecer mesmo com o CPM em R$ 26,02 e CTR em 1,48%, eles não influenciaram as taxas de conversão.    No momento tenho apenas 1 criativo em escala. Teste de página.    Chegamos a testar uma nova página voltada para público frio, porém ficou pior.    Utilizando o melhor público frio ficamos com uma taxa de checkout em 1,96%, finalização de compra em 50% e geral em 0,98%.    A página tinha pouquíssimas diferenças e eles não chegaram a estruturar uma nova com as sugestões que dei. Teste de públicos.    De toda a verba, utilizamos R$ 1.338,61 para testar públicos frios, ao todo foram 6 conjuntos devido verba disponível.    Aqui o problema é o mesmo que o do quente, porém pior. Taxa de checkout em 3,76%, finalização de compra em 17,24% e geral em 065%.",
+          "sugestao": "Mirando em otimizar a ação para melhorar os resultados, com certeza focaria em alterações nas páginas que pudessem melhorar principalmente a taxa de checkout, porém o cliente já deixou confirmado que não conseguirá entregar isso e deixou claro entender que talvez seja melhor pausar a ação enquanto estamos com o ROAS acima de 2 para evitarmos sair no prejuízo e focar na Imersão que começou. No momento deixei ativo apenas o público quente e campanha de teste de criativos, temos um criativo em escala ainda trazendo um ROAS acima de 2 e o restante são testes. Na minha opinião podemos testar os últimos criativos enquanto o criativo em escala manter um ROAS acima de 2, e caso voltemos a tomar prejuízo, pausar a ação para focar totalmente na Imersão.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "red",
+          "manager": "Adryon",
+          "nome": "/  /",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Adryon",
+          "nome": "Edu Pura Pesca",
+          "funil": "MIA (Perpétuo Low ticket)",
+          "problema": "CPA caro devido a taxa de checkout da página extremamente baixa.",
+          "dados": "Métricas relevantes:    CPA em R$ 32,75 e ROAS em 0,76.    Taxa de checkout em 6,58%, finalização de compra em 82,43% e geral em 5,24%.    CPM, CPC, CTR, connect rate e a frequencia estão saudáveis.",
+          "tentou": "—",
+          "sugestao": "Principal Continuar abordando a taxa de checkout baixa, apontar as possíveis melhorias ao invés de só reportar e cobrar uma página nova para teste. Secundária Continuar cobrando mais criativos já que a otimização está extremamente limitada devido a falta de material.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Adryon",
+          "nome": "Briko Seguros",
+          "funil": "Captação de leads Google Ads",
+          "problema": "Campanhas não imprimem.",
+          "dados": "Falta de pesquisas nas palavras-chave utilizadas.  Minha sugestão de próximo passo: Variações de objetivos e palavras-chave:    Alterar o objetivo de CPC manual para maximizar cliques. (implementado)    Criar uma versão das palavras-chave em inglês, porém limitando o idioma para português e espanhol. (implementado)    Criar uma versão das palavras-chave em inglês, deixar o idioma livre, porém limitar as palavras-chave com \"for brazilians\", \"for foreigners\" ou \"for expatriates\". (implementado)",
+          "tentou": "—",
+          "sugestao": "Variações de objetivos e palavras-chave:    Alterar o objetivo de CPC manual para maximizar cliques. (implementado)    Criar uma versão das palavras-chave em inglês, porém limitando o idioma para português e espanhol. (implementado)    Criar uma versão das palavras-chave em inglês, deixar o idioma livre, porém limitar as palavras-chave com \"for brazilians\", \"for foreigners\" ou \"for expatriates\". (implementado)",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Adryon",
+          "nome": "Feito /  Em andamento /  Não feito",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Adryon",
+          "nome": "data",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        }
+      ]
     },
     {
       "name": "Leandro",
-      "verde": [],
-      "clients": []
+      "verde": [
+        "Casinha - Arquitetando",
+        "Clínica PRC",
+        "Elisa Lobo",
+        "Cliente",
+        "data",
+        "o que foi combinado"
+      ],
+      "clients": [
+        {
+          "status": "red",
+          "manager": "Leandro",
+          "nome": "Dr Giovanni Finazzi",
+          "funil": "Captação de leads",
+          "problema": "Campanha de mensagem apenas trazendo leads desqualificados, pausada no momento por falta de saldo.",
+          "dados": "Volume de mensagens CTR CPM CPC link",
+          "tentou": "Testar públicos e criativos",
+          "sugestao": "Já orientei as SM a voltar todo conteúdo sobre esse procedimento. Prova social + Novos Criativos",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "red",
+          "manager": "Leandro",
+          "nome": "Mariana Torres",
+          "funil": "Captação de leads",
+          "problema": "Volume de mensagens baixo. Poucos criativos para usar",
+          "dados": "Volume de mensagens baixo CPM mto alto R$ 63,00 (normal pra estética) CPC 8,39 (grave) Baixo Alcance (grave)",
+          "tentou": "—",
+          "sugestao": "Precisamos urgente de pelo menos 4 criativos para testar e aumentar um pouco mais a verba de 15 pra 30 reais Obs: mesmo com apenas 3 msgs geradas, nos últimos 4 dias, Mariana reportou que os leads estavam respondendo bem.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "red",
+          "manager": "Leandro",
+          "nome": "Dr Finazzi",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "red",
+          "manager": "Leandro",
+          "nome": "/  /",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Leandro",
+          "nome": "Qpharma",
+          "funil": "Captação de leads",
+          "problema": "Equipe comercial não converte, campanha para público quente com lista de cliente.",
+          "dados": "Volume e custo de msgs são bons, abaixo do esperado.",
+          "tentou": "—",
+          "sugestao": "Já sugeri bater nos diferenciais da farmácia como o prazo de entrega em até 24h após aprovação do pedido, novos criativos em vídeo que foram os que melhor performaram.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Leandro",
+          "nome": "LC Agro",
+          "funil": "Captação de leads",
+          "problema": "Leads bem frios e dequalificados Demora no abastecimento de saldo",
+          "dados": "Os números no gerenciador são bons bom volume de msg baixo custo da msg CPM R$ 25 CTR 2,21% CPC 1,76",
+          "tentou": "—",
+          "sugestao": "Testar formulário para preparar melhor o Lead.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Leandro",
+          "nome": "Dr Vínicius",
+          "funil": "Captação de leads + Distribuição de conteúdo",
+          "problema": "Em relação as campanhas estamos conseguindo gerar um volume de leads solicitados. as campanhas performam bem e até abaixo do esperado pelo nicho e o perfil meio polemico do Dr. Maior problema, não conseguimos identificar qual o anúncio que esta tendo maior número de agendamentos.(traqueamento de msg). Um leve problema é a secretária que já melhorou bastante os atendimentos, mas ainda não consegue converter o número de agendamentos necessários. Ponto de atenção, mentoria que contrataram para acelerar as vendas. Já criticaram a nossa LP que diziam não estar no padrão do Dr Vinicius e criaram uma nova, enviaram uns pdfs falando sobre forma de atendimento no whats... sobre o atendimento, fiz varias calls falando sobre e apontava dentro do CRM a forma que vinha sendo feito e tbm enviamos um manual de boas práticas para melhorar o atendimento. o que mais me preocupa é a msg abaixo. ![](https://t9013858226.p.clickup-attachments.com/t9013858226/97e803f3-0d74-49df-a349-8c6b76c1328f/image.png)",
+          "dados": "vamos atingir a meta de 400 leads mês, CPL por volta de 10 reais. ao todo foram 21 agendamentos no total e uma cirurgia. Custo por seguidor oscila, mas estamos mantendo abaixo de R$ 2,00",
+          "tentou": "—",
+          "sugestao": "Buscar alguma ferramenta para traquear msgs.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Leandro",
+          "nome": "Vínicius Mello",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Leandro",
+          "nome": "Feito /  Em andamento /  Não feito",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Leandro",
+          "nome": "data",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        }
+      ]
     },
     {
       "name": "Lucas",
-      "verde": [],
-      "clients": []
+      "verde": [
+        "Imperio Medico - Distribuição",
+        "Hermann Grebb - Typebot",
+        "Thata - FSE Type",
+        "Thata - FSE nativo",
+        "Thata - C2",
+        "Thata - C1",
+        "Pompeu - Webnarios",
+        "Pompeu - MPI",
+        "Mayara - Typeform",
+        "Cliente",
+        "data",
+        "o que foi combinado"
+      ],
+      "clients": [
+        {
+          "status": "red",
+          "manager": "Lucas",
+          "nome": "Dr. William",
+          "funil": "ex: Perpétuo",
+          "problema": "Instagram restrito para anunciar",
+          "dados": "Métricas relevantes: Após impedimento em subir novos anúncios no instagram do Dr William CPM subiu, Custo por IC dobrou e ROAS passou a ficar negativo nas campanhas que seguiam rodando. Subimos uma campanha de teste na semana passada para o novo perfil do Instagram, e apresentou CPM muito acima da média do mes (R$29 < R$70). Campanhas foram totalmente paralisadas na terça passada (19/05) e nessa terça (26/05) voltamos a rodar 2 campanhas de testes que voltaram a apresentar CPM muito melhor (R$ 30,08) mas IC esta absurdamente caro (R$129)",
+          "tentou": "Voltamos a testar campanhas para o novo Instagram que a principio vem mostrando metricas secundárias melhores que nosso primeiro teste.",
+          "sugestao": "Com métricas secundárias voltando a normalidade, voltar com os testes de criativos/publicos/estruturas aos poucos para ir sentido a possibilidade de escala",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "red",
+          "manager": "Lucas",
+          "nome": "Dr. William - PZT",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "red",
+          "manager": "Lucas",
+          "nome": "/  /",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Lucas",
+          "nome": "Império Médico",
+          "funil": "ex: DCM-F8",
+          "problema": "CPA muito instável . Variando de dias bons (CPA<1K) a dias ruins (CPA> R$1.3K)",
+          "dados": "CPM apresentando melhora nos últimos 2 dias, CTR com taxa acima do 2%,e CPA vem baixando (De R$1.7k a R$1.3k no momento). Depois que testamos pagina com ticket de R$47 os resultados melhoraram significativamente.",
+          "tentou": "—",
+          "sugestao": "\\-Seguir testando os criativos \\-Testar publico de lookalike medmaster \\-Testar novamente publico de lookalike de compradores",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Lucas",
+          "nome": "DCM-F8",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Lucas",
+          "nome": "Feito /  Em andamento /  Não feito",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Lucas",
+          "nome": "data",
+          "funil": "—",
+          "problema": "—",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "—",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        }
+      ]
     }
   ]
 };
@@ -220,7 +691,7 @@ const DATA = {
     const ms=Math.round((v*100+y*50)/t);
     const sc2=ms>=70?'score-high':ms>=50?'score-mid':'score-low';
     const card=document.createElement('div');card.className='manager-card';card.dataset.manager=m.name;
-    card.innerHTML=`<div class="manager-name">${m.name}</div><div class="manager-stats"><div class="mgr-stat"><div class="n g">${v}</div><div class="l">SaudÃ¡veis</div></div><div class="mgr-stat"><div class="n y">${y}</div><div class="l">AtenÃ§Ã£o</div></div><div class="mgr-stat"><div class="n r">${r}</div><div class="l">CrÃ­ticos</div></div></div><div class="mgr-bar"><div class="seg-g" style="width:${(v/t*100).toFixed(0)}%"></div><div class="seg-y" style="width:${(y/t*100).toFixed(0)}%"></div><div class="seg-r" style="width:${(r/t*100).toFixed(0)}%"></div></div><div class="mgr-score-pill ${sc2}">Score ${ms}/100</div><div class="manager-total">${t} clientes</div>`;
+    card.innerHTML=`<div class="manager-name">${m.name}</div><div class="manager-stats"><div class="mgr-stat"><div class="n g">${v}</div><div class="l">Saudáveis</div></div><div class="mgr-stat"><div class="n y">${y}</div><div class="l">Atenção</div></div><div class="mgr-stat"><div class="n r">${r}</div><div class="l">Críticos</div></div></div><div class="mgr-bar"><div class="seg-g" style="width:${(v/t*100).toFixed(0)}%"></div><div class="seg-y" style="width:${(y/t*100).toFixed(0)}%"></div><div class="seg-r" style="width:${(r/t*100).toFixed(0)}%"></div></div><div class="mgr-score-pill ${sc2}">Score ${ms}/100</div><div class="manager-total">${t} clientes</div>`;
     card.addEventListener('click',()=>filterManager(m.name,card));
     mgGrid.appendChild(card);
   });
@@ -238,11 +709,11 @@ function renderCards(){
   if(sf==='red') filtered=filtered.filter(c=>c.status==='red');
   if(sf==='yellow') filtered=filtered.filter(c=>c.status==='yellow');
   if(mf) filtered=filtered.filter(c=>c.manager===mf);
-  if(filtered.length===0){grid.innerHTML='<div class="empty-state"><div class="big">âœ¦</div><p>Nenhum cliente para este filtro</p></div>';return;}
+  if(filtered.length===0){grid.innerHTML='<div class="empty-state"><div class="big">✦</div><p>Nenhum cliente para este filtro</p></div>';return;}
   filtered.forEach((c,idx)=>{
     const card=document.createElement('div');card.className='client-card '+c.status;
-    const sl=c.status==='red'?'ðŸ”´ CrÃ­tico':'ðŸŸ¡ AtenÃ§Ã£o';
-    card.innerHTML=`<div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-status-row"><span class="status-pill ${c.status}">${sl}</span><span class="manager-pill">${c.manager}</span><span class="funil-pill">${c.funil}</span></div><div class="client-name">${c.nome}</div></div><div class="card-chevron ${idx<3?'open':''}">â€º</div></div><div class="card-body ${idx<3?'open':''}"><div class="info-block"><div class="info-label">Problema</div><div class="info-text">${c.problema}</div></div><div class="info-block"><div class="info-label">O que os dados mostram</div><div class="info-text">${c.dados}</div></div><div class="info-block"><div class="info-label">O que jÃ¡ foi tentado</div><div class="info-text">${c.tentou}</div></div><div class="info-block"><div class="info-label">SugestÃ£o do gestor</div><div class="info-text">${c.sugestao}</div></div><div class="insight-block"><div class="insight-header"><span class="insight-badge">âœ¦ Insight Claude</span></div><div class="insight-text">${c.insight}</div></div></div>`;
+    const sl=c.status==='red'?'🔴 Crítico':'🟡 Atenção';
+    card.innerHTML=`<div class="card-header" onclick="toggleCard(this)"><div class="card-header-left"><div class="card-status-row"><span class="status-pill ${c.status}">${sl}</span><span class="manager-pill">${c.manager}</span><span class="funil-pill">${c.funil}</span></div><div class="client-name">${c.nome}</div></div><div class="card-chevron ${idx<3?'open':''}">›</div></div><div class="card-body ${idx<3?'open':''}"><div class="info-block"><div class="info-label">Problema</div><div class="info-text">${c.problema}</div></div><div class="info-block"><div class="info-label">O que os dados mostram</div><div class="info-text">${c.dados}</div></div><div class="info-block"><div class="info-label">O que já foi tentado</div><div class="info-text">${c.tentou}</div></div><div class="info-block"><div class="info-label">Sugestão do gestor</div><div class="info-text">${c.sugestao}</div></div><div class="insight-block"><div class="insight-header"><span class="insight-badge">✦ Insight Claude</span></div><div class="insight-text">${c.insight}</div></div></div>`;
     grid.appendChild(card);
   });
 }
@@ -259,7 +730,7 @@ function filterStatus(s){
   document.getElementById('btnAll').classList.toggle('active',s==='all');
   document.getElementById('btnYellow').classList.toggle('active',s==='yellow');
   document.getElementById('btnRed').classList.toggle('active',s==='red');
-  if(s==='green'){document.getElementById('cardsGrid').innerHTML='<div class="empty-state"><div class="big">ðŸŸ¢</div><p>Clientes saudÃ¡veis â€” nenhuma aÃ§Ã£o necessÃ¡ria</p></div>';return;}
+  if(s==='green'){document.getElementById('cardsGrid').innerHTML='<div class="empty-state"><div class="big">🟢</div><p>Clientes saudáveis — nenhuma ação necessária</p></div>';return;}
   renderCards();
 }
 </script>
