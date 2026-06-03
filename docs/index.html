@@ -82,7 +82,7 @@
     .status-pill.red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);}
     .status-pill.yellow{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow-border);}
     .manager-pill{font-size:10px;font-weight:500;color:var(--muted);background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);}
-    .funil-pill{font-size:10px;font-weight:500;color:var(--dim);background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .funil-pill{font-size:10px;font-weight:500;color:var(--dim);background:var(--surface2);padding:3px 10px;border-radius:20px;border:1px solid var(--border);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
     .client-name{font-size:18px;font-weight:700;color:#fff;line-height:1.2;}
     .card-chevron{color:var(--muted);font-size:18px;flex-shrink:0;transition:transform .2s;margin-top:4px;}
     .card-chevron.open{transform:rotate(90deg);}
@@ -164,206 +164,248 @@
 </footer>
 <script>
 const DATA = {
-  "week": "25/05 a 31/05",
-  "updatedAt": "28/05/2026",
+  "week": "01/06 a 05/06",
+  "updatedAt": "03/06/2026",
   "managers": [
     {
       "name": "Erick",
-      "verde": ["Máira", "Giaco", "Leo", "MonsterDay", "Medmaster", "VDK"],
+      "verde": [
+        "Giaco",
+        "Leo",
+        "MonsterDay",
+        "Medmaster",
+        "VDK",
+        "Dany Sakugawa",
+        "Dr. Marlon Batista",
+        "Núbia Oliveira"
+      ],
       "clients": [
         {
-          "status": "red", "manager": "Erick",
-          "nome": "Alice (Desafio 21 dias)",
-          "funil": "VSL - Venda direta",
-          "problema": "Conversão de Checkout muito baixa e taxa de IC vem caindo mês a mês, mesmo com CTR e CPC melhorando.",
-          "dados": "CTR crescendo mês a mês: 1,30% em março, 1,45% em abril, 1,56% em maio. Porém taxa de IC caindo: 15% em março, 13% em abril, 7% em maio. Conversão de checkout no pior nível dos últimos 3 meses: 7,06%. Sinal claro de saturação da VSL.",
-          "tentou": "Duplicar criativos que mais venderam, testar criativos em aberto, testar novos ADS no conjunto de LL validado, subir novos ads de 2/3 dias.",
-          "sugestao": "Mudar a VSL urgente.",
-          "insight": "A queda na taxa de IC de 15% para 7% com CTR crescente é um diagnóstico claro de saturação de VSL — a sugestão do gestor está correta e urgente. Criar uma nova VSL com ângulo diferente deve ser prioridade absoluta antes de qualquer outro teste de tráfego. Enquanto a nova VSL não estiver pronta, evite escalonamento para preservar o ROI e o histórico da conta."
+          "status": "red",
+          "manager": "Erick",
+          "nome": "Alice (Desafio 21 dias",
+          "funil": "VSL Venda direta",
+          "problema": "Conversão de Checkout muito baixa, e tx de IC vem caindo",
+          "dados": "o CTR e CPC filtrando pelo os meses anteriores esta atrativo a cada mês, de março foi de (1,30% (março) (1,45% abril) (1,56% maio) porem mesmo com o CTR e CPC melhorando, a tx de IC e de conversão de checkout vem caindo, (15% em março) (13% em abril) (7% em maio) o que prova nitidamente que a VSL vem saturando, mesmo com as métricas do tráfego melhorando, além da taxa de conversão do Checkout tb ser a pior dos últimos 3 meses (7,06%)",
+          "tentou": "Duplicar os criativos que mais venderam, testar os criativos que mais venderam em aberto, testar novos ADS no nosso conjunto de LL validado, subir novos ads de 2/3 dias",
+          "sugestao": "Mudar a VSL urgente",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         },
         {
-          "status": "red", "manager": "Erick",
-          "nome": "Alice (Mamae sem Pochete)",
-          "funil": "VSL - Venda direta",
-          "problema": "Conversão de Checkout baixa (5,81%) e criativos sem tração.",
-          "dados": "CTR 1,14%, Connect Rate 64%, conversão de checkout em 5,81% — 172 iniciaram, só 10 fecharam, 94% de abandono. Mesmo dobrando o CTR para 2,28% (cenário otimista), o ROAS mal chegaria em 1,05.",
-          "tentou": "Subindo novos ads de 3 em 3 dias em aberto para mulheres, nenhum chegou a tracionar.",
-          "sugestao": "Mudar o pitch de vendas e analisar a copy da VSL.",
-          "insight": "Com 94% de abandono no checkout e ROAS impossível mesmo em cenário otimista, o problema central está na oferta e na página de vendas — não nos criativos. A sugestão de revisar a copy da VSL e o pitch está correta. Priorize um redesign da página de checkout com foco em clareza da oferta, garantia visível e remoção de fricção antes de qualquer novo investimento em tráfego."
+          "status": "red",
+          "manager": "Erick",
+          "nome": "Alice (Mamae sem pochete",
+          "funil": "VSL Venda direta",
+          "problema": "Conversão de Checkout muito baixa, e tx de IC vem caindo",
+          "dados": "o CTR e CPC filtrando pelo os meses anteriores esta atrativo a cada mês, de março foi de (1,30% (março) (1,45% abril) (1,56% maio) porem mesmo com o CTR e CPC melhorando, a tx de IC e de conversão de checkout vem caindo, (15% em março) (13% em abril) (7% em maio) o que prova nitidamente que a VSL vem saturando, mesmo com as métricas do tráfego melhorando, além da taxa de conversão do Checkout tb ser a pior dos últimos 3 meses (7,06%)",
+          "tentou": "Duplicar os criativos que mais venderam, testar os criativos que mais venderam em aberto, testar novos ADS no nosso conjunto de LL validado, subir novos ads de 2/3 dias",
+          "sugestao": "Mudar a VSL urgente",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         },
         {
-          "status": "yellow", "manager": "Erick",
-          "nome": "Wendell - Metodo Cronos",
+          "status": "yellow",
+          "manager": "Erick",
+          "nome": "Wendell - Metodo cronos",
           "funil": "VSL venda direta",
-          "problema": "Suspensão na conta, CPM dobrou, impossível subir novos ativos para testar público novo. Taxa de IC caindo (5,88% em maio). Conta seguindo pausada.",
-          "dados": "CPM dobrou de R$ 23,93 em fevereiro para R$ 58,04 em maio. Conversão de checkout caindo: 14,56% fev → 10,03% mar → 9,19% abr → 9,76% mai. CTR ainda bom (1,54%), provando que o problema não é o criativo.",
+          "problema": "Suspensão na conta, CPM dobrou, não consigo subir mais ativos pra tentar bater um público novo e baratear o CPM, e tx de IC tb vem caindo ao decorrer dos meses atualmente estando em 5,88%, mesmo com o CTR dos criativos ok (1,66%) gostaria de testar mais ads, porem não consigo por causa do problema de suspensão na conta, então a conta segue pausado",
+          "dados": "CPM (que dobrou de R$ 23,93 em fev pra R$ 58,04 em maio). a conv. checkout vem caindo mês a mês (14,56% fev → 10,03% mar → 9,19% abr → 9,76% mai) mesmo com o CTR ainda bom (1,54%), o que prova que o problema não é o criativo",
           "tentou": "—",
-          "sugestao": "Após resolver a suspensão da conta, testar mais criativos para baratear o CPM e voltar a escalar.",
-          "insight": "A suspensão é o bloqueio principal e o CPM dobrado confirma que o algoritmo perdeu histórico de qualidade — a sugestão do gestor está correta. Ao retomar, comece com orçamentos baixos em campanhas novas para re-aquecimento gradual da conta, priorizando públicos quentes (retargeting e LAL de compradores) antes de ir para públicos frios."
+          "sugestao": "depois de resolver a suspensão na conta, testar mais criativos pra ver se conseguimos baratear o CPM e voltar a engatar de novo",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Erick",
+          "nome": "Maíra cardi",
+          "funil": "Evento presencial",
+          "problema": "Recentemente deu problema na Dash, não está aparecendo as UTMS nas colunas de otimização",
+          "dados": "—",
+          "tentou": "—",
+          "sugestao": "Resolver o problema",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         }
       ]
     },
     {
       "name": "Edu",
-      "verde": ["VHE - Lives Semanais", "VHE - LDE", "VHE - C2", "VHE - C1", "Davi - MP", "Davi - BFR", "Lucas - LowTicket", "Lucas - SSP-L25"],
+      "verde": [
+        "VHE - Lives Semanais",
+        "VHE - LDE",
+        "VHE - C2",
+        "VHE - C1",
+        "Davi - MP",
+        "Davi - BFR",
+        "Lucas - LowTicket",
+        "Lucas - SSP-L25"
+      ],
       "clients": [
         {
-          "status": "red", "manager": "Edu",
-          "nome": "VHE - L3",
-          "funil": "Lançamento",
-          "problema": "CPL pipocou. Mesmo com todas as métricas de topo do funil melhorando em relação ao lançamento anterior, o CPL ficou mais caro.",
-          "dados": "CPM, CPC e CPV ligeiramente mais baratos que o último lançamento. CPL mais caro. ConvLP estava 10% pior que o lançamento anterior. Connect Rate oscilou próximo de 65% e depois subiu para 70%. 16 páginas criadas para testes.",
-          "tentou": "Lateralização de anúncios campeões, teste de interesses, teste de público quente, subir TOP Ads VHE-L1, criação de 16 páginas para teste.",
-          "sugestao": "Continuar testando páginas de captura.",
-          "insight": "CPL caro com métricas de topo melhorando aponta diretamente para um problema de conversão na landing page de captura — a sugestão de continuar testando páginas está correta. Com 16 páginas já testadas, priorize analisar os padrões das que performaram melhor para criar hipóteses de CRO mais específicas, em vez de continuar testando sem uma direção clara."
+          "status": "yellow",
+          "manager": "Edu",
+          "nome": "Guto - RH",
+          "funil": "Perpétuo RH",
+          "problema": "Funil não anda",
+          "dados": "Problema na instalação do pixel, dificuldade de avaliação das métricas da VSL, falhas no pagamento, falta de respostas no grupo",
+          "tentou": "—",
+          "sugestao": "Sem ideias",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         },
         {
-          "status": "yellow", "manager": "Edu",
-          "nome": "Guto - RH",
-          "funil": "—",
+          "status": "yellow",
+          "manager": "Edu",
+          "nome": "ESIN - Solares",
+          "funil": "Lançamento",
           "problema": "—",
           "dados": "—",
           "tentou": "—",
-          "sugestao": "—",
-          "insight": "Sem dados reportados pelo gestor nesta semana, não é possível gerar um insight técnico específico. Recomenda-se preencher as informações de problema, dados e próximos passos no War Room para que a situação possa ser analisada adequadamente na reunião de quarta."
-        },
-        {
-          "status": "yellow", "manager": "Edu",
-          "nome": "ESIN - Inverter",
-          "funil": "Lançamento",
-          "problema": "CPL pipocou. Connect Rate próximo de zero por problema de pixel.",
-          "dados": "Connect Rate perto de zero confirmado como problema de pixel. Após correção com páginas WordPress, resultados foram reestabelecidos, mas seguem ligeiramente caros.",
-          "tentou": "—",
-          "sugestao": "Páginas do Wordpress voltaram a ser testadas e reestabelecidas como solução. Subir mais anúncios para teste.",
-          "insight": "A recuperação após o problema de pixel é positiva, mas resultados ainda caros indicam que o algoritmo está re-aprendendo. Não perturbe os conjuntos que estão estabilizando — teste novos criativos em duplicatas paralelas mantendo os conjuntos originais intocados até o CPL estabilizar por completo."
-        },
-        {
-          "status": "yellow", "manager": "Edu",
-          "nome": "ESIN - Solares",
-          "funil": "Lançamento",
-          "problema": "Conversão de página despencou de 32% para 5%.",
-          "dados": "ConvLP caiu de 32% para 5%. Após substituição por página WordPress campeã (26/05), a ConvLP subiu de 5% para 24% no dia seguinte — confirmando que a landing page era o único gargalo.",
-          "tentou": "—",
-          "sugestao": "Continuar testando páginas WordPress. Subir mais anúncios para teste.",
-          "insight": "A melhora dramática de 5% para 24% na ConvLP após a troca de página confirma que a landing page era o gargalo real — a sugestão de subir mais anúncios agora está correta. Monitore a estabilidade do 24% por 3 a 5 dias antes de escalar o budget para garantir que o resultado não é pontual."
+          "sugestao": "Escalar campanhas com evento de conversão específico",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         }
       ]
     },
     {
       "name": "Adryon",
-      "verde": ["Carlos Beil", "Ecosmetics"],
+      "verde": [
+        "Carlos Beil",
+        "Ecosmetics",
+        "Briko Seguros"
+      ],
       "clients": [
         {
-          "status": "red", "manager": "Adryon",
+          "status": "red",
+          "manager": "Adryon",
           "nome": "Partiu Empreender",
-          "funil": "Workshop dos Namorados",
-          "problema": "CPA caro (R$101,42, ROAS 1,45) devido a taxas da página extremamente baixas no checkout e na finalização de compra.",
-          "dados": "Taxa de checkout 7,01%, finalização de compra 32,5%, geral 2,28%. CPM, CPC, CTR e connect rate saudáveis, mas frequência em 3,79 — público saturando.",
-          "tentou": "Testes de criativos sem impacto nas taxas de conversão. Teste de página para público frio ficou pior (checkout 1,96%, finalização 50%, geral 0,98%). Testes de 6 conjuntos de públicos frios: checkout 3,76%, finalização 17,24%, geral 0,65%.",
-          "sugestao": "Focar em alterações nas páginas para melhorar taxa de checkout. Cliente confirmou que não conseguirá entregar melhorias na página e considera pausar enquanto ROAS estiver acima de 2, focando na Imersão.",
-          "insight": "Com frequência em 3,79 e taxa de checkout de 7%, o público está saturado e a página é o gargalo real. A sugestão de pausar e focar na Imersão faz sentido estratégico — continuar gastando com ROAS de 1,45 em uma página fraca é queimar verba. Para o retorno, a prioridade absoluta deve ser uma nova landing page de checkout testada antes de reativar campanhas."
+          "funil": "Imersão do Zero ao Lucro #3",
+          "problema": "CPA caro devido a taxas da página extremamente baixas, tanto no checkout quanto na finalização de compra.",
+          "dados": "Métricas relevantes: CPA em R$ 79,84 e ROAS em 1,45. Taxa de checkout em 7,01%, finalização de compra em 32,5% e geral em 2,28%. CPM, CPC, CTR e connect rate estão saudáveis, porém a frequencia está em 3,79.",
+          "tentou": "Testes de criativos. Tenho apenas mais um criativo em teste, mas já estão criando novos. Nessa semana consegui escalar 3 criativos que estão ajudando a melhorar os resultados. Teste de página. Foram ao todo 3 testes de páginas e recebi mais uma que será publicada na quarta-feira. Atualmente temos um dificuldade em gerar checkouts, porém o principal problema está na finalização de compra, então sugeri algumas alterações no checkout que podem melhorar o desempenho. Teste de públicos. Nessa última semana já testamos 7 públicos frios diferentes, porém com verba reduzida devido os resultados Aqui o problema é o mesmo que o do quente, porém pior. Taxa de checkout em 3,76%, finalização de compra em 17,24% e geral em 065%.",
+          "sugestao": "Mirando em otimizar a ação para melhorar os resultados, com certeza focaria em alterações na página e checkout que possam melhorar ambas as taxas, e também novos criativos semelhantes aos 3 que estão em escala. No momento deixei ativo a campanha de teste de criativos, pois está trazendo bons resultados e campanha de teste de públicos para tentar escalar para o frio, porém acredito que não será possível sem as alterações citadas acima.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         },
         {
-          "status": "yellow", "manager": "Adryon",
+          "status": "yellow",
+          "manager": "Adryon",
           "nome": "Edu Pura Pesca",
-          "funil": "MIA (Perpetuo - Low Ticket)",
-          "problema": "CPA caro (ROAS 0,76) devido a taxa de checkout da página extremamente baixa (6,58%).",
-          "dados": "CPA R$ 32,75, ROAS 0,76. Taxa de checkout 6,58%, finalização de compra 82,43%, geral 5,24%. CPM, CPC, CTR, connect rate e frequência saudáveis — gargalo está somente na conversão para o checkout.",
+          "funil": "MIA (Perpétuo Low ticket)",
+          "problema": "CPA caro devido a taxa de checkout da página extremamente baixa.",
+          "dados": "Métricas relevantes: CPA em R$ 32,75 e ROAS em 0,76. Taxa de checkout em 6,58%, finalização de compra em 82,43% e geral em 5,24%. CPM, CPC, CTR, connect rate e a frequencia estão saudáveis.",
           "tentou": "—",
-          "sugestao": "Teste Nível 1: remover menu âncora e mostrar preço logo abaixo do primeiro botão para aumentar taxa de view page para checkout. Teste Nível 2 (se N1 não resolver): novo layout da LP com mais segurança e clareza na oferta. Cobrar mais criativos para não limitar a otimização.",
-          "insight": "ROAS de 0,76 com finalização de compra de 82% indica que quem chega ao checkout fecha — o único gargalo é trazer mais pessoas até lá. O teste Nível 1 sugerido é uma mudança de baixo risco e alto potencial: implemente imediatamente e meça o impacto antes de partir para o redesign completo do Nível 2."
-        },
-        {
-          "status": "yellow", "manager": "Adryon",
-          "nome": "Briko Seguros",
-          "funil": "Captacao de leads - Google Ads",
-          "problema": "Campanhas não imprimem por falta de volume de pesquisas nas palavras-chave utilizadas.",
-          "dados": "Problema estrutural de mercado — volume de busca baixo para as palavras-chave do nicho, não um problema de otimização.",
-          "tentou": "—",
-          "sugestao": "Alterar objetivo para maximizar cliques (implementado). Criar versões das palavras-chave em inglês com idioma limitado ao português/espanhol (implementado). Versão com termos 'for brazilians', 'for foreigners', 'for expatriates' (implementado). Meet de alinhamento com cliente para apresentar primeiras métricas.",
-          "insight": "A falta de volume de busca é um desafio estrutural para esse nicho em Google Search — as adaptações implementadas são corretas e necessárias. Considere complementar com campanhas de Display e Demand Gen segmentadas por interesse em seguros internacionais para gerar demanda ativa onde a demanda existente é insuficiente."
+          "sugestao": "Principal Continuar abordando a taxa de checkout baixa e cobrar as melhorias que o Gabriel comentou que vai implementar. As variações que sugerimos na semana passada não serão realizadas porque já foram testadas anteriormente, porém irei analisar outras possíveis variações para teste.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         }
       ]
     },
     {
       "name": "Leandro",
-      "verde": ["Casinha - Arquitetando", "Clínica PRC", "Elisa Lobo"],
+      "verde": [
+        "Casinha - Arquitetando",
+        "Clínica PRC",
+        "Elisa Lobo"
+      ],
       "clients": [
         {
-          "status": "red", "manager": "Leandro",
+          "status": "red",
+          "manager": "Leandro",
           "nome": "Dr Finazzi",
-          "funil": "Captacao de leads",
-          "problema": "Campanha de mensagem trazendo apenas leads desqualificados. Conta pausada por falta de saldo.",
-          "dados": "Volume de mensagens gerado, mas leads completamente desqualificados. CTR, CPM e CPC disponíveis, porém sem utilidade por qualidade do lead.",
-          "tentou": "Testes de públicos e criativos.",
-          "sugestao": "Orientar equipe de SM a voltar todo conteúdo sobre o procedimento. Prova social e novos criativos. Ao retomar, segmentar em raio de 7km nos bairros mais nobres de São Paulo.",
-          "insight": "Leads desqualificados em campanha de mensagem indica desalinhamento entre a segmentação e o público ideal do procedimento. O raio de 7km nos bairros nobres é uma hipótese sólida para qualificar o público. Combine com criativos que pré-qualifiquem o lead (mencionando valor do procedimento ou perfil do paciente ideal) para reduzir volume de mensagens fora do perfil."
+          "funil": "Captação de leads",
+          "problema": "Campanha de mensagem apenas trazendo leads desqualificados, pausada no momento por falta de saldo.",
+          "dados": "Volume de mensagens CTR CPM CPC link",
+          "tentou": "Testar públicos e criativos",
+          "sugestao": "Já orientei as SM a voltar todo conteúdo sobre esse procedimento. Prova social + Novos Criativos",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         },
         {
-          "status": "red", "manager": "Leandro",
+          "status": "red",
+          "manager": "Leandro",
           "nome": "Mariana Torres",
-          "funil": "Captacao de leads",
-          "problema": "Volume de mensagens baixo e poucos criativos disponíveis para testar.",
-          "dados": "CPM R$ 63,00 (esperado para estética médica), CPC R$ 8,39 (grave), baixo alcance (grave). Os poucos leads que chegaram, no entanto, estavam respondendo bem ao atendimento.",
+          "funil": "Captação de leads",
+          "problema": "Volume de mensagens baixo. Poucos criativos para usar",
+          "dados": "Volume de mensagens baixo CPM mto alto R$ 63,00 (normal pra estética) CPC 8,39 (grave) Baixo Alcance (grave)",
           "tentou": "—",
-          "sugestao": "Urgente: pelo menos 4 criativos novos para testar e aumentar verba de R$ 15 para R$ 30. Teste de CBO com R$30 e 5 conjuntos duplicados com melhor anúncio (AD-09) para encontrar novo cluster de público e baixar a frequência que está saturando o alcance.",
-          "insight": "CPM de R$63 com baixo alcance indica frequência alta e público saturando — o CBO com conjuntos duplicados é a abordagem correta para explorar novos clusters. A qualidade dos leads que chegam é o ponto positivo a preservar. Novos criativos são prioridade urgente: sem material novo, o algoritmo não tem como encontrar públicos diferentes."
+          "sugestao": "Precisamos urgente de pelo menos 4 criativos para testar e aumentar um pouco mais a verba de 15 pra 30 reais Obs: mesmo com apenas 3 msgs geradas, nos últimos 4 dias, Mariana reportou que os leads estavam respondendo bem.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         },
         {
-          "status": "yellow", "manager": "Leandro",
+          "status": "yellow",
+          "manager": "Leandro",
           "nome": "Qpharma",
-          "funil": "Captacao de leads",
-          "problema": "Equipe comercial não converte os leads gerados. Campanha rodando para público quente com lista de clientes.",
-          "dados": "Volume e custo de mensagens bons e abaixo do esperado para o nicho. O problema está claramente na etapa de vendas, não no tráfego.",
+          "funil": "Captação de leads",
+          "problema": "Equipe comercial não converte, campanha para público quente com lista de cliente.",
+          "dados": "Volume e custo de msgs são bons, abaixo do esperado.",
           "tentou": "—",
-          "sugestao": "Bater nos diferenciais da farmácia: prazo de entrega em até 24h após aprovação. Novos criativos em vídeo. Analisar conversas no CRM (Pedido Pago) para identificar qualidade dos leads e atendimento da nova secretária.",
-          "insight": "Volume e custo de mensagens bons com time comercial sem converter aponta para um problema de processo de vendas, não de tráfego. A análise das conversas no CRM é o próximo passo mais importante — mapeie as principais objeções e crie um script de atendimento baseado nas conversas que mais fecharam."
+          "sugestao": "Já sugeri bater nos diferenciais da farmácia como o prazo de entrega em até 24h após aprovação do pedido, novos criativos em vídeo que foram os que melhor performaram.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         },
         {
-          "status": "yellow", "manager": "Leandro",
+          "status": "yellow",
+          "manager": "Leandro",
           "nome": "Vínicius Mello",
-          "funil": "Captacao de leads + Distribuicao de conteudo",
-          "problema": "Impossível identificar qual anúncio gera mais agendamentos (sem rastreamento de mensagem). Secretária ainda não converte o número necessário de agendamentos. Mentoria externa alterou a LP.",
-          "dados": "Meta de 400 leads/mês sendo atingida, CPL ~R$ 10. 21 agendamentos no total e 1 cirurgia realizada. Custo por seguidor mantido abaixo de R$ 2,00.",
-          "tentou": "Várias calls sobre qualidade de atendimento, envio de manual de boas práticas, acompanhamento e feedback via CRM.",
-          "sugestao": "Buscar ferramenta para rastrear mensagens de WhatsApp via UTM.",
-          "insight": "Com meta de leads atingida e CPL de R$10, o funil de topo está funcionando — o gargalo está no rastreamento e na conversão comercial. O rastreamento via UTM no WhatsApp é a prioridade técnica correta. Quanto à LP trocada pela mentoria externa, monitore o impacto nos agendamentos antes de aceitar qualquer conclusão da consultoria."
+          "funil": "Captação de leads + Distribuição de conteúdo",
+          "problema": "Em relação as campanhas estamos conseguindo gerar um volume de leads solicitados. as campanhas performam bem e até abaixo do esperado pelo nicho e o perfil meio polemico do Dr. Maior problema, não conseguimos identificar qual o anúncio que esta tendo maior número de agendamentos.(traqueamento de msg). Um leve problema é a secretária que já melhorou bastante os atendimentos, mas ainda não consegue converter o número de agendamentos necessários. Ponto de atenção, mentoria que contrataram para acelerar as vendas. Já criticaram a nossa LP que diziam não estar no padrão do Dr Vinicius e criaram uma nova, enviaram uns pdfs falando sobre forma de atendimento no whats... sobre o atendimento, fiz varias calls falando sobre e apontava dentro do CRM a forma que vinha sendo feito e tbm enviamos um manual de boas práticas para melhorar o atendimento. o que mais me preocupa é a msg abaixo.",
+          "dados": "vamos atingir a meta de 400 leads mês, CPL por volta de 10 reais. ao todo foram 21 agendamentos no total e uma cirurgia. Custo por seguidor oscila, mas estamos mantendo abaixo de R$ 2,00",
+          "tentou": "—",
+          "sugestao": "Buscar alguma ferramenta para traquear msgs.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         },
         {
-          "status": "yellow", "manager": "Leandro",
+          "status": "yellow",
+          "manager": "Leandro",
           "nome": "LC Agro",
-          "funil": "Captacao de leads",
-          "problema": "Leads bem frios e desqualificados. Demora no abastecimento de saldo pelo cliente.",
-          "dados": "Números no gerenciador saudáveis: bom volume de mensagens, baixo custo por msg, CPM R$ 25, CTR 2,21%, CPC R$ 1,76.",
+          "funil": "Captação de leads",
+          "problema": "Leads bem frios e dequalificados Demora no abastecimento de saldo",
+          "dados": "Os números no gerenciador são bons bom volume de msg baixo custo da msg CPM R$ 25 CTR 2,21% CPC 1,76",
           "tentou": "—",
-          "sugestao": "Testar formulário de cadastro para preparar melhor o lead antes da abordagem comercial. Acompanhar se volume de leads do gerenciador bate com o Kommo. Testar campanhas de mensagem em paralelo com campanha de cadastro.",
-          "insight": "Métricas de topo excelentes com leads desqualificados é um sinal clássico de desalinhamento no criativo — o anúncio atrai cliques mas não pré-qualifica o lead. O teste de formulário com 1 ou 2 perguntas de qualificação (ex: tamanho da propriedade, cultura principal) é a abordagem correta para filtrar antes do primeiro contato comercial."
+          "sugestao": "Testar formulário para preparar melhor o Lead.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         }
       ]
     },
     {
       "name": "Lucas",
-      "verde": ["Imperio Medico - Distribuicao", "Hermann Grebb - Typebot", "Thata - FSE Type", "Thata - FSE nativo", "Thata - C2", "Thata - C1", "Pompeu - Webnarios", "Pompeu - MPI", "Mayara - Typeform"],
+      "verde": [
+        "Imperio Medico - Distribuição",
+        "Hermann Grebb - Typebot",
+        "Thata - FSE Type",
+        "Thata - FSE nativo",
+        "Thata - C2",
+        "Thata - C1",
+        "Pompeu - Webnarios",
+        "Pompeu - MPI",
+        "Mayara - Typeform"
+      ],
       "clients": [
         {
-          "status": "red", "manager": "Lucas",
-          "nome": "Dr. William - PZT",
-          "funil": "Perpetuo",
-          "problema": "Instagram restrito para anunciar. CPM subiu, custo por IC dobrou e ROAS ficou negativo nas campanhas remanescentes.",
-          "dados": "Teste em novo perfil do Instagram: CPM normal R$29 → R$70 no 1º teste (absurdo). Campanhas paralisadas em 19/05. Retorno dos testes em 26/05 com CPM melhor (R$ 30,08), mas IC ainda absurdamente caro: R$ 129.",
-          "tentou": "Voltar a testar campanhas para o novo perfil do Instagram, que vem mostrando métricas secundárias melhores que o primeiro teste.",
-          "sugestao": "Com métricas secundárias voltando à normalidade, retomar testes de criativos, públicos e estruturas gradualmente para sentir a possibilidade de escala.",
-          "insight": "A restrição do Instagram é o problema raiz e os testes estão no caminho certo. O IC de R$129 no novo perfil indica que o algoritmo ainda não tem histórico suficiente — o re-aquecimento gradual é obrigatório. Escale 20 a 30% de verba por semana e só aumente o ritmo quando o IC voltar à faixa histórica normal anterior à restrição."
+          "status": "yellow",
+          "manager": "Lucas",
+          "nome": "DCM-F8",
+          "funil": "ex: DCM-F8",
+          "problema": "CPA muito instável . Variando de dias bons (CPA<1K) a dias ruins (CPA> R$1.3K)",
+          "dados": "CPM voltou a subir, mas natural com a escala das campanhas. CTR caindo nos ultimos dias, mas nosso CPA geral segue em queda gradativa, apesar das variancias de dias bons e ruins 2 criativos se destacando (E61 e V56). Subimos estruturas de escala pra ambos e estão com CPA abaixo de 1k no geral",
+          "tentou": "—",
+          "sugestao": "\\-Seguir testando os criativos \\-Seguir escalando campanhas E61 e V56",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         },
         {
-          "status": "yellow", "manager": "Lucas",
-          "nome": "DCM-F8",
-          "funil": "Imperio Medico - DCM-F8",
-          "problema": "CPA muito instável: variando de dias bons (CPA abaixo de R$1.000) a dias ruins (CPA acima de R$1.300).",
-          "dados": "CPM em melhora nos últimos 2 dias, CTR acima de 2%, CPA vem baixando (de R$1,7k para R$1,3k no momento). Após testar página com ticket de R$47, os resultados melhoraram significativamente.",
-          "tentou": "—",
-          "sugestao": "Seguir testando criativos. Testar público de lookalike do Medmaster. Testar novamente público de lookalike de compradores.",
-          "insight": "A melhora expressiva após o teste com ticket de R$47 confirma sensibilidade ao preço na decisão de compra — considere tornar essa oferta de entrada o foco principal da campanha. Os lookalikes de compradores tendem a ter melhor ROAS para ofertas de ticket médio: priorize esse teste antes do lookalike do Medmaster."
+          "status": "yellow",
+          "manager": "Lucas",
+          "nome": "Dr. William - PZT",
+          "funil": "ex: Perpétuo",
+          "problema": "Instagram restrito para anunciar",
+          "dados": "Métricas relevantes: CPM segue na faixa dos R$40 mas custo por IC ta muito caro. ROAS ~1 sem espaço pra escala. Seguimos testando novos criativos e aguardando retorno em relação ao Instagram Dr. William",
+          "tentou": "Desde a queda do perfil antigo os testes se limitaram a novos criativos.",
+          "sugestao": "Até nosso custo por IC normalizar, seguir com testes de criativos até encontrar novo campeão pra testar novas estruturas de escala. \\Em call com Gabriel hoje alinhamos a possibilidade de pausar esse funil, transformar o combo mãe inteligente no nosso novo perpétuo low ticket, rodar um webnario semanal e uma lançamento bimestral. Nova reunião para alinhamento para essa quinta e trago tudo quando o martelo for batido.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+        },
+        {
+          "status": "yellow",
+          "manager": "Lucas",
+          "nome": "Thata - VSL",
+          "funil": "ex: VSL",
+          "problema": "Instagram restrito para anunciar",
+          "dados": "Métricas relevantes: CPM melhorou bastante rodando pra público quente (estranho né?). CPC e CTR melhorando, mas Taxa de passagem de LP pra CHK muito baixa (<4%).",
+          "tentou": "Testei novos criativos, nosso melhor público do FT-L7 (lookalike compradores) e ADV. (aqui eu queria que você desse uma olhada, e até acho que é o que justifica o CPM baixar pra público quente. Mas eu testei ADV e LL compradores e a frequência tava muito alta com investimento nem tão significativo. Veja se consegue identificar o motivo, porque eu não identifiquei.)",
+          "sugestao": "Como público quente melhorou bastante nosso resultado (passamos de 0,2 de roas pra 0,8 olhando todo o período), testar mais criativos pra tentar encontrar um campeão e escalar se atingirmos esse ponto.",
+          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
         }
       ]
     }
