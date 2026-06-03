@@ -189,7 +189,7 @@ const DATA = {
           "dados": "o CTR e CPC filtrando pelo os meses anteriores esta atrativo a cada mês, de março foi de (1,30% (março) (1,45% abril) (1,56% maio) porem mesmo com o CTR e CPC melhorando, a tx de IC e de conversão de checkout vem caindo, (15% em março) (13% em abril) (7% em maio) o que prova nitidamente que a VSL vem saturando, mesmo com as métricas do tráfego melhorando, além da taxa de conversão do Checkout tb ser a pior dos últimos 3 meses (7,06%)",
           "tentou": "Duplicar os criativos que mais venderam, testar os criativos que mais venderam em aberto, testar novos ADS no nosso conjunto de LL validado, subir novos ads de 2/3 dias",
           "sugestao": "Mudar a VSL urgente",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz total sentido e é urgente, pois os dados comprovam saturação clara da VSL: enquanto o CTR subiu de 1,30% para 1,56% em três meses, a taxa de IC despencou de 15% para 7% e a conversão de checkout caiu para 7,06%, indicando que o tráfego está chegando mais qualificado mas a página de vendas perdeu poder de conversão. Antes de trocar a VSL inteira, recomendo testar primeiro os primeiros 30 segundos e a oferta final, pois são os pontos de maior abandono em VSLs saturadas. Paralelamente, implemente um pixel de profundidade ou ferramenta de heatmap para identificar exatamente onde os usuários estão abandonando o vídeo. Se a retenção estiver abaixo de 40% no primeiro terço da VSL, priorize refazer a abertura com novo hook e ângulo de copy antes de gravar uma VSL completamente nova."
         },
         {
           "status": "red",
@@ -200,7 +200,7 @@ const DATA = {
           "dados": "o CTR e CPC filtrando pelo os meses anteriores esta atrativo a cada mês, de março foi de (1,30% (março) (1,45% abril) (1,56% maio) porem mesmo com o CTR e CPC melhorando, a tx de IC e de conversão de checkout vem caindo, (15% em março) (13% em abril) (7% em maio) o que prova nitidamente que a VSL vem saturando, mesmo com as métricas do tráfego melhorando, além da taxa de conversão do Checkout tb ser a pior dos últimos 3 meses (7,06%)",
           "tentou": "Duplicar os criativos que mais venderam, testar os criativos que mais venderam em aberto, testar novos ADS no nosso conjunto de LL validado, subir novos ads de 2/3 dias",
           "sugestao": "Mudar a VSL urgente",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz total sentido e é urgente, os dados comprovam saturação clara da VSL com queda de IC de 15% para 7% em três meses enquanto CTR subiu de 1,30% para 1,56%, ou seja, o tráfego está mais qualificado mas a página não converte mais, o problema está 100% no conteúdo de vendas e não nos anúncios. A taxa de checkout de 7,06% reforça que o lead chega interessado mas a VSL perdeu poder de persuasão, provavelmente o público já foi exposto demais aos mesmos argumentos e promessas. Recomendo não apenas trocar a VSL mas testar um ângulo de copy completamente diferente, nova headline, nova estrutura de oferta e possivelmente novo mecanismo único, pois duplicar a mesma abordagem com visual diferente não resolverá. Enquanto a nova VSL não sobe, teste imediatamente um bump de urgência ou escassez real no checkout para recuperar parte da conversão perdida ali."
         },
         {
           "status": "yellow",
@@ -211,7 +211,7 @@ const DATA = {
           "dados": "CPM (que dobrou de R$ 23,93 em fev pra R$ 58,04 em maio). a conv. checkout vem caindo mês a mês (14,56% fev → 10,03% mar → 9,19% abr → 9,76% mai) mesmo com o CTR ainda bom (1,54%), o que prova que o problema não é o criativo",
           "tentou": "—",
           "sugestao": "depois de resolver a suspensão na conta, testar mais criativos pra ver se conseguimos baratear o CPM e voltar a engatar de novo",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz sentido parcial, mas está incompleta e mira no alvo errado como prioridade. O CPM dobrado é sintoma de conta penalizada e saturação de público, não de criativo ruim, e testar mais ads na mesma conta problemática vai perpetuar o ciclo. O problema central está no funil pós-clique: a queda de conversão de checkout de 14,56% para 9,76% em 4 meses, combinada com taxa de início de checkout de apenas 5,88%, indica VSL ou página de vendas perdendo força, e isso precisa ser atacado antes de escalar tráfego. Recomendo estrutura paralela com BM e domínio novos para resetar o CPM, mas simultaneamente revisar os primeiros 3 minutos da VSL e elementos de urgência na página, porque mesmo barateando tráfego você vai sangrar na conversão se não corrigir o funil."
         },
         {
           "status": "yellow",
@@ -222,7 +222,7 @@ const DATA = {
           "dados": "—",
           "tentou": "—",
           "sugestao": "Resolver o problema",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor está correta mas é genérica demais, o problema de UTMs não aparecendo nas colunas de otimização geralmente tem três causas principais: parâmetros mal configurados na URL de destino, falha no tracking do pixel ou API de conversão, ou erro na integração entre plataforma de anúncios e dashboard. Ação imediata: verificar se os parâmetros utm_source, utm_medium e utm_campaign estão sendo passados corretamente usando o modo de visualização do GTM ou extensões como UTM Grabber, depois checar se o pixel está disparando com os parâmetros no evento de PageView. Enquanto não resolver, você está operando às cegas e qualquer decisão de escala ou corte de campanhas pode queimar orçamento, então priorize isso antes de qualquer otimização. Se a Dash for ferramenta terceira tipo Trackefy ou Utmify, abra chamado urgente com print do payload que está chegando versus o que deveria chegar."
         }
       ]
     },
@@ -248,7 +248,7 @@ const DATA = {
           "dados": "Problema na instalação do pixel, dificuldade de avaliação das métricas da VSL, falhas no pagamento, falta de respostas no grupo",
           "tentou": "—",
           "sugestao": "Sem ideias",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "O problema não é de tráfego, é de infraestrutura básica quebrada, sem pixel funcional você está dirigindo no escuro e queimando verba sem dados para otimizar. A prioridade absoluta agora é pausar campanhas, corrigir pixel com teste de eventos confirmado, resolver checkout com gateway alternativo se necessário e só depois voltar a rodar. A falta de respostas no grupo indica possível problema de entrega de leads ou comunidade morta, valide se os leads estão de fato entrando e sendo notificados. O gestor deveria ter sugerido esse diagnóstico técnico antes de qualquer análise de métricas, funil perpétuo só funciona com tracking e pagamento 100% operacionais."
         },
         {
           "status": "yellow",
@@ -259,7 +259,7 @@ const DATA = {
           "dados": "—",
           "tentou": "—",
           "sugestao": "Escalar campanhas com evento de conversão específico",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "Sem dados concretos como CPA, ROAS, taxa de conversão ou volume de leads qualificados, não consigo validar se escalar agora é o momento certo ou um risco de queimar verba. A sugestão de usar evento de conversão específico faz sentido técnico, pois sinaliza melhor para o algoritmo otimizar em direção ao objetivo real, mas escalar só deve acontecer após validar que o evento escolhido tem pelo menos 50 conversões semanais para sair da fase de aprendizado. Minha recomendação é primeiro garantir que o pixel está disparando corretamente no evento desejado, acumular dados mínimos de otimização e só então aumentar orçamento gradualmente em 20 a 30 por cento a cada 3 dias. Solicite ao cliente métricas de CPL, taxa de comparecimento e custo por venda para tomar decisão embasada."
         }
       ]
     },
@@ -280,7 +280,7 @@ const DATA = {
           "dados": "Métricas relevantes: CPA em R$ 79,84 e ROAS em 1,45. Taxa de checkout em 7,01%, finalização de compra em 32,5% e geral em 2,28%. CPM, CPC, CTR e connect rate estão saudáveis, porém a frequencia está em 3,79.",
           "tentou": "Testes de criativos. Tenho apenas mais um criativo em teste, mas já estão criando novos. Nessa semana consegui escalar 3 criativos que estão ajudando a melhorar os resultados. Teste de página. Foram ao todo 3 testes de páginas e recebi mais uma que será publicada na quarta-feira. Atualmente temos um dificuldade em gerar checkouts, porém o principal problema está na finalização de compra, então sugeri algumas alterações no checkout que podem melhorar o desempenho. Teste de públicos. Nessa última semana já testamos 7 públicos frios diferentes, porém com verba reduzida devido os resultados Aqui o problema é o mesmo que o do quente, porém pior. Taxa de checkout em 3,76%, finalização de compra em 17,24% e geral em 065%.",
           "sugestao": "Mirando em otimizar a ação para melhorar os resultados, com certeza focaria em alterações na página e checkout que possam melhorar ambas as taxas, e também novos criativos semelhantes aos 3 que estão em escala. No momento deixei ativo a campanha de teste de criativos, pois está trazendo bons resultados e campanha de teste de públicos para tentar escalar para o frio, porém acredito que não será possível sem as alterações citadas acima.",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz sentido parcial, mas o diagnóstico está incompleto: com frequência em 3,79, o público quente está saturado e isso inflaciona artificialmente as taxas de checkout e finalização, mascarando o real problema que é a baixa conversão no frio onde a taxa geral de 0,65% indica oferta ou página desalinhadas com público desconhecido. Antes de focar em alterações no checkout, priorize reduzir a frequência para abaixo de 2,5 expandindo o público ou renovando criativos, pois rodar com frequência alta significa que você está reimpactando as mesmas pessoas que já decidiram não comprar. A taxa de finalização de 32,5% no quente versus 17,24% no frio sugere que o checkout não é o principal gargalo, mas sim a qualificação do tráfego frio e a proposta de valor na página, então teste headlines e blocos de prova social antes de mexer no checkout. Ação imediata: pause a escala no frio até corrigir a página, reduza verba no quente para controlar frequência e use os 3 criativos vencedores como base para criar variações de ângulo"
         },
         {
           "status": "yellow",
@@ -291,7 +291,7 @@ const DATA = {
           "dados": "Métricas relevantes: CPA em R$ 32,75 e ROAS em 0,76. Taxa de checkout em 6,58%, finalização de compra em 82,43% e geral em 5,24%. CPM, CPC, CTR, connect rate e a frequencia estão saudáveis.",
           "tentou": "—",
           "sugestao": "Principal Continuar abordando a taxa de checkout baixa e cobrar as melhorias que o Gabriel comentou que vai implementar. As variações que sugerimos na semana passada não serão realizadas porque já foram testadas anteriormente, porém irei analisar outras possíveis variações para teste.",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz total sentido, pois com taxa de checkout de apenas 6,58% enquanto a finalização está em 82,43%, o gargalo está claramente na página de vendas e não no checkout em si, então pressionar pelas melhorias prometidas é a prioridade correta. Para um funil perpétuo de low ticket, uma taxa de checkout saudável deveria estar entre 15% e 25%, ou seja, o cliente está perdendo mais de 50% do potencial de conversão antes mesmo de iniciar o pagamento. Sugiro que o gestor solicite ao Gabriel implementação de elementos de urgência, prova social acima do botão de compra e teste de ancoragem de preço, pois são ajustes de alto impacto que podem dobrar a taxa de checkout em 2 a 3 semanas. Enquanto aguarda as melhorias, vale testar variações de copy no criativo que já qualifiquem melhor a intenção de compra, filtrando cliques curiosos e atraindo visitantes mais propensos a converter."
         }
       ]
     },
@@ -312,7 +312,7 @@ const DATA = {
           "dados": "Volume de mensagens CTR CPM CPC link",
           "tentou": "Testar públicos e criativos",
           "sugestao": "Já orientei as SM a voltar todo conteúdo sobre esse procedimento. Prova social + Novos Criativos",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz sentido parcial, mas está incompleta porque o problema central não é criativo, é estrutural do tipo de campanha. Campanhas de objetivo mensagem naturalmente atraem leads de baixa qualidade porque otimizam para volume de conversas, não para intenção real de compra, independente do criativo usado. A recomendação técnica é migrar para campanha de conversão com formulário qualificador dentro do Meta ou landing page com perguntas filtro, isso sozinho costuma reduzir volume em 40 a 60 por cento mas aumentar taxa de qualificação em até 3 vezes. Antes de reativar, defina critérios claros do que é lead qualificado e implemente pelo menos duas perguntas de triagem no ponto de entrada, prova social e novos criativos são complementos, não solução."
         },
         {
           "status": "red",
@@ -323,7 +323,7 @@ const DATA = {
           "dados": "Volume de mensagens baixo CPM mto alto R$ 63,00 (normal pra estética) CPC 8,39 (grave) Baixo Alcance (grave)",
           "tentou": "—",
           "sugestao": "Precisamos urgente de pelo menos 4 criativos para testar e aumentar um pouco mais a verba de 15 pra 30 reais Obs: mesmo com apenas 3 msgs geradas, nos últimos 4 dias, Mariana reportou que os leads estavam respondendo bem.",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz sentido parcialmente, mas está incompleta. O CPC de R$8,39 com CPM de R$63 indica problema grave de CTR nos criativos atuais, então sim, novos criativos são urgentes, porém dobrar a verba antes de resolver o CTR vai apenas queimar dinheiro mais rápido. Recomendo primeiro produzir os 4 criativos com abordagens diferentes como prova social, antes e depois, oferta direta e bastidores, testar com os R$15 atuais por 3 a 4 dias, e só escalar para R$30 quando o CPC cair para abaixo de R$4. O fato de os leads responderem bem é um sinal positivo de qualificação, então o problema está claramente no topo do funil e não na oferta, o que reforça que a prioridade absoluta é melhorar os criativos antes de qualquer aumento de verba."
         },
         {
           "status": "yellow",
@@ -334,7 +334,7 @@ const DATA = {
           "dados": "Volume e custo de msgs são bons, abaixo do esperado.",
           "tentou": "—",
           "sugestao": "Já sugeri bater nos diferenciais da farmácia como o prazo de entrega em até 24h após aprovação do pedido, novos criativos em vídeo que foram os que melhor performaram.",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz sentido parcial, mas ataca o problema errado: se o volume e custo de mensagens estão bons, o gargalo não é a campanha, é o processo comercial pós-clique. Antes de investir em novos criativos, recomendo auditar o tempo de resposta da equipe comercial (ideal abaixo de 5 minutos para leads quentes), script de abordagem e taxa de resposta às mensagens recebidas. Para público quente de lista de clientes, a conversão esperada deveria ser significativamente maior que público frio, então o diferencial de 24h precisa estar no discurso do vendedor, não só no anúncio. Ação imediata: acompanhar 10 atendimentos reais, medir tempo de primeira resposta e identificar onde os leads estão travando no funil comercial antes de otimizar campanha."
         },
         {
           "status": "yellow",
@@ -345,7 +345,7 @@ const DATA = {
           "dados": "vamos atingir a meta de 400 leads mês, CPL por volta de 10 reais. ao todo foram 21 agendamentos no total e uma cirurgia. Custo por seguidor oscila, mas estamos mantendo abaixo de R$ 2,00",
           "tentou": "—",
           "sugestao": "Buscar alguma ferramenta para traquear msgs.",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "O gestor está correto em buscar rastreamento de mensagens, pois sem atribuição de conversões por anúncio é impossível otimizar campanhas com precisão. A taxa de conversão de lead para agendamento está em apenas 5,25% (21/400), o que indica gargalo grave no atendimento ou na qualificação dos leads, já que o padrão para esse tipo de funil deveria estar entre 15% e 25%. Recomendo implementar imediatamente UTMs parametrizadas com ferramentas como Manychat, Respondi ou Sirena para rastrear origem dos agendamentos, e paralelamente revisar o script da secretária com foco em resposta nos primeiros 5 minutos e follow-up estruturado. Sobre a mentoria que critica a LP, peça dados concretos de performance comparativa antes de aceitar mudanças, pois CPL de 10 reais em nicho médico polêmico é resultado sólido e trocar página sem teste AB pode prejudicar o que já funciona."
         },
         {
           "status": "yellow",
@@ -356,7 +356,7 @@ const DATA = {
           "dados": "Os números no gerenciador são bons bom volume de msg baixo custo da msg CPM R$ 25 CTR 2,21% CPC 1,76",
           "tentou": "—",
           "sugestao": "Testar formulário para preparar melhor o Lead.",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz sentido parcial mas não resolve a raiz do problema. Com CTR de 2.21 por cento e CPC de 1.76 reais os números de clique estão saudáveis, o que indica que o criativo atrai público mas a qualificação falha na segmentação ou na promessa do anúncio, não no formato de captação. Antes de testar formulário recomendo revisar a segmentação de público e inserir perguntas qualificadoras no próprio fluxo de mensagem atual para filtrar curiosos, pois trocar para formulário pode derrubar volume sem garantir qualidade se o targeting continuar amplo. Se insistir no formulário use campos como tamanho da propriedade e momento de compra para criar barreira natural e aceite que o volume vai cair entre 40 e 60 por cento mas com leads mais prontos."
         }
       ]
     },
@@ -383,7 +383,7 @@ const DATA = {
           "dados": "CPM voltou a subir, mas natural com a escala das campanhas. CTR caindo nos ultimos dias, mas nosso CPA geral segue em queda gradativa, apesar das variancias de dias bons e ruins 2 criativos se destacando (E61 e V56). Subimos estruturas de escala pra ambos e estão com CPA abaixo de 1k no geral",
           "tentou": "—",
           "sugestao": "\\-Seguir testando os criativos \\-Seguir escalando campanhas E61 e V56",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "O gestor está correto na estratégia de escalar E61 e V56 já que ambos sustentam CPA abaixo de 1K, porém a instabilidade diária indica necessidade de diversificação urgente pois depender de apenas 2 criativos em escala aumenta o risco de fadiga e volatilidade. A queda de CTR nos últimos dias é um sinal de alerta precoce de saturação criativa que precisa ser monitorada de perto, especialmente com CPM subindo. Recomendo manter a escala gradual desses winners mas acelerar o volume de testes criativos para ter pelo menos 4 a 5 opções validadas com CPA controlado antes de escalar ainda mais. Defina um limite de variação aceitável por exemplo pausar automaticamente conjuntos que ultrapassem CPA de 1.1K por 2 dias consecutivos para proteger a média geral enquanto busca novos vencedores."
         },
         {
           "status": "yellow",
@@ -394,7 +394,7 @@ const DATA = {
           "dados": "Métricas relevantes: CPM segue na faixa dos R$40 mas custo por IC ta muito caro. ROAS ~1 sem espaço pra escala. Seguimos testando novos criativos e aguardando retorno em relação ao Instagram Dr. William",
           "tentou": "Desde a queda do perfil antigo os testes se limitaram a novos criativos.",
           "sugestao": "Até nosso custo por IC normalizar, seguir com testes de criativos até encontrar novo campeão pra testar novas estruturas de escala. \\Em call com Gabriel hoje alinhamos a possibilidade de pausar esse funil, transformar o combo mãe inteligente no nosso novo perpétuo low ticket, rodar um webnario semanal e uma lançamento bimestral. Nova reunião para alinhamento para essa quinta e trago tudo quando o martelo for batido.",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz sentido parcial, mas testar apenas criativos com Instagram restrito é insuficiente para resolver o problema estrutural, já que a limitação de canal reduz drasticamente o inventário e infla o CPM e custo por IC. A proposta de pivotar para o combo Mãe Inteligente como perpétuo low ticket combinado com webinário semanal e lançamento bimestral é estrategicamente correta, pois diversifica a entrada do funil e reduz dependência de um único ativo bloqueado. Recomendo pausar o perpétuo atual imediatamente, pois ROAS 1 sem margem de escala só queima caixa, e priorizar a estruturação do novo funil antes de voltar a investir. Enquanto aguarda a liberação do Instagram, valide o webinário com tráfego orgânico ou lista existente para ter dados de conversão antes de escalar com mídia paga."
         },
         {
           "status": "yellow",
@@ -405,7 +405,7 @@ const DATA = {
           "dados": "Métricas relevantes: CPM melhorou bastante rodando pra público quente (estranho né?). CPC e CTR melhorando, mas Taxa de passagem de LP pra CHK muito baixa (<4%).",
           "tentou": "Testei novos criativos, nosso melhor público do FT-L7 (lookalike compradores) e ADV. (aqui eu queria que você desse uma olhada, e até acho que é o que justifica o CPM baixar pra público quente. Mas eu testei ADV e LL compradores e a frequência tava muito alta com investimento nem tão significativo. Veja se consegue identificar o motivo, porque eu não identifiquei.)",
           "sugestao": "Como público quente melhorou bastante nosso resultado (passamos de 0,2 de roas pra 0,8 olhando todo o período), testar mais criativos pra tentar encontrar um campeão e escalar se atingirmos esse ponto.",
-          "insight": "Erro ao gerar insight: Client.__init__() got an unexpected keyword argument 'proxies'"
+          "insight": "A sugestão do gestor faz sentido parcial, mas atacar criativos agora é otimizar o topo quando o gargalo real está no meio do funil, com taxa de passagem LP para checkout abaixo de 4% você está perdendo mais de 96% do tráfego qualificado antes da oferta. O CPM mais baixo em público quente com frequência alta indica que você está reimpactando exaustivamente uma base pequena, o algoritmo entrega barato porque o leilão é menos competitivo para audiências saturadas, porém isso mascara um problema de esgotamento de público que vai piorar. Antes de escalar criativos, priorize um diagnóstico da LP usando heatmap e scroll depth para identificar onde o usuário abandona, teste headlines, VSL hook nos primeiros 30 segundos e botão de CTA, pois dobrar essa taxa de 4% para 8% equivale a dobrar seu investimento em mídia. Recomendo também expandir a base de público quente com um funil de aquisição paralelo usando conteúdo orgânico ou lead magnet leve para não depender de reaquecer a mesma audiência até a exaustão."
         }
       ]
     }
