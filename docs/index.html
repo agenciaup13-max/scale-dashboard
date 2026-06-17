@@ -164,196 +164,33 @@
 </footer>
 <script>
 const DATA = {
-  "week": "08/06 a 12/06",
-  "updatedAt": "10/06/2026",
+  "week": "—",
+  "updatedAt": "17/06/2026",
   "managers": [
     {
       "name": "Erick",
-      "verde": [
-        "Giaco",
-        "Leo",
-        "MonsterDay",
-        "Medmaster",
-        "VDK",
-        "Dr. Marlon Batista",
-        "Núbia Oliveira"
-      ],
-      "clients": [
-        {
-          "status": "red",
-          "manager": "Erick",
-          "nome": "Alice (Desafio fecha calça",
-          "funil": "Lançamento pago",
-          "problema": "CPA mais caro que o ticket, gerando ROAS negativo",
-          "dados": "o CPA dos 2 ticketes que estamos testando (R$17 e R$27) está em R$37, fazendo com que a cada dia que passe nosso roas fique negativo, em um macro ainda estamos positivos por conta do organico",
-          "tentou": "Testei público Lookaliike, otimizei os melhores ads, e adicionei publico de lista de compradores",
-          "sugestao": "Testar um ticket de R$37, levando em consideração que esse é o nosso CPA médio, se mantermos ele com um ticket de R$37, pelo menos roas 1 a gente iria ter",
-          "insight": "A sugestão do gestor faz sentido como solução de curto prazo para zerar o prejuízo, mas é uma estratégia de sobrevivência e não de crescimento, pois ROAS 1 significa margem zero e qualquer oscilação no CPA volta a dar prejuízo. O problema real está no custo de aquisição, não no ticket, já que um CPA de R$37 para produto de baixo ticket indica que o funil de entrada está ineficiente, provavelmente com CTR baixo ou página de vendas com conversão abaixo de 2%. Antes de subir o preço e potencialmente derrubar a taxa de conversão, teste criativos de VSL curto ou UGC com gancho mais direto de transformação, pois em nicho de emagrecimento o emocional vende mais que o racional. Se ainda assim o CPA não cair para abaixo de R$20, considere usar o tráfego pago apenas para captura de lead e vender o desafio via sequência de WhatsApp ou email, onde a conversão tende a ser 3 a 5 vezes maior."
-        },
-        {
-          "status": "red",
-          "manager": "Erick",
-          "nome": "Lucas",
-          "funil": "Funil quiz e low ticket",
-          "problema": "Tudo no critico, tanto o funil de quiz como os funis low tickets rodando atualmente",
-          "dados": "Roas negativo e CPA estourado em todos os funis do Lucas atualmente",
-          "tentou": "Peguei a conta hoje, então nos próximos dias vou testar tudo igual maluco, e ir mantendo as coisas como alinhei com o Rafa",
-          "sugestao": "Testar tudo",
-          "insight": "A sugestão de testar tudo faz sentido parcialmente, mas precisa de priorização estratégica para não queimar verba sem direção. Com ROAS negativo e CPA estourado em todos os funis simultaneamente, o problema provavelmente está na base: público, oferta ou criativo principal, não em ajustes pontuais. Minha recomendação é pausar os funis com pior desempenho, isolar o funil de quiz como diagnóstico inicial porque ele revela qualidade de lead e intenção, e testar primeiro criativos e copy de entrada antes de mexer em páginas ou ofertas. Defina um CPA máximo aceitável por funil e estabeleça um prazo de 5 a 7 dias por teste com pelo menos 50 conversões para ter significância estatística, caso contrário você vai ficar rodando no escuro."
-        },
-        {
-          "status": "yellow",
-          "manager": "Erick",
-          "nome": "Wendell - Metodo cronos",
-          "funil": "VSL venda direta",
-          "problema": "Suspensão na conta, CPM dobrou, não consigo subir mais ativos pra tentar bater um público novo e baratear o CPM, e tx de IC tb vem caindo ao decorrer dos meses atualmente estando em 5,88%, mesmo com o CTR dos criativos ok (1,66%) gostaria de testar mais ads, porem não consigo por causa do problema de suspensão na conta, então a conta segue pausado",
-          "dados": "CPM (que dobrou de R$ 23,93 em fev pra R$ 58,04 em maio). a conv. checkout vem caindo mês a mês (14,56% fev → 10,03% mar → 9,19% abr → 9,76% mai) mesmo com o CTR ainda bom (1,54%), o que prova que o problema não é o criativo",
-          "tentou": "—",
-          "sugestao": "depois de resolver a suspensão na conta, testar mais criativos pra ver se conseguimos baratear o CPM e voltar a engatar de novo",
-          "insight": "A sugestão do gestor faz sentido parcial, mas está incompleta porque o problema central não é o CPM e sim a queda consistente na conversão de checkout de 14,56% para 9,76%, o que indica fadiga de oferta ou VSL desatualizada, não criativo. Com CTR saudável em 1,54% a 1,66%, os criativos estão funcionando e testar mais ads pode até baratear CPM, mas não vai resolver a sangria no funil que está custando cerca de 30% das conversões perdidas desde fevereiro. Minha recomendação técnica é priorizar, após resolver a suspensão, um teste A/B na VSL com nova promessa ou ângulo de entrada antes de escalar criativos, porque subir tráfego mais barato para um funil com vazamento só vai acelerar o prejuízo. Paralelamente, abra uma estrutura de contingência em BM nova para não ficar refém de uma única conta enquanto resolve o problema principal."
-        },
-        {
-          "status": "yellow",
-          "manager": "Erick",
-          "nome": "Maíra cardi",
-          "funil": "Evento presencial",
-          "problema": "Recentemente deu problema na Dash, não está aparecendo as UTMS nas colunas de otimização, fiz uma call com o Lucas pra entender como solucionar o problema, e não achamos de forma alguma",
-          "dados": "—",
-          "tentou": "—",
-          "sugestao": "Resolver o problema",
-          "insight": "A sugestão do gestor está correta porém é genérica demais e não constitui um plano de ação real. O problema de UTMs não populando colunas de otimização geralmente está em uma dessas três causas: parâmetros mal formatados na URL de destino, falha no disparo do pixel ou API de conversão no momento da captura, ou quebra no mapeamento entre o CRM e a Dash. Recomendo fazer um teste controlado agora: crie uma conversão manual com UTMs conhecidas e rastreie se ela aparece no CRM e depois na Dash, isso isola se o problema está no tracking do Meta, na integração CRM-Dash ou no próprio painel. Enquanto não resolver, exporte os dados brutos do CRM com UTMs e cruze manualmente com o gerenciador de anúncios para não ficar cego nas otimizações de um evento presencial onde cada lead tem alto valor."
-        }
-      ]
+      "verde": [],
+      "clients": []
     },
     {
       "name": "Edu",
-      "verde": [
-        "VHE - Lives Semanais",
-        "VHE - LDE",
-        "VHE - C2",
-        "VHE - C1",
-        "Davi - MP",
-        "Davi - BFR",
-        "Davi - MP-L3",
-        "ESIN - Solares"
-      ],
-      "clients": [
-        {
-          "status": "yellow",
-          "manager": "Edu",
-          "nome": "Guto - RH",
-          "funil": "Reset Hormonal Perpétuo",
-          "problema": "ROAS começou bem e ficou apertado depois do retorno da conta",
-          "dados": "ROAS vem caindo. Visualização do checkout também O checkout já foi tema de conversa recentemente. O pixel não tava disparando. O link do checkout que tava na VSL não era o certo. Depois trocaram e a conversão voltou a subir. Bateu valores históricos de 3 e até 6% mas no dia seguinte voltou a cair",
-          "tentou": "—",
-          "sugestao": "Os anúncios ativos eram os de duas campanhas mais recentes. Eu otimizei as campanhas, pausei um ad que tava com ROAS 0,89 Puxei TOP ADS histórico desde fevereiro (excluindo o melhor mes janeiro) e criei uma campanha de TOP ADS Com os mesmo anúncios também recriei a campanha de Teste de Interesses A sugestão final é voltar à logica antiga e refazer todos os testes. O funil foi resetado, perdeu inteligência e agora está sofrendo pra recuperar a escalabilidade de antes.",
-          "insight": "A sugestão do gestor faz sentido parcial, mas o diagnóstico está incompleto e a execução pode agravar o problema. Recriar campanhas de TOP ADS e testes de interesse ao mesmo tempo que o pixel acabou de ser corrigido vai fragmentar ainda mais o aprendizado do algoritmo, que precisa de volume concentrado para sair da fase de aprendizado, o ideal seria rodar uma única campanha com os 3 a 5 melhores criativos históricos e pelo menos 50 conversões por semana antes de expandir. A oscilação de 3 a 6 por cento de conversão no checkout caindo no dia seguinte indica problema técnico recorrente ou variação de qualidade de tráfego por segmentação, não apenas perda de inteligência do pixel, então antes de resetar tudo é crítico auditar se o pixel está disparando corretamente em 100 por cento dos eventos e se há consistência no público que chega. Recomendo consolidar em uma campanha CBO com orçamento que garanta saída rápida do learning limited, monitorar taxa de checkout por conjunto de anúncios para isolar qual segmentação está trazendo tráfego desqualificado, e só depois de est"
-        },
-        {
-          "status": "yellow",
-          "manager": "Edu",
-          "nome": "VHE - L3",
-          "funil": "Lançamento",
-          "problema": "O que os dados mostram?",
-          "dados": "O que eu já tentei?",
-          "tentou": "—",
-          "sugestao": "—",
-          "insight": "Os dados apresentados estão incompletos, sem métricas de CTR, CPA, taxa de conversão entre etapas do funil ou ROAS, o que impossibilita uma análise técnica precisa. Para um funil de lançamento, preciso saber no mínimo: custo por lead, taxa de comparecimento, taxa de conversão da oferta e ticket médio. Solicite ao cliente ou extraia do gerenciador as métricas de cada etapa do funil nos últimos 7 e 14 dias para identificar onde está o gargalo real. Sem esses dados, qualquer sugestão seria um chute e não uma decisão estratégica baseada em evidências."
-        }
-      ]
+      "verde": [],
+      "clients": []
     },
     {
       "name": "Adryon",
-      "verde": [
-        "Carlos Beil",
-        "Ecosmetics",
-        "Briko Seguros"
-      ],
-      "clients": [
-        {
-          "status": "red",
-          "manager": "Adryon",
-          "nome": "Partiu Empreender",
-          "funil": "Imersão do Zero ao Lucro #3",
-          "problema": "CPA caro devido a taxas da página extremamente baixas, tanto no checkout quanto na finalização de compra.",
-          "dados": "Métricas relevantes: CPA em R$ 77,36 e ROAS em 0,52. Taxa de checkout em 10,48%, finalização de compra em 31,45% e geral em 3,30%. CPM, CPC, CTR e connect rate estão saudáveis.",
-          "tentou": "Testes de criativos. Tenho apenas mais um criativo em teste, mas já estão criando novos. Nessa semana consegui escalar 3 criativos que estão ajudando a melhorar os resultados. Teste de página. Foram ao todo 3 testes de páginas e recebi mais uma que será publicada na quarta-feira. Atualmente temos um dificuldade em gerar checkouts, porém o principal problema está na finalização de compra, então sugeri algumas alterações no checkout que podem melhorar o desempenho. Teste de públicos. Nessa última semana já testamos 7 públicos frios diferentes, porém com verba reduzida devido os resultados Aqui o problema é o mesmo que o do quente, porém pior. Taxa de checkout em 4,55%, finalização de compra em 9,09% e geral em 0,41%.",
-          "sugestao": "Mirando em otimizar a ação para melhorar os resultados, com certeza focaria em alterações na página e checkout que possam melhorar ambas as taxas, e também novos criativos semelhantes aos 3 que estão em escala. No momento deixei ativo a campanha de teste de criativos, pois está trazendo bons resultados e campanha de teste de públicos para tentar escalar para o frio, porém acredito que não será possível sem as alterações citadas acima.",
-          "insight": "A sugestão do gestor faz total sentido e está tecnicamente correta ao priorizar otimizações na página e checkout, já que com tráfego saudável o gargalo real está na conversão on-page, especialmente a taxa de finalização de 31,45% no quente e 9,09% no frio que estão sangrando o funil. Recomendo implementar urgentemente no checkout elementos de urgência, prova social, garantia visível e simplificação de campos, pois elevar a finalização de 31% para 50% já reduziria o CPA para aproximadamente R$ 48. A estratégia de replicar os 3 criativos vencedores é acertada, mas sugiro pausar temporariamente o teste de públicos frios até corrigir o checkout, pois escalar tráfego com taxa geral de 0,41% só vai queimar verba. Prioridade clara: primeiro consertar o checkout, depois testar a nova página na quarta, e só então voltar a escalar públicos frios com a estrutura otimizada."
-        },
-        {
-          "status": "yellow",
-          "manager": "Adryon",
-          "nome": "Edu Pura Pesca",
-          "funil": "MIA (Perpétuo Low ticket)",
-          "problema": "CPA caro devido a taxa de checkout da página extremamente baixa.",
-          "dados": "Métricas relevantes: CPA em R$ 30,85 e ROAS em 0,74. Taxa de checkout em 8,32% finalização de compra em 66,09% e geral em 4,92%. CPM, CPC, CTR e connect rate estão saudáveis.",
-          "tentou": "—",
-          "sugestao": "Principal Continuar abordando a taxa de checkout baixa e cobrar as melhorias que o Gabriel comentou que vai implementar. As variações que sugerimos na semana passada não serão realizadas porque já foram testadas anteriormente, porém irei analisar outras possíveis variações para teste.",
-          "insight": "A sugestão do gestor faz total sentido, pois com taxa de checkout de 8,32% sendo o gargalo claro enquanto a finalização de compra está excelente em 66,09%, o problema está inequivocamente na página de vendas e não no tráfego ou no checkout em si. Recomendo pressionar fortemente a implementação das melhorias prometidas pelo Gabriel, pois cada semana de atraso mantém o CPA em R$ 30,85 quando poderia cair para a faixa de R$ 15-18 com uma taxa de checkout entre 15-18%. Para novas variações de teste, sugiro focar em elementos de urgência e escassez acima do botão de compra, prova social com contadores de vendas e garantia destacada, já que esses três elementos costumam dobrar taxas de checkout em ofertas low ticket de nicho hobby. Defina um prazo máximo de 7 dias para as implementações do Gabriel, caso contrário o orçamento está sendo queimado em um funil com vazamento estrutural identificado."
-        }
-      ]
+      "verde": [],
+      "clients": []
     },
     {
       "name": "Leandro",
-      "verde": [
-        "Casinha - Arquitetando",
-        "Clínica PRC",
-        "Elisa Lobo",
-        "Lilian Mesquita",
-        "Qpharma"
-      ],
-      "clients": [
-        {
-          "status": "yellow",
-          "manager": "Leandro",
-          "nome": "Vínicius Mello",
-          "funil": "Captação de leads + Distribuição de conteúdo",
-          "problema": "Mentoria que tenta de qualquer forma roubar o cliente de nós prometendo resultados duvidosos.",
-          "dados": "Estamos conseguindo gerar resultado para o cliente, porém nunca é suficiente. após nossa reunião identificamos problemas contínuos no atendimento. Porém esse mês já estamos com 7 novos pacientes confirmados. e a dificuldade no rastreio das msgs foram resolvidos",
-          "tentou": "—",
-          "sugestao": "Acompanhar como a ferramenta funciona e os resultados que vamos ter à partir de agora.",
-          "insight": "O gestor está correto em manter o acompanhamento, mas a sugestão é passiva demais diante de uma ameaça ativa de concorrente predatório. Com 7 novos pacientes confirmados este mês e os problemas de rastreio resolvidos, você tem munição concreta para blindar o cliente: documente o custo por paciente adquirido e o ROI real para criar uma âncora de valor que desmascare as promessas duvidosas da mentoria. Recomendo uma reunião de apresentação de resultados com dados comparativos antes que o concorrente faça nova abordagem, pois cliente que vê números claros é muito mais difícil de ser seduzido por promessas genéricas. A ação imediata é montar um relatório visual simples mostrando a evolução mês a mês e o valor gerado por cada paciente conquistado, transformando percepção subjetiva em prova objetiva de resultado."
-        },
-        {
-          "status": "yellow",
-          "manager": "Leandro",
-          "nome": "Mariana Torres",
-          "funil": "Captação de leads",
-          "problema": "Volume de mensagens baixo. Poucos criativos para usar, demora em responder os leads pois não trabalham de segunda.",
-          "dados": "Campanha começou a ter mais alcance e caiu o custo da msg.",
-          "tentou": "—",
-          "sugestao": "Continuar testando criativos e acompanhar atendimento comercial.",
-          "insight": "A sugestão do gestor faz sentido parcial, mas está incompleta. Se o custo por mensagem caiu e o alcance aumentou, o problema não é mais a campanha, é o atendimento: não responder leads na segunda-feira significa perder os contatos mais quentes do fim de semana, que esfriam em 24-48 horas e derrubam a taxa de conversão. Antes de testar novos criativos, priorize resolver o gargalo operacional com automação de resposta inicial ou redistribuição do atendimento para cobrir segundas. Criativos novos só vão agravar o desperdício se o comercial continuar deixando lead esfriar."
-        }
-      ]
+      "verde": [],
+      "clients": []
     },
     {
       "name": "Lucas",
-      "verde": [
-        "Imperio Medico - Distribuição",
-        "Hermann Grebb - Typebot",
-        "Thata - FSE Type",
-        "Thata - FSE nativo",
-        "Thata - C2",
-        "Thata - C1",
-        "Pompeu - Webnarios",
-        "Pompeu - MPI",
-        "Real Academy - Real Experience"
-      ],
-      "clients": [
-        {
-          "status": "red",
-          "manager": "Lucas",
-          "nome": "Dr. William - WSM",
-          "funil": "ex: Captação Lançamento pago",
-          "problema": "CPA muito caro. ROAS do tráfego em 0.17",
-          "dados": "CPA muito caro pra um ticket de R$37. Taxa de passagem de LP pra checkout melhorou depois que focamos apenas em publico quente, mas conversão segue ruim. CTR muito ruim >1%",
-          "tentou": "Testamos publico quente e frio. Criativos isolados em cada publico. Frio sem condições.",
-          "sugestao": "Pagina 2 chegou pra testarmos. Eles vao fazer uma açao de disparo chamando toda a base deles pra esse lançamento. Diminuimos a meta de investimento pra 10k",
-          "insight": "A sugestão do gestor faz sentido parcial, mas é insuficiente para resolver o problema estrutural. Com CTR abaixo de 1% e ROAS de 0.17 em produto de R$37, o funil está quebrado na entrada, pois os criativos não estão gerando interesse suficiente e reduzir investimento para 10k apenas limita o prejuízo sem corrigir a causa raiz. O disparo para a base própria é a melhor aposta agora porque elimina o custo de aquisição fria e pode gerar vendas diretas, então concentre energia nisso antes de voltar a investir em tráfego pago. Antes de testar a página 2 com mídia paga, exija novos criativos com ganchos mais agressivos e específicos para a dor do público, pois sem CTR acima de 2% qualquer LP nova vai continuar morrendo na origem."
-        }
-      ]
+      "verde": [],
+      "clients": []
     }
   ]
 };
