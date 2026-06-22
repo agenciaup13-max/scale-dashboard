@@ -164,33 +164,148 @@
 </footer>
 <script>
 const DATA = {
-  "week": "—",
-  "updatedAt": "17/06/2026",
+  "week": "16/06 a 23/06",
+  "updatedAt": "22/06/2026",
   "managers": [
     {
       "name": "Erick",
-      "verde": [],
-      "clients": []
+      "verde": ["Giaco", "Leo", "MonsterDay", "Medmaster", "VDK", "Dr. Marlon Batista", "Núbia Oliveira"],
+      "clients": [
+        {
+          "status": "red",
+          "manager": "Erick",
+          "nome": "Alice (Desafio fecha calça)",
+          "funil": "Lançamento pago",
+          "problema": "CPA mais caro que o ticket, gerando ROAS negativo",
+          "dados": "CPA dos 2 tickets testados (R$17 e R$27) está em R$37 — a cada dia o ROAS fica negativo. Em macro ainda positivos pelo orgânico",
+          "tentou": "Testei público Lookalike, otimizei os melhores ads e adicionei público de lista de compradores",
+          "sugestao": "Testar um ticket de R$37 — se o CPA médio é R$37, com esse ticket teríamos pelo menos ROAS 1",
+          "insight": "⚠ Insights IA indisponíveis — o CLICKUP_API_TOKEN do GitHub Actions expirou. Atualize o secret para reativar a automação."
+        },
+        {
+          "status": "red",
+          "manager": "Erick",
+          "nome": "Lucas (Loww ticket)",
+          "funil": "Low ticket",
+          "problema": "Funil de low ticket crítico, ROAS de 0,98",
+          "dados": "ROAS negativo e CPA estourado no funil",
+          "tentou": "Voltamos a rodar no pixel antigo para ver se a performance melhora nos próximos dias",
+          "sugestao": "Testar tudo",
+          "insight": "⚠ Insights IA indisponíveis — o CLICKUP_API_TOKEN do GitHub Actions expirou. Atualize o secret para reativar a automação."
+        },
+        {
+          "status": "yellow",
+          "manager": "Erick",
+          "nome": "Wendell - Metodo cronos",
+          "funil": "VSL venda direta",
+          "problema": "Suspensão na conta — CPM dobrou, não consigo subir mais ativos para bater público novo e baratear CPM. TX de IC vem caindo (5,88% atual), CTR ok (1,66%). Conta pausada",
+          "dados": "CPM dobrou de R$23,93 (fev) para R$58,04 (mai). Conv. checkout caindo mês a mês: 14,56% fev → 10,03% mar → 9,19% abr → 9,76% mai. CTR ainda bom (1,54%) — o problema não é o criativo",
+          "tentou": "—",
+          "sugestao": "Depois de resolver a suspensão na conta, testar mais criativos para baratear o CPM e voltar a engatar",
+          "insight": "⚠ Insights IA indisponíveis — o CLICKUP_API_TOKEN do GitHub Actions expirou. Atualize o secret para reativar a automação."
+        }
+      ]
     },
     {
       "name": "Edu",
-      "verde": [],
-      "clients": []
+      "verde": ["VHE - Lives Semanais", "VHE - LDE", "VHE - C2", "VHE - C1", "Davi - MP", "Davi - BFR", "Davi - MP-L3", "ESIN - Solares"],
+      "clients": [
+        {
+          "status": "yellow",
+          "manager": "Edu",
+          "nome": "Guto - RH",
+          "funil": "Reset Hormonal - Perpétuo",
+          "problema": "ROAS começou bem e ficou apertado depois do retorno da conta",
+          "dados": "ROAS vem caindo. Visualização do checkout também. O pixel não estava disparando — o link do checkout na VSL estava errado. Depois de trocar, a conversão voltou (bateu 3–6% historicamente), mas no dia seguinte voltou a cair",
+          "tentou": "—",
+          "sugestao": "Otimizei as campanhas, pausei ad com ROAS 0,89. Criei campanha de TOP ADS histórico (desde fev) e nova Teste de Interesses. Sugestão: voltar à lógica antiga e refazer todos os testes — o funil perdeu inteligência e está sofrendo para recuperar escalabilidade",
+          "insight": "⚠ Insights IA indisponíveis — o CLICKUP_API_TOKEN do GitHub Actions expirou. Atualize o secret para reativar a automação."
+        },
+        {
+          "status": "yellow",
+          "manager": "Edu",
+          "nome": "VHE - L3",
+          "funil": "Lançamento",
+          "problema": "Vendas do lançamento ficaram muito fracas",
+          "dados": "Baixo volume de faturamento",
+          "tentou": "—",
+          "sugestao": "Estratégia do cafofo (link do Zoom, mentoria grátis + CTA). Ficou acertado que faremos um meteórico para público quente usando parte da verba da lista de espera",
+          "insight": "⚠ Insights IA indisponíveis — o CLICKUP_API_TOKEN do GitHub Actions expirou. Atualize o secret para reativar a automação."
+        }
+      ]
     },
     {
       "name": "Adryon",
-      "verde": [],
-      "clients": []
+      "verde": ["Carlos Beil", "Ecosmetics", "Briko Seguros"],
+      "clients": [
+        {
+          "status": "red",
+          "manager": "Adryon",
+          "nome": "Partiu Empreender",
+          "funil": "Imersão do Zero ao Lucro #3",
+          "problema": "CPA caro por taxas de página extremamente baixas — checkout e finalização de compra",
+          "dados": "CPA R$77,36 e ROAS 0,52. Checkout 10,48%, finalização 31,45%, geral 3,30%. CPM, CPC, CTR e connect rate saudáveis",
+          "tentou": "Escalei 3 criativos com bons resultados. 3 testes de páginas feitos + nova chegando na quarta. 7 públicos frios testados (checkout 4,55%, finalização 9,09%, geral 0,41%)",
+          "sugestao": "Focar em alterações na página e checkout para melhorar ambas as taxas + novos criativos semelhantes aos 3 que estão em escala. Campanha de criativos segue ativa",
+          "insight": "⚠ Insights IA indisponíveis — o CLICKUP_API_TOKEN do GitHub Actions expirou. Atualize o secret para reativar a automação."
+        },
+        {
+          "status": "yellow",
+          "manager": "Adryon",
+          "nome": "Edu Pura Pesca",
+          "funil": "MIA (Perpétuo - Low ticket)",
+          "problema": "CPA caro devido a taxa de checkout da página extremamente baixa",
+          "dados": "CPA R$30,85 e ROAS 0,74. Checkout 8,32%, finalização 66,09%, geral 4,92%. CPM, CPC, CTR e connect rate saudáveis",
+          "tentou": "—",
+          "sugestao": "Continuar abordando a taxa de checkout baixa e cobrar as melhorias que o Gabriel vai implementar. Variações da semana passada não serão refeitas (já testadas), mas analisarei outras possíveis",
+          "insight": "⚠ Insights IA indisponíveis — o CLICKUP_API_TOKEN do GitHub Actions expirou. Atualize o secret para reativar a automação."
+        }
+      ]
     },
     {
       "name": "Leandro",
-      "verde": [],
-      "clients": []
+      "verde": ["Casinha - Arquitetando", "Clínica PRC", "Elisa Lobo", "Lilian Mesquita", "Qpharma"],
+      "clients": [
+        {
+          "status": "yellow",
+          "manager": "Leandro",
+          "nome": "Mariana Torres",
+          "funil": "Captação de leads",
+          "problema": "Volume de mensagens baixo. Poucos criativos, demora em responder leads pois não trabalham às segundas",
+          "dados": "Campanha começou a ter mais alcance e caiu o custo por mensagem",
+          "tentou": "—",
+          "sugestao": "Continuar testando criativos e acompanhar atendimento comercial",
+          "insight": "⚠ Insights IA indisponíveis — o CLICKUP_API_TOKEN do GitHub Actions expirou. Atualize o secret para reativar a automação."
+        },
+        {
+          "status": "yellow",
+          "manager": "Leandro",
+          "nome": "Vínicius Mello",
+          "funil": "Captação de leads + Distribuição de conteúdo",
+          "problema": "Mentoria concorrente tentando de qualquer forma roubar o cliente prometendo resultados duvidosos",
+          "dados": "Estamos gerando resultado, mas nunca é suficiente. Reunião identificou problemas contínuos no atendimento. Este mês: 7 novos pacientes confirmados e rastreio das mensagens foi resolvido",
+          "tentou": "—",
+          "sugestao": "Acompanhar como a ferramenta funciona e os resultados a partir de agora",
+          "insight": "⚠ Insights IA indisponíveis — o CLICKUP_API_TOKEN do GitHub Actions expirou. Atualize o secret para reativar a automação."
+        }
+      ]
     },
     {
       "name": "Lucas",
-      "verde": [],
-      "clients": []
+      "verde": ["Imperio Medico - Distribuição", "Hermann Grebb - Typebot", "Thata - FSE Type", "Thata - FSE nativo", "Thata - C2", "Thata - C1", "Pompeu - Webnarios", "Pompeu - MPI", "Real Academy - Real Experience"],
+      "clients": [
+        {
+          "status": "red",
+          "manager": "Lucas",
+          "nome": "Dr. William - WSM",
+          "funil": "Captação Lançamento pago",
+          "problema": "CPA muito caro. ROAS do tráfego em 0,17",
+          "dados": "CPA muito caro para um ticket de R$37. Taxa de LP→checkout melhorou focando em público quente, mas conversão segue ruim. CTR muito ruim, abaixo de 1%",
+          "tentou": "Testamos público quente e frio. Criativos isolados em cada público. Frio sem condições",
+          "sugestao": "Página 2 chegou para testar. Ação de disparo chamando toda a base para o lançamento. Meta de investimento reduzida para R$10k",
+          "insight": "⚠ Insights IA indisponíveis — o CLICKUP_API_TOKEN do GitHub Actions expirou. Atualize o secret para reativar a automação."
+        }
+      ]
     }
   ]
 };
